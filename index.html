@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Martina Bouzada — Diseño de Indumentaria</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --accent: #c9c0b8; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      background: #0a0a0a; color: #fff;
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+    .font-display { font-family: 'Playfair Display', serif; }
+    .ac { color: var(--accent); transition: color 0.9s cubic-bezier(.4,0,.2,1); }
+    .ac-border { border-color: var(--accent); transition: border-color 0.9s cubic-bezier(.4,0,.2,1); }
+    .ac-bg { background: var(--accent); transition: background 0.9s cubic-bezier(.4,0,.2,1); }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(48px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .anim-1 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.1s  both; }
+    .anim-2 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.35s both; }
+    .anim-3 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.55s both; }
+    .anim-4 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.8s  both; }
+    .reveal {
+      opacity: 0;
+      transform: translateY(56px);
+      transition:
+        opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.d1 { transition-delay: 0.15s; }
+    .reveal.d2 { transition-delay: 0.30s; }
+    .reveal.d3 { transition-delay: 0.45s; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 48px;
+      transition: padding .35s ease, background .35s ease, border-color .35s ease;
+      border-bottom: 1px solid transparent;
+    }
+    #nav.stuck {
+      padding: 16px 48px;
+      background: rgba(10,10,10,.92); backdrop-filter: blur(18px);
+      border-bottom: 1px solid #1c1c1c;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif; font-weight: 600;
+      font-size: 15px; letter-spacing: -.03em; color: #fff; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-link {
+      font-size: 10.5px; letter-spacing: .2em; text-transform: uppercase;
+      color: #fff; text-decoration: none; position: relative; transition: color .25s;
+    }
+    .nav-link::after {
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px; background: var(--accent);
+      transition: width .3s ease, background .9s cubic-bezier(.4,0,.2,1);
+    }
+    .nav-link:hover { color: #fff; }
+    .nav-link:hover::after { width: 100%; }
+    .section-pad { padding-left: 48px; padding-right: 48px; }
+    @media (max-width: 900px) { .section-pad { padding-left: 28px; padding-right: 28px; } }
+    @media (max-width: 600px) {
+      .section-pad { padding-left: 20px; padding-right: 20px; }
+      #nav { padding: 20px 20px; } #nav.stuck { padding: 14px 20px; }
+      .nav-links { gap: 20px; }
+    }
+    .section-rule { border-top: 1px solid #1a1a1a; }
+    .label {
+      font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(255,255,255,.55); font-family: 'Inter', sans-serif;
+    }
+    .label-ac {
+      font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+      font-family: 'Inter', sans-serif; color: var(--accent);
+      transition: color .9s cubic-bezier(.4,0,.2,1);
+    }
+    .index-num { font-size: 10px; letter-spacing: .2em; color: #2e2e2e; font-family: 'Inter', sans-serif; }
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.04) 0%,
+        rgba(0,0,0,0.08) 28%,
+        rgba(0,0,0,0.50) 60%,
+        rgba(0,0,0,0.84) 100%
+      );
+    }
+    .hero-top-shadow {
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 220px; z-index: 2;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      position: relative; z-index: 2;
+      min-height: 100svh;
+      display: flex; flex-direction: column;
+      padding: 0 48px 52px;
+    }
+    .hero-top-bar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: max(108px, 15vh);
+    }
+    .hero-index-tag {
+      font-family: 'Inter', sans-serif; font-size: 10px;
+      letter-spacing: .2em; color: rgba(255,255,255,0.18); font-weight: 300;
+    }
+    .hero-location-tag {
+      font-family: 'Inter', sans-serif; font-size: 10px;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.22); font-weight: 300;
+    }
+    .hero-discipline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-weight: 400;
+      font-size: clamp(22px, 3vw, 46px);
+      color: rgba(255,255,255,0.55);
+      letter-spacing: -0.01em; line-height: 1;
+      margin-bottom: 6px;
+    }
+    .hero-name-xl {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(52px, 11vw, 160px);
+      line-height: 0.87;
+      letter-spacing: -0.045em;
+      color: #fff;
+    }
+    .hero-scroll-indicator {
+      position: absolute; right: 48px; bottom: 52px; z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    @media (max-width: 900px) {
+      .hero-inner { padding: 0 28px 44px; }
+      .hero-scroll-indicator { right: 28px; bottom: 44px; }
+    }
+    @media (max-width: 600px) {
+      .hero-inner { padding: 0 20px 36px; }
+      .hero-top-bar { padding-top: max(92px, 14vh); }
+      .hero-scroll-indicator { right: 20px; bottom: 36px; }
+      .hero-name-xl { font-size: clamp(52px, 16vw, 120px); }
+    }
+    .opener {
+      min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end;
+      padding-bottom: 64px; position: relative; overflow: hidden;
+    }
+    .opener-ghost {
+      position: absolute; right: 6vw; top: 50%; transform: translateY(-50%);
+      font-family: 'Playfair Display', serif; font-weight: 900;
+      font-size: clamp(180px, 32vw, 480px); line-height: 1; letter-spacing: -.06em;
+      color: #fff; opacity: .10; user-select: none; pointer-events: none; white-space: nowrap;
+      z-index: 2;
+    }
+    .capsule-code {
+      font-family: 'Playfair Display', serif; font-weight: 900;
+      font-size: clamp(72px, 14vw, 200px); line-height: .88; letter-spacing: -.05em; color: #fff;
+    }
+    .capsule-subtitle {
+      font-family: 'Playfair Display', serif; font-weight: 400; font-style: italic;
+      font-size: clamp(18px, 2.5vw, 34px); line-height: 1.3; letter-spacing: -.01em;
+      color: rgba(255,255,255,.6); max-width: 600px; margin-top: 16px;
+    }
+    .capsule-title-large {
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: clamp(58px, 11vw, 160px); line-height: .90; letter-spacing: -.04em;
+    }
+    .aline { width: 36px; height: 1px; background: var(--accent); transition: background .9s cubic-bezier(.4,0,.2,1); }
+    .concept { font-size: clamp(15px, 1.7vw, 19px); line-height: 1.8; color: #999; font-weight: 300; max-width: 660px; }
+    .sobre-text { font-size: clamp(15px, 1.7vw, 18px); line-height: 1.9; color: #aaa; font-weight: 300; }
+    .video-wrap {
+      position: relative; background: #0c0c0c; aspect-ratio: 16/9;
+      border: 1px solid #1c1c1c; overflow: hidden;
+    }
+    .video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .h-scroll {
+      display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .h-scroll::-webkit-scrollbar { display: none; }
+    .masonry { columns: 3 240px; column-gap: 8px; }
+    .masonry-item { break-inside: avoid; margin-bottom: 8px; }
+    @media (max-width: 700px) { .masonry { columns: 2 140px; } }
+    @media (max-width: 420px) { .masonry { columns: 1; } }
+    .g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
+    .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+    @media (max-width: 900px) { .g4 { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 700px) { .g3 { grid-template-columns: repeat(2,1fr); } }
+    .g4-editorial { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
+    @media (max-width: 900px) { .g4-editorial { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 480px) { .g2 { grid-template-columns: 1fr; } .g3, .g4, .g4-editorial { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 400px) {
+      .nav-link  { font-size: 9px !important; letter-spacing: .1em !important; }
+      .nav-links { gap: 10px !important; }
+      .capsule-code { font-size: clamp(48px,13vw,80px) !important; }
+      .capsule-title-large { font-size: clamp(38px,10vw,70px) !important; }
+      .editorial-bleed { font-size: clamp(32px,9vw,70px) !important; }
+      .hero-name-xl { font-size: 14vw !important; }
+    }
+    @keyframes scrollBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(9px); } }
+    .scroll-bounce { animation: scrollBounce 2.2s ease-in-out infinite; }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #222; }
+    .prod-headline {
+      font-family: 'Playfair Display', serif; font-weight: 900;
+      font-size: clamp(60px, 12vw, 170px); line-height: .86; letter-spacing: -.05em;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif; font-weight: 600;
+      font-size: clamp(28px, 3vw, 38px); letter-spacing: -.03em;
+      color: var(--accent); transition: color .9s cubic-bezier(.4,0,.2,1);
+    }
+    .stat-label { font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase; color: #333; margin-top: 4px; }
+    .editorial-grid { display: grid; grid-template-columns: minmax(200px, 500px) 1fr; gap: 72px; align-items: start; }
+    @media (max-width: 700px) { .editorial-grid { grid-template-columns: 1fr; gap: 40px; } }
+    /* P3A — editorial bleed */
+    .editorial-bleed {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: clamp(48px, 8vw, 112px);
+      line-height: .88;
+      letter-spacing: -.04em;
+      color: rgba(255,255,255,.45);
+      user-select: none;
+      pointer-events: none;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    /* P7A — capsule transition */
+    .capsule-transition {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent), transparent);
+      transition: background 0.9s cubic-bezier(.4,0,.2,1);
+      margin: 0;
+      opacity: 0.4;
+    }
+    @keyframes openerReveal {
+      from { transform: scale(1.22); opacity: 0.35; }
+      to   { transform: scale(1.0);  opacity: 1; }
+    }
+    .opener-bg.animate {
+      animation: openerReveal 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    #div-section .opener {
+      opacity: 0;
+      transition: opacity 3.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #div-section .opener.visible {
+      opacity: 1;
+    }
+    #dv-section .opener-ghost { opacity: .13; }
+    /* P7C — capsule counter */
+    .capsule-counter {
+      position: fixed;
+      bottom: 32px;
+      left: 48px;
+      z-index: 100;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 11px;
+      letter-spacing: .2em;
+      color: rgba(255,255,255,.12);
+      transition: opacity .6s ease;
+      pointer-events: none;
+    }
+    /* Prevent any element from creating horizontal overflow */
+    section, footer, header { overflow-x: hidden; }
+    /* ─── MOBILE RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      /* Opener absolute-positioned children */
+      .opener-info    { left: 20px !important; top: max(76px,11vh) !important; }
+      .opener-caption { left: 20px !important; right: 20px !important; bottom: 28px !important; }
+      /* Capsule title sizes */
+      .capsule-code        { font-size: clamp(56px,15vw,100px) !important; }
+      .capsule-title-large { font-size: clamp(44px,11vw,90px)  !important; }
+      /* Quote separators */
+      .quote-sep   { padding: 28px 20px !important; }
+      .quote-sep p { font-size: clamp(22px,6.5vw,38px) !important; }
+      /* Diseño Rector → horizontal scroll on mobile */
+      .dr-row {
+        overflow-x: auto !important; justify-content: flex-start !important;
+        gap: 8px !important; padding-bottom: 8px;
+        scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.1) transparent;
+        -webkit-overflow-scrolling: touch;
+      }
+      .dr-row > div { flex: 0 0 auto !important; width: 44vw; }
+      .dr-row > div > img { max-height: none !important; height: clamp(140px,55vw,240px) !important; max-width: 100% !important; width: 100%; }
+      /* Sketchbook + Texturas → stack */
+      .sketch-tex-grid { grid-template-columns: 1fr !important; }
+      /* Production 3-col grids → 2-col */
+      .prod-3col { grid-template-columns: repeat(2,1fr) !important; }
+      /* Sobre Mí → stack */
+      .sobre-grid   { grid-template-columns: 1fr !important; gap: 40px !important; }
+      .sobre-header { margin-bottom: 36px !important; }
+      /* editorial-bleed negative-margin reset */
+      .bleed-neg { margin-left: 0 !important; }
+      /* editorial-bleed font scale */
+      .editorial-bleed { font-size: clamp(38px,10vw,80px) !important; }
+      /* Producciones headline */
+      .prod-headline { font-size: clamp(52px,13vw,120px) !important; }
+      /* capsule counter */
+      #capsule-counter { left: 20px !important; bottom: 16px !important; }
+      /* stat-label readability */
+      .stat-label { color: #666 !important; }
+      /* footer flex row → column */
+      .footer-row { flex-direction: column !important; align-items: flex-start !important; gap: 20px !important; }
+      /* Section padding top/bottom adjustments */
+      .section-pad[style*="padding-top:80px"]  { padding-top: 48px !important; }
+      .section-pad[style*="padding-top:96px"]  { padding-top: 56px !important; }
+      .section-pad[style*="padding-bottom:112px"] { padding-bottom: 64px !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav" class="anim-3">
+    <a href="#hero" class="nav-logo">MB</a>
+    <div class="nav-links">
+      <a href="#div-section"    class="nav-link">DIV</a>
+      <a href="#dv-section"     class="nav-link">DV</a>
+      <a href="#ecos-section"   class="nav-link">ECOS</a>
+      <a href="#prince-section" class="nav-link">PRINCE</a>
+      <a href="#sobre" class="nav-link" style="display:none;" id="nav-sobre">SOBRE MÍ</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <img
+      src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/v1779023497/DSC07722_gpkfsa.webp"
+      alt="Martina Bouzada — Producción editorial"
+      class="hero-bg"
+    />
+    <div class="hero-overlay"></div>
+    <div class="hero-top-shadow"></div>
+
+    <div class="hero-inner">
+      <div class="hero-top-bar anim-1">
+        <span class="hero-index-tag">001</span>
+        <span class="hero-location-tag">Buenos Aires — 2025</span>
+      </div>
+
+      <div style="flex:1;"></div>
+
+      <div style="padding-bottom:48px;">
+        <p class="hero-discipline anim-2">Diseño de Indumentaria</p>
+        <h1 class="hero-name-xl anim-3">MARTINA<br /><span class="ac">BOUZADA</span></h1>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator anim-4 scroll-bounce">
+      <span style="writing-mode:vertical-rl; letter-spacing:.18em; font-size:9px; text-transform:uppercase; color:rgba(255,255,255,0.28); font-family:'Inter',sans-serif; font-weight:300;">Scroll</span>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CAPSULE 1 — DIV
+  ═══════════════════════════════════════ -->
+  <section id="div-section" class="section-rule" data-accent="#c9c0b8">
+
+    <!-- Opener -->
+    <div class="opener section-pad">
+      <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC07475_p8yzkt" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;" />
+      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
+      <div class="opener-ghost">I</div>
+      <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span class="index-num">003</span>
+          <span class="label">Cápsula I</span>
+        </div>
+        <span class="label-ac">Diseño de Indumentaria y Textil</span>
+      </div>
+      <div class="reveal opener-caption" style="position:absolute; bottom:56px; left:48px; right:48px; z-index:3;">
+        <div class="capsule-code">DIV</div>
+        <div class="capsule-subtitle">"Fractura en la Mente"</div>
+      </div>
+    </div>
+
+    <!-- Concept + Moodboard 2×2 -->
+    <div class="section-pad" style="padding-top:80px; padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <!-- P3B — editorial bleed -->
+      <div class="editorial-bleed" style="margin-left:0; margin-bottom:-32px; position:relative; z-index:0; color:rgba(255,255,255,.55);">Fractura</div>
+      <div class="editorial-grid">
+        <div class="reveal" style="padding-top:40px;">
+          <div class="aline" style="margin-bottom:28px;"></div>
+          <!-- P4 DIV — border-left on concept -->
+          <p class="concept" style="border-left: 1px solid rgba(201,192,184,.2); padding-left: 28px;">En este proyecto busqué representar el proceso interno de la locura como una transformación progresiva y silenciosa. La locura no llega de golpe, sino que se gesta en lo más profundo de la mente, alterando lentamente la percepción de la realidad. Las emociones se entrelazan en un ciclo caótico donde la razón comienza a desvanecerse. La mente, en su complejidad, atrapa al individuo en un loop de gritos, angustia y desmoronamiento, arrastrándolo hacia un abismo sin escape. Con cada fractura, la realidad se descompone y la persona deja de reconocerse, convirtiéndose en algo nuevo: una presencia perdida en su propio delirio, donde lo irreal se vuelve más cierto que lo tangible.</p>
+        </div>
+        <div class="reveal d1">
+          <div class="label" style="margin-bottom:10px;">Moodboard</div>
+          <div class="g2">
+            <div style="aspect-ratio:1/1; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_1156_m6g04m" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+            <div style="aspect-ratio:1/1; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_1169_zf2nlv" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+            <div style="aspect-ratio:1/1; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_1222_zr0wvs" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+            <div style="aspect-ratio:1/1; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_1232_abedhj" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diseño Rector — horizontal scroll (8 images) -->
+    <div class="section-pad" style="padding-bottom:48px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:14px;">Diseño Rector</div>
+        <div class="dr-row" style="display:flex; flex-direction:row; align-items:flex-end; gap:0;">
+          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_171618_t9sqwn" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
+          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_171650_pjscsf" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
+          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_171751_svplav" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
+          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_171849_szzdns" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
+          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_171917_igzbwz" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
+          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_171935_vegx4j" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
+          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_171952_qhevqh" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
+          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_172006_kk3ago" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Texturas — P4 DIV: aspect-ratio 4/5 -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:14px;">Texturas</div>
+        <div style="display:grid; grid-template-columns:repeat(2,minmax(0,320px)); gap:8px;">
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20240927_141128_rkujy5" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20241002_122706_c3xp5m" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P4 DIV — quote separator after texturas, before video -->
+    <div class="quote-sep" style="padding: 40px 48px; overflow:hidden;">
+      <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(28px,4vw,56px); color:rgba(255,255,255,.75); letter-spacing:-.03em; line-height:1; margin-left:-4px;">"la realidad se descompone"</p>
+    </div>
+
+    <!-- Video -->
+    <div class="section-pad" style="padding-bottom:64px;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Video</div>
+        <div class="video-wrap">
+          <video autoplay loop muted playsinline src="https://res.cloudinary.com/di2hl3rmf/video/upload/dise%C3%B1o3_qxffkv.mp4"></video>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producción Final text — P3C -->
+    <div class="section-pad" style="padding-bottom:0; max-width:1400px; margin:0 auto;">
+      <div class="reveal" style="padding-bottom:40px;">
+        <em style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(17px,1.9vw,26px); color:rgba(255,255,255,.85); letter-spacing:-.01em; display:block; margin-bottom:8px;">el delirio hecho imagen</em>
+        <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.72); font-family:'Inter',sans-serif; margin-bottom:12px;">Producción Final</div>
+        <div class="aline" style="margin-bottom:20px;"></div>
+        <p class="concept" style="border-left: 1px solid rgba(201,192,184,.2); padding-left: 28px;">Para finalizar el proyecto, realicé una producción fotográfica con una comunicación visual que complementa y potencia la estética desarrollada. En esta campaña asumí múltiples roles: dirección de arte, dirección general, estilismo y diseño escenográfico, integrando cada área para construir una propuesta coherente con el concepto del proyecto.</p>
+      </div>
+    </div>
+
+    <!-- Producción (7 images) — P5A: asymmetric editorial grid -->
+    <div class="section-pad" style="padding-bottom:112px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Producción</div>
+        <div class="prod-3col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC07475_p8yzkt" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC07539_ajimhc" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC07636_upazc5" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC07671_u76spg" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_4449_av2qh6" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_4984_pg3qws" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="grid-column:span 3; aspect-ratio:16/6; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_5163_bifmzt" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CAPSULE 2 — DV
+  ═══════════════════════════════════════ -->
+  <section id="dv-section" data-accent="#8b1a1a">
+
+    <!-- Opener -->
+    <div class="opener section-pad">
+      <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/v1779023506/IMG_6022_ukef8s.webp" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;" />
+      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
+      <div class="opener-ghost">II</div>
+      <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span class="index-num">004</span>
+          <span class="label">Cápsula II</span>
+        </div>
+        <span class="label-ac">DV</span>
+      </div>
+      <div class="reveal opener-caption" style="position:absolute; bottom:56px; left:48px; right:48px; z-index:3;">
+        <div class="capsule-code">DV</div>
+        <div class="capsule-subtitle">"I'm What's Burning My Love"</div>
+      </div>
+    </div>
+
+    <!-- Concept + Moodboard full width -->
+    <div class="section-pad" style="padding-top:80px; padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <!-- P3B — editorial bleed -->
+      <div class="editorial-bleed" style="margin-left:0; margin-bottom:-32px; position:relative; z-index:0;">Devoción</div>
+      <div class="editorial-grid">
+        <div class="reveal" style="padding-top:40px;">
+          <div class="aline" style="margin-bottom:28px;"></div>
+          <!-- P4 DV — concept color #bbb -->
+          <p class="concept" style="color:#bbb;">Este concepto surge a partir de la idea de un amor obsesivo, intenso y absorbente. Parte de una conexión que se vuelve total, donde la devoción entre dos personas crece hasta superar los límites de la razón. El deseo y la desesperación arden sin tregua. La devoción consume todo a su paso, sin dejar espacio para la razón ni el tiempo. En este sueño, la realidad no intoxica; no existe el después, solo ese momento eterno. Ellos dos grabándose mutuamente sus palabras en el corazón, sellando un pacto perpetuo, hasta que la llama los consuma por completo.</p>
+        </div>
+        <div class="reveal d1">
+          <div class="label" style="margin-bottom:10px;">Moodboard</div>
+          <!-- P4 DV — overlay on moodboard -->
+          <div style="position:relative; overflow:hidden;">
+            <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_3800_walmwv" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover; max-height:80vh;" />
+            <div style="position:absolute; inset:0; background:linear-gradient(135deg, rgba(139,26,26,.18) 0%, transparent 60%); z-index:1; pointer-events:none;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sketchbook h-scroll (8) + Texturas (2) -->
+    <div class="section-pad" style="padding-bottom:40px; max-width:1400px; margin:0 auto;">
+      <div class="sketch-tex-grid" style="display:grid; grid-template-columns:3fr 2fr; gap:24px; align-items:start; margin-bottom:40px;">
+        <div class="reveal">
+          <div class="label" style="margin-bottom:10px;">Sketchbook</div>
+          <div class="h-scroll">
+            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_161830_mgxizr" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_161842_nrggo4" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_161856_oqzdhs" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_161908_f5ayol" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_161922_wfozta" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_161933_infign" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_161945_mkkmri" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_161956_d6i2az" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          </div>
+        </div>
+        <div class="reveal d1">
+          <div class="label" style="margin-bottom:10px;">Texturas</div>
+          <div class="g2">
+            <div style="aspect-ratio:1/1; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_5991_co0ty3" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+            <div style="aspect-ratio:1/1; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_154113_ifbk8c" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accesorios (3-col) -->
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Accesorios</div>
+        <div class="g3">
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6203_f4lmai" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6274_sl8lid" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6292_vu54gd" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Proceso (10 images, 4-col) -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Proceso</div>
+        <div class="g4">
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20250520_215911_gl6x9m" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_154551_zuxnwi" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_154729_nbjxo9" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_154747_kumbgx" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_155158_yurzlr" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_155250_hd09vz" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_155337_biriy6" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_155529_sumjrb" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_155555_d3suhx" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260513_205836_vpwt5e" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producción Final text — P3C -->
+    <div class="section-pad" style="padding-bottom:0; max-width:1400px; margin:0 auto;">
+      <div class="reveal" style="padding-bottom:40px;">
+        <em style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(13px,1.2vw,16px); color:rgba(255,255,255,.78); letter-spacing:-.01em; display:block; margin-bottom:6px;">hasta que la llama consuma</em>
+        <div class="label" style="margin-bottom:12px;">Producción Final</div>
+        <div class="aline" style="margin-bottom:20px;"></div>
+        <p class="concept" style="color:#bbb;">Para cerrar el proyecto, desarrollé una producción fotográfica orientada a consolidar la identidad visual construida a lo largo del proceso. La campaña fue pensada como una síntesis del concepto, donde cada decisión estética refuerza el universo planteado. Dentro de este trabajo asumí distintos roles —dirección de arte, dirección, estilismo y ambientación— articulando cada uno para lograr una propuesta integral y coherente con la narrativa del proyecto.</p>
+      </div>
+    </div>
+
+    <!-- Producción (9 images) — P5B: first photo spans 2 cols, 16/9 -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Producción</div>
+        <div class="prod-3col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
+          <div style="grid-column: span 2; aspect-ratio:16/9; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_5117_gvgyvl" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_5870_rp32o3" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_5879_lv30ih" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6407_aozopd" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6452_fkyjfh" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6597_v0cqm1" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6660-2_biyjou" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6833_tatyb8" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6836_ru0vvp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P4 DV — separator before Fashion Film -->
+    <div class="quote-sep" style="padding: 40px 48px; overflow:hidden;">
+      <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(28px,4vw,56px); color:rgba(220,155,145,.85); letter-spacing:-.03em; line-height:1;">"sellando un pacto perpetuo"</p>
+    </div>
+
+    <!-- Fashion Film — P3C -->
+    <div class="section-pad" style="padding-bottom:48px;">
+      <div class="reveal">
+        <em style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(17px,1.9vw,26px); color:rgba(255,255,255,.85); letter-spacing:-.01em; display:block; margin-bottom:8px;">el amor como performance</em>
+        <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:10px;">Fashion Film</div>
+        <div class="video-wrap">
+          <video autoplay loop muted playsinline src="https://res.cloudinary.com/di2hl3rmf/video/upload/Copy_84473A31-69Ff-4D72-9B52-B6a8c9cef4e2_gbfpxu.mp4"></video>
+        </div>
+      </div>
+    </div>
+
+    <!-- Speed text -->
+    <div class="section-pad" style="padding-bottom:0;">
+      <div class="reveal" style="padding-bottom:40px;">
+        <div class="label" style="margin-bottom:12px;">Speed</div>
+        <div class="aline" style="margin-bottom:20px;"></div>
+        <p class="concept" style="color:#bbb;">Para continuar con el proyecto, realizamos una colaboración con la marca Speed, en la que transformamos nuestra propuesta para fusionar su identidad con la del proyecto, generando un cruce entre ambos universos estéticos y conceptuales.</p>
+      </div>
+    </div>
+
+    <!-- Videos Speed (2 side by side) -->
+    <div class="section-pad" style="padding-bottom:112px;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Speed</div>
+        <div class="g2">
+          <div class="video-wrap">
+            <video autoplay loop muted playsinline src="https://res.cloudinary.com/di2hl3rmf/video/upload/Img_7939_md4dyn.mp4"></video>
+          </div>
+          <div class="video-wrap">
+            <video autoplay loop muted playsinline src="https://res.cloudinary.com/di2hl3rmf/video/upload/video1_wv8pdc.mp4"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CAPSULE 3 — ECOS DE FANTASÍA
+  ═══════════════════════════════════════ -->
+  <section id="ecos-section" data-accent="#c4a0a0">
+
+    <!-- Opener -->
+    <div class="opener section-pad">
+      <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/v1779022898/DSC08769-Editar_js4rcq.webp" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;" />
+      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
+      <div class="opener-ghost">III</div>
+      <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span class="index-num">005</span>
+          <span class="label">Cápsula III</span>
+        </div>
+        <span class="label-ac">Proyecto</span>
+      </div>
+      <div class="reveal opener-caption" style="position:absolute; bottom:56px; left:48px; right:48px; z-index:3;">
+        <div class="capsule-title-large" style="color:#fff;">Ecos de</div>
+        <div class="capsule-title-large ac">Fantasía</div>
+      </div>
+    </div>
+
+    <!-- Concept + Moodboard full width -->
+    <div class="section-pad" style="padding-top:80px; padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <!-- P3B — editorial bleed -->
+      <div class="editorial-bleed bleed-neg" style="margin-left:-48px; margin-bottom:24px; position:relative; z-index:0;">Fantasía</div>
+      <div class="reveal" style="margin-bottom:40px;">
+        <div class="aline" style="margin-bottom:28px;"></div>
+        <!-- P4 ECOS — concept color #a8a0a0 -->
+        <p class="concept" style="max-width:780px; color:#a8a0a0;">En este proyecto, inicié el proceso mediante la elaboración de tres paneles conceptuales, que luego se integran en un panel final donde se sintetiza y define el concepto general del proyecto.</p>
+      </div>
+      <div class="reveal d1">
+        <div class="label" style="margin-bottom:10px;">Moodboard</div>
+        <!-- P4 ECOS — outline on moodboard -->
+        <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Sin_t%C3%ADtulo_-_11_de_agosto_de_2025_22.32_u1rmfj" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover; max-height:80vh; outline: 1px solid rgba(196,160,160,.15); outline-offset: -1px;" />
+      </div>
+    </div>
+
+    <!-- Proceso (6 images, 3-col) -->
+    <div class="section-pad" style="padding-bottom:40px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Proceso</div>
+        <div class="g3">
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_164952_zmlsrm" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_165020_bvkxjc" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_165144_ltgnmv" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_165222_livplf" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_165248_snftmr" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Photoroom_20260511_165326_dhwngk" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producción text — P3C -->
+    <div class="section-pad" style="padding-bottom:0; max-width:1400px; margin:0 auto;">
+      <div class="reveal" style="padding-bottom:40px;">
+        <em style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(13px,1.2vw,16px); color:rgba(255,255,255,.25); letter-spacing:-.01em; display:block; margin-bottom:6px;">entre lo real y lo soñado</em>
+        <div class="label" style="margin-bottom:12px;">Producción</div>
+        <div class="aline" style="margin-bottom:20px;"></div>
+        <p class="concept" style="color:#a8a0a0;">Para concluir este proyecto, realicé una producción fotográfica enfocada en reforzar y materializar la identidad visual desarrollada. La campaña se planteó como una instancia de síntesis conceptual, en la que cada decisión estética responde y potencia el universo construido. En este proceso asumí múltiples roles —dirección de arte, dirección general, estilismo y diseño del espacio— integrando cada área para construir una propuesta sólida y coherente con la narrativa planteada.</p>
+      </div>
+    </div>
+
+    <!-- Producción (12 images) — P5C: positions 1,5,9 → span 2, 3/2 -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Producción</div>
+        <div class="g4">
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/123_ukq6zp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC07740-Editar_befdef" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC08212-Editar_gjqinx" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC08405-Editar_m7xaqm" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC08409-Editar_eonicq" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC08414-Editar_lqlc2z" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC08457-Editar_i6ae0x" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC08538-Editar_vk5y03" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC08579-Editar_o7xyxf" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC08603-Editar_onuqlq" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC08793-Editar_tjjlwz" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_3113_k6zusd" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P4 ECOS — separator before Fashion Film -->
+    <div class="quote-sep" style="padding: 40px 48px; overflow:hidden;">
+      <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(28px,4vw,56px); color:rgba(196,160,160,.28); letter-spacing:-.03em; line-height:1;">"donde lo irreal se vuelve tangible"</p>
+    </div>
+
+    <!-- Fashion Film -->
+    <div class="section-pad" style="padding-bottom:112px;">
+      <div class="reveal">
+        <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:10px;">Fashion Film</div>
+        <div class="video-wrap">
+          <video autoplay loop muted playsinline src="https://res.cloudinary.com/di2hl3rmf/video/upload/Fashion_film2_bipxup.mp4"></video>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       CAPSULE 4 — PRINCE
+  ═══════════════════════════════════════ -->
+  <section id="prince-section" data-accent="#c9a84c">
+
+    <!-- Opener -->
+    <div class="opener section-pad">
+      <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/v1779023557/DSC09531_c7unz0.webp" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;" />
+      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
+      <div class="opener-ghost">IV</div>
+      <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span class="index-num">006</span>
+          <span class="label">Cápsula IV — Taller III</span>
+        </div>
+        <span class="label-ac">Taller III</span>
+      </div>
+      <div class="reveal opener-caption" style="position:absolute; bottom:56px; left:48px; right:48px; z-index:3;">
+        <div class="capsule-code">PRINCE</div>
+      </div>
+    </div>
+
+    <!-- Concept + Panel Prince full width -->
+    <div class="section-pad" style="padding-top:80px; padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <!-- P3B — editorial bleed -->
+      <div class="editorial-bleed bleed-neg" style="margin-left:-48px; margin-bottom:24px; position:relative; z-index:0;">Audacia</div>
+      <div class="reveal" style="margin-bottom:40px;">
+        <div class="aline" style="margin-bottom:28px;"></div>
+        <!-- P4 PRINCE — concept color #b8a878 -->
+        <p class="concept" style="color:#b8a878;">Para este proyecto elegí a Prince, un artista que destaca por su audacia y originalidad, para luego desarrollar una cápsula inspirada en su universo estético y musical. Prince fue un ícono de la música por su audacia y talento. Revolucionó el sonido al fusionar géneros como rock, funk, pop y R&B. En la moda, rompió normas de género con un estilo extravagante y distintivo. Su imagen y enfoque artístico inspiraron a generaciones a expresarse con libertad y autenticidad.</p>
+      </div>
+      <div class="reveal d1">
+        <div class="label" style="margin-bottom:10px;">Panel Prince</div>
+        <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Agregar_un_t%C3%ADtulo_h2wtch" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover; max-height:80vh;" />
+      </div>
+    </div>
+
+    <!-- Producción (8 images) — P3C + P5D: g4-editorial, first photo span 2 + 1/1 -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <em style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(13px,1.2vw,16px); color:rgba(255,255,255,.25); letter-spacing:-.01em; display:block; margin-bottom:6px;">la audacia como lenguaje</em>
+        <div class="label" style="margin-bottom:10px;">Producción</div>
+        <div class="g4-editorial">
+          <div style="grid-column:span 2; aspect-ratio:1/1; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC09525_nup0le" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC09579_keqya6" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC09615_bkl7dq" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC09620_kmtyeq" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC09639_qhdzae" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC09725_syrxqa" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC09817_eroccy" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC09856_hejkz6" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P4 PRINCE — separator before Video Backstage -->
+    <div class="quote-sep" style="padding: 40px 48px; overflow:hidden;">
+      <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(28px,4vw,56px); color:rgba(201,168,76,.28); letter-spacing:-.03em; line-height:1;">"la libertad como estética"</p>
+    </div>
+
+    <!-- Video Backstage -->
+    <div class="section-pad" style="padding-bottom:112px;">
+      <div class="reveal">
+        <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:10px;">Video Backstage</div>
+        <div class="video-wrap">
+          <video autoplay loop muted playsinline src="https://res.cloudinary.com/di2hl3rmf/video/upload/Img_05302_u3astb.mp4"></video>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       SOBRE MÍ — P6: moved after capsules
+  ═══════════════════════════════════════ -->
+  <section id="sobre" class="section-rule section-pad" style="padding-top:96px; padding-bottom:112px;">
+    <div style="max-width:1400px; margin:0 auto;">
+
+      <!-- Editorial section header -->
+      <div class="reveal sobre-header" style="margin-bottom:72px; display:flex; align-items:center; gap:24px; overflow:hidden;">
+        <span style="font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(52px,8vw,110px); line-height:1; letter-spacing:-.04em; color:rgba(255,255,255,.05);">007</span>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="width:28px; height:1px; background:var(--accent); opacity:.7;"></div>
+          <span style="font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.28); font-family:'Inter',sans-serif;">Sobre Mí</span>
+        </div>
+      </div>
+
+      <div class="sobre-grid" style="display:grid; grid-template-columns:3fr 2fr; gap:80px; align-items:start;">
+        <div>
+          <div class="reveal">
+            <div style="width:2px; height:52px; background:var(--accent); opacity:.5; margin-bottom:24px;"></div>
+            <h2 class="font-display" style="font-size:clamp(38px,5vw,68px); font-weight:600; letter-spacing:-.03em; line-height:1.05; color:#fff;">
+              Alta costura<br /><em style="font-weight:400; color:rgba(255,255,255,.48);">como exploración</em>
+            </h2>
+          </div>
+          <div class="reveal d1" style="margin-top:40px;">
+            <p class="sobre-text">Soy Martina Bouzada Martínez Stroman, tengo 21 años y vivo en Capital Federal, Buenos Aires. Actualmente me encuentro cursando la carrera de Diseño de Indumentaria y Textil en la Universidad de Palermo, atravesando la mitad de mi formación académica.</p>
+            <p class="sobre-text" style="margin-top:20px;">Mi enfoque dentro del diseño se orienta hacia la alta costura, entendida como un espacio de exploración conceptual y construcción estética. En cada colección desarrollo un proceso integral en el que me involucro en todas las etapas: desde la creación del concepto y la construcción del universo visual, hasta el diseño de las prendas, la confección, el estilismo y la dirección de arte.</p>
+            <p class="sobre-text" style="margin-top:20px;">Trabajo desde la construcción de una identidad estética definida, donde cada decisión responde a un mismo lenguaje visual. Busco que mis colecciones sean coherentes y reconocibles, desarrollando universos propios que refuercen el carácter de cada propuesta.</p>
+            <p class="sobre-text" style="margin-top:20px;">Entiendo la indumentaria como una forma de expresión capaz de transmitir ideas y sensaciones. Busco desarrollar una mirada personal, con un fuerte interés por el detalle, la construcción y el impacto visual.</p>
+            <p class="sobre-text" style="margin-top:20px;">Si bien valoro el hacer y el desarrollo individual dentro del proceso creativo, también considero fundamental el trabajo en equipo como instancia de intercambio y enriquecimiento, entendiendo que el diálogo con otros potencia y expande las posibilidades del diseño.</p>
+          </div>
+        </div>
+
+        <!-- Panel editorial abierto: sin caja fría -->
+        <div class="reveal d1">
+          <div style="position:relative; padding-left:28px; border-left:1px solid #1e1e1e;">
+            <!-- MB ghost más visible -->
+            <div style="font-family:'Playfair Display',serif; font-size:clamp(80px,11vw,148px); font-weight:900; line-height:.85; letter-spacing:-.05em; color:rgba(255,255,255,.06); overflow:hidden; margin-bottom:36px; margin-left:-8px;">MB</div>
+
+            <!-- Stats con separadores horizontales completos -->
+            <div style="display:flex; flex-direction:column; gap:0; border-top:1px solid #1c1c1c; padding-top:28px;">
+              <div style="padding-bottom:24px; border-bottom:1px solid #161616;">
+                <div class="stat-num">21</div>
+                <div class="stat-label">Años</div>
+              </div>
+              <div style="padding:24px 0; border-bottom:1px solid #161616;">
+                <div class="stat-num">4</div>
+                <div class="stat-label">Colecciones</div>
+              </div>
+              <div style="padding-top:24px;">
+                <div class="stat-num" style="font-size:clamp(16px,1.8vw,22px); letter-spacing:.02em;">UP</div>
+                <div class="stat-label">Univ. de Palermo</div>
+              </div>
+            </div>
+
+            <!-- Quote más prominente con borde de acento -->
+            <div style="margin-top:40px; padding:24px 28px; background:rgba(255,255,255,.02); border-left:2px solid var(--accent); transition:border-color .9s cubic-bezier(.4,0,.2,1);">
+              <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(15px,1.5vw,20px); color:rgba(255,255,255,.5); line-height:1.65; letter-spacing:-.01em;">
+                "Entiendo la indumentaria<br/>como una forma de<br/>expresión."
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
+       PRODUCCIONES — P6: index 008
+  ═══════════════════════════════════════ -->
+  <section id="producciones" class="section-rule section-pad" style="padding-top:96px; padding-bottom:120px;">
+    <div style="max-width:1400px; margin:0 auto;">
+      <div class="reveal" style="margin-bottom:56px;">
+        <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
+          <span class="index-num">008</span><span class="label">Producciones</span>
+        </div>
+        <div class="prod-headline">PRODUC<br /><span class="ac">CIONES</span></div>
+      </div>
+      <div class="masonry reveal">
+        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/54df7895-82da-4952-9248-054c07164e96_wmisic" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
+        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC00046_j4pl2c" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
+        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC00077_sjjboi" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
+        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC00086_metrpg" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
+        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC00118_rxdsqk" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
+        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC06895_ca3ehz" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
+        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC06968_jpl9mh" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
+        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC07022_g96myn" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
+        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC07033_stc3vl" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
+        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC09901_dsdbnm" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER — P8: new footer -->
+  <footer class="section-rule section-pad" style="padding-top:96px; padding-bottom:80px;">
+    <div style="max-width:1400px; margin:0 auto;">
+
+      <div class="reveal" style="margin-bottom:64px; overflow:hidden;">
+        <h2 style="font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(48px,9vw,130px); line-height:.86; letter-spacing:-.05em; color:rgba(255,255,255,.06);">
+          MARTINA<br/>BOUZADA
+        </h2>
+      </div>
+
+      <div style="width:100%; height:1px; background:linear-gradient(to right, var(--accent), transparent); opacity:.3; margin-bottom:48px; transition:background .9s cubic-bezier(.4,0,.2,1);"></div>
+
+      <div class="reveal footer-row" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:32px;">
+        <div>
+          <p style="font-family:'Playfair Display',serif; font-style:italic; font-weight:400; font-size:clamp(13px,1.2vw,16px); color:rgba(255,255,255,.3); letter-spacing:-.01em; margin-bottom:12px;">
+            Diseño de Indumentaria y Textil
+          </p>
+          <p class="label" style="color:#2a2a2a;">Universidad de Palermo — Buenos Aires, Argentina</p>
+        </div>
+        <div style="text-align:right;">
+          <p class="label" style="color:#1e1e1e; margin-bottom:6px;">Portfolio académico</p>
+          <p style="font-family:'Playfair Display',serif; font-weight:600; font-size:14px; letter-spacing:-.02em; color:rgba(255,255,255,.15);">2025 — 2026</p>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- P7C — capsule counter -->
+  <div class="capsule-counter" id="capsule-counter">I / IV</div>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('stuck', window.scrollY > 60);
+    }, { passive: true });
+
+    const navSobre = document.getElementById('nav-sobre');
+    if (navSobre) {
+      new IntersectionObserver(([e]) => {
+        navSobre.style.display = e.isIntersecting ? 'none' : 'inline';
+      }, { threshold: 0.1 }).observe(document.getElementById('hero'));
+    }
+
+    const DEFAULT_ACCENT = '#c9c0b8';
+    function setAccent(c) { document.documentElement.style.setProperty('--accent', c); }
+
+    const accentObs = new IntersectionObserver((entries) => {
+      let best = null, bestRatio = 0;
+      entries.forEach(e => {
+        if (e.isIntersecting && e.intersectionRatio > bestRatio) {
+          bestRatio = e.intersectionRatio; best = e;
+        }
+      });
+      if (best) setAccent(best.target.dataset.accent);
+    }, { threshold: [0.1, 0.3, 0.5], rootMargin: '-5% 0px -5% 0px' });
+
+    document.querySelectorAll('[data-accent]').forEach(c => accentObs.observe(c));
+
+    const resetObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting && e.intersectionRatio > 0.25) setAccent(DEFAULT_ACCENT); });
+    }, { threshold: 0.25 });
+    document.querySelectorAll('#hero, #sobre').forEach(s => resetObs.observe(s));
+
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px -32px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    function handleNavResize() {
+      const links = document.querySelector('.nav-links');
+      if (links) links.style.gap = window.innerWidth < 600 ? '16px' : '';
+    }
+    handleNavResize();
+    window.addEventListener('resize', handleNavResize, { passive: true });
+
+    // Fade-to-black al final del hero
+    const heroEl = document.getElementById('hero');
+    const heroFade = document.createElement('div');
+    heroFade.style.cssText = 'position:absolute;inset:0;background:#0a0a0a;opacity:0;z-index:10;pointer-events:none;';
+    heroEl.appendChild(heroFade);
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / heroEl.offsetHeight;
+      heroFade.style.opacity = Math.max(0, Math.min(1, (pct - 0.35) / 0.55));
+    }, { passive: true });
+
+    // DIV opener: aparece desde el negro
+    const divOpener = document.querySelector('#div-section .opener');
+    if (divOpener) {
+      new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { divOpener.classList.add('visible'); }
+        });
+      }, { threshold: 0.05 }).observe(divOpener);
+    }
+
+    // Opener zoom-out keyframe on scroll
+    const openerObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const bg = e.target.querySelector('.opener-bg');
+          if (bg) {
+            bg.classList.remove('animate');
+            void bg.offsetWidth;
+            bg.classList.add('animate');
+          }
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.opener').forEach(op => openerObs.observe(op));
+
+
+    // P7C — capsule counter
+    const capsuleSections = [
+      { el: document.getElementById('div-section'),    label: 'I / IV' },
+      { el: document.getElementById('dv-section'),     label: 'II / IV' },
+      { el: document.getElementById('ecos-section'),   label: 'III / IV' },
+      { el: document.getElementById('prince-section'), label: 'IV / IV' },
+    ];
+    const counter = document.getElementById('capsule-counter');
+    const counterObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const found = capsuleSections.find(s => s.el === e.target);
+          if (found) counter.textContent = found.label;
+        }
+      });
+    }, { threshold: 0.1 });
+    capsuleSections.forEach(s => counterObs.observe(s.el));
+  </script>
+
+</body>
+</html>
