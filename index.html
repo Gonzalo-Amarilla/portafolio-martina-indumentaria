@@ -1,12 +1,29 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Martina Bouzada — Diseño de Indumentaria</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* Playfair Display — italic, weights 400–900, self-hosted */
+    @font-face { font-family: 'Playfair Display'; font-style: italic; font-weight: 400 900; font-display: swap; src: url('/fonts/playfair-display-italic-cyrillic.woff2') format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: 'Playfair Display'; font-style: italic; font-weight: 400 900; font-display: swap; src: url('/fonts/playfair-display-italic-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Playfair Display'; font-style: italic; font-weight: 400 900; font-display: swap; src: url('/fonts/playfair-display-italic-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+    @font-face { font-family: 'Playfair Display'; font-style: italic; font-weight: 400 900; font-display: swap; src: url('/fonts/playfair-display-italic-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    /* Playfair Display — normal, weights 400–900, self-hosted */
+    @font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400 900; font-display: swap; src: url('/fonts/playfair-display-normal-cyrillic.woff2') format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400 900; font-display: swap; src: url('/fonts/playfair-display-normal-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400 900; font-display: swap; src: url('/fonts/playfair-display-normal-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+    @font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400 900; font-display: swap; src: url('/fonts/playfair-display-normal-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    /* Inter — weights 300–500, self-hosted */
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300 500; font-display: swap; src: url('/fonts/inter-cyrillic-ext.woff2') format('woff2'); unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300 500; font-display: swap; src: url('/fonts/inter-cyrillic.woff2') format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300 500; font-display: swap; src: url('/fonts/inter-greek-ext.woff2') format('woff2'); unicode-range: U+1F00-1FFF; }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300 500; font-display: swap; src: url('/fonts/inter-greek.woff2') format('woff2'); unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF; }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300 500; font-display: swap; src: url('/fonts/inter-vietnamese.woff2') format('woff2'); unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB; }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300 500; font-display: swap; src: url('/fonts/inter-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+    @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300 500; font-display: swap; src: url('/fonts/inter-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  </style>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root { --accent: #c9c0b8; }
@@ -23,24 +40,36 @@
     .ac-border { border-color: var(--accent); transition: border-color 0.9s cubic-bezier(.4,0,.2,1); }
     .ac-bg { background: var(--accent); transition: background 0.9s cubic-bezier(.4,0,.2,1); }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(48px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(80px) scale(0.97); filter: blur(6px); }
+      to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
     }
-    .anim-1 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.1s  both; }
-    .anim-2 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.35s both; }
-    .anim-3 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.55s both; }
-    .anim-4 { animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.8s  both; }
+    .anim-1 { animation: fadeUp 1.6s cubic-bezier(0.16,1,0.3,1) 0.15s both; }
+    .anim-2 { animation: fadeUp 1.6s cubic-bezier(0.16,1,0.3,1) 0.45s both; }
+    .anim-3 { animation: fadeUp 1.8s cubic-bezier(0.16,1,0.3,1) 0.7s  both; }
+    .anim-4 { animation: fadeUp 1.6s cubic-bezier(0.16,1,0.3,1) 1.05s both; }
+    @keyframes floatGhost {
+      0%, 100% { transform: translateY(-50%) translateX(0); }
+      50%      { transform: translateY(calc(-50% - 18px)) translateX(8px); }
+    }
+    .opener-ghost { animation: floatGhost 9s ease-in-out infinite; }
+    @keyframes ghostHero {
+      0%, 100% { opacity: 0.10; }
+      50%      { opacity: 0.16; }
+    }
+    #dv-section .opener-ghost { animation: floatGhost 9s ease-in-out infinite, ghostHero 6s ease-in-out infinite; }
     .reveal {
       opacity: 0;
-      transform: translateY(56px);
+      transform: translateY(90px) scale(0.97);
+      filter: blur(4px);
       transition:
-        opacity 1.3s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+        opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 1.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .reveal.d1 { transition-delay: 0.15s; }
-    .reveal.d2 { transition-delay: 0.30s; }
-    .reveal.d3 { transition-delay: 0.45s; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal.d1 { transition-delay: 0.18s; }
+    .reveal.d2 { transition-delay: 0.36s; }
+    .reveal.d3 { transition-delay: 0.54s; }
+    .reveal.visible { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
     #nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
@@ -54,8 +83,8 @@
       border-bottom: 1px solid #1c1c1c;
     }
     .nav-logo {
-      font-family: 'Playfair Display', serif; font-weight: 600;
-      font-size: 15px; letter-spacing: -.03em; color: #fff; text-decoration: none;
+      font-family: 'Playfair Display', serif; font-weight: 700;
+      font-size: 24px; letter-spacing: -.03em; color: #fff; text-decoration: none;
     }
     .nav-links { display: flex; gap: 36px; align-items: center; }
     .nav-link {
@@ -78,8 +107,12 @@
     }
     .section-rule { border-top: 1px solid #1a1a1a; }
     .label {
-      font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+      font-size: 16px; letter-spacing: .22em; text-transform: uppercase;
       color: rgba(255,255,255,.55); font-family: 'Inter', sans-serif;
+      font-weight: 400;
+    }
+    @media (max-width: 600px) {
+      .label { font-size: 13px; letter-spacing: .18em; }
     }
     .label-ac {
       font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
@@ -189,12 +222,34 @@
     }
     .aline { width: 36px; height: 1px; background: var(--accent); transition: background .9s cubic-bezier(.4,0,.2,1); }
     .concept { font-size: clamp(15px, 1.7vw, 19px); line-height: 1.8; color: #999; font-weight: 300; max-width: 660px; }
-    .sobre-text { font-size: clamp(15px, 1.7vw, 18px); line-height: 1.9; color: #aaa; font-weight: 300; }
+    .sobre-text { font-size: clamp(16px, 1.8vw, 19px); line-height: 1.85; color: #c8c8c8; font-weight: 300; }
+    .sobre-lead { font-size: clamp(17px, 1.95vw, 21px); color: #e0e0e0; }
     .video-wrap {
       position: relative; background: #0c0c0c; aspect-ratio: 16/9;
       border: 1px solid #1c1c1c; overflow: hidden;
     }
     .video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    /* Sound toggle */
+    .sound-toggle {
+      position: absolute; bottom: 14px; right: 14px; z-index: 5;
+      width: 44px; height: 44px;
+      background: rgba(0,0,0,.55); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 999px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background .25s ease, border-color .25s ease, transform .25s ease;
+    }
+    .sound-toggle:hover {
+      background: rgba(0,0,0,.78);
+      border-color: rgba(255,255,255,.45);
+      transform: scale(1.06);
+    }
+    .sound-toggle svg { width: 18px; height: 18px; fill: #fff; }
+    .sound-toggle .icon-on  { display: none; }
+    .sound-toggle .icon-off { display: block; }
+    .sound-toggle.unmuted .icon-on  { display: block; }
+    .sound-toggle.unmuted .icon-off { display: none; }
     .h-scroll {
       display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none;
     }
@@ -203,6 +258,36 @@
     .masonry-item { break-inside: avoid; margin-bottom: 8px; }
     @media (max-width: 700px) { .masonry { columns: 2 140px; } }
     @media (max-width: 420px) { .masonry { columns: 1; } }
+    /* Producciones grids stagger prep */
+    .prod-top-grid > *, .prod-bottom-grid > * {
+      opacity: 0;
+      transform: translateY(70px) scale(0.94);
+      filter: blur(3px);
+      transition:
+        opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+    }
+    .prod-top-grid > * img, .prod-bottom-grid > * img {
+      transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .prod-top-grid > *:hover img, .prod-bottom-grid > *:hover img { transform: scale(1.08); }
+    @media (max-width: 900px) {
+      .prod-bottom-grid { grid-template-columns: repeat(4,1fr) !important; }
+    }
+    @media (max-width: 700px) {
+      .prod-top-grid    { grid-template-columns: repeat(2,1fr) !important; }
+      .prod-bottom-grid { grid-template-columns: repeat(2,1fr) !important; }
+    }
+    @media (max-width: 420px) {
+      .prod-top-grid    { grid-template-columns: 1fr !important; }
+      .prod-bottom-grid { grid-template-columns: repeat(2,1fr) !important; }
+    }
+    .prod-masonry { columns: 3; column-gap: 8px; }
+    .prod-masonry-item { break-inside: avoid; margin-bottom: 8px; overflow: hidden; }
+    @media (max-width: 900px) { .prod-masonry { columns: 2; } }
+    @media (max-width: 480px) { .prod-masonry { columns: 1; } }
     .g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
     .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
     .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
@@ -289,18 +374,138 @@
     }
     /* Prevent any element from creating horizontal overflow */
     section, footer, header { overflow-x: hidden; }
-    /* ─── MOBILE RESPONSIVE ─── */
-    @media (max-width: 600px) {
-      /* Opener absolute-positioned children */
-      .opener-info    { left: 20px !important; top: max(76px,11vh) !important; }
-      .opener-caption { left: 20px !important; right: 20px !important; bottom: 28px !important; }
-      /* Capsule title sizes */
-      .capsule-code        { font-size: clamp(56px,15vw,100px) !important; }
-      .capsule-title-large { font-size: clamp(44px,11vw,90px)  !important; }
-      /* Quote separators */
-      .quote-sep   { padding: 28px 20px !important; }
-      .quote-sep p { font-size: clamp(22px,6.5vw,38px) !important; }
-      /* Diseño Rector → horizontal scroll on mobile */
+    /* ─── HAMBURGER NAV (mobile) ─── */
+    .nav-toggle {
+      display: none;
+      background: transparent; border: none; cursor: pointer;
+      width: 32px; height: 26px; padding: 4px 0;
+      flex-direction: column; justify-content: space-between;
+      z-index: 220;
+    }
+    .nav-toggle span {
+      display: block; width: 100%; height: 1.5px;
+      background: #fff; border-radius: 1px;
+      transition: transform .35s cubic-bezier(.4,0,.2,1), opacity .25s ease, background .9s cubic-bezier(.4,0,.2,1);
+      transform-origin: center;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--accent); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--accent); }
+    @media (max-width: 760px) {
+      .nav-toggle { display: flex; }
+      #nav { padding: 18px 20px; }
+      #nav.stuck { padding: 14px 20px; }
+      .nav-links {
+        position: fixed; inset: 0;
+        background: rgba(8,8,8,.97); backdrop-filter: blur(20px);
+        flex-direction: column !important; justify-content: center; align-items: center;
+        gap: 32px !important;
+        opacity: 0; pointer-events: none;
+        transform: translateY(-12px);
+        transition: opacity .45s cubic-bezier(.4,0,.2,1), transform .55s cubic-bezier(.4,0,.2,1);
+        z-index: 210;
+      }
+      .nav-links.open {
+        opacity: 1; pointer-events: auto; transform: translateY(0);
+      }
+      .nav-links .nav-link {
+        font-size: 22px !important; letter-spacing: .14em !important;
+        font-family: 'Playfair Display', serif; font-weight: 400; font-style: italic;
+        text-transform: none; color: #fff;
+        opacity: 0; transform: translateY(20px);
+        transition: opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1);
+      }
+      .nav-links.open .nav-link {
+        opacity: 1; transform: translateY(0);
+      }
+      .nav-links.open .nav-link:nth-child(1) { transition-delay: .12s; }
+      .nav-links.open .nav-link:nth-child(2) { transition-delay: .18s; }
+      .nav-links.open .nav-link:nth-child(3) { transition-delay: .24s; }
+      .nav-links.open .nav-link:nth-child(4) { transition-delay: .30s; }
+      .nav-links.open .nav-link:nth-child(5) { transition-delay: .36s; }
+      .nav-links .nav-link::after { display: none; }
+      body.nav-open { overflow: hidden; }
+    }
+
+    /* ─── MOBILE RESPONSIVE — comprehensive ─── */
+    @media (max-width: 760px) {
+      /* Hero */
+      .hero-inner { padding: 0 22px 36px; }
+      .hero-top-bar { padding-top: max(96px, 13vh); }
+      .hero-name-xl {
+        font-size: clamp(64px, 17vw, 130px) !important;
+        line-height: .9; letter-spacing: -.04em;
+      }
+      .hero-discipline { font-size: clamp(18px, 4.5vw, 30px); }
+      .hero-scroll-indicator { right: 22px; bottom: 28px; }
+      .hero-scroll-indicator svg { width: 11px; height: 11px; }
+
+      /* Section padding compact */
+      .section-pad { padding-left: 22px !important; padding-right: 22px !important; }
+
+      /* Capsule openers */
+      .opener { padding-bottom: 48px; }
+      .opener-info {
+        left: 22px !important; right: 22px !important;
+        top: max(96px, 13vh) !important;
+        gap: 6px !important;
+      }
+      .opener-caption {
+        left: 22px !important; right: 22px !important; bottom: 36px !important;
+      }
+      .capsule-code {
+        font-size: clamp(64px, 17vw, 110px) !important;
+        line-height: .92;
+      }
+      .capsule-subtitle {
+        font-size: clamp(16px, 4.4vw, 22px) !important;
+        margin-top: 12px;
+      }
+      .capsule-title-large { font-size: clamp(48px, 13vw, 96px) !important; }
+      .opener-ghost {
+        font-size: clamp(180px, 70vw, 360px) !important;
+        right: -4vw !important; opacity: .08 !important;
+      }
+
+      /* Label */
+      .label { font-size: 12px !important; letter-spacing: .2em; }
+      .label-ac { font-size: 11px; letter-spacing: .2em; }
+
+      /* Editorial bleed */
+      .editorial-bleed {
+        font-size: clamp(40px, 11vw, 70px) !important;
+        margin-left: 0 !important;
+      }
+      .bleed-neg { margin-left: 0 !important; }
+
+      /* Concept & body text */
+      .concept { font-size: 15.5px !important; line-height: 1.7 !important; }
+      .sobre-text { font-size: 15.5px !important; line-height: 1.75 !important; }
+      .sobre-lead { font-size: 17px !important; line-height: 1.7 !important; }
+
+      /* Editorial 2-col grid → stack */
+      .editorial-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+      .editorial-grid > div:first-child { padding-top: 8px !important; }
+
+      /* Section padding rhythm */
+      .section-pad[style*="padding-top:80px"]   { padding-top: 48px !important; }
+      .section-pad[style*="padding-top:96px"]   { padding-top: 56px !important; }
+      .section-pad[style*="padding-bottom:112px"] { padding-bottom: 56px !important; }
+      .section-pad[style*="padding-bottom:120px"] { padding-bottom: 64px !important; }
+      .section-pad[style*="padding-bottom:64px"]  { padding-bottom: 44px !important; }
+      .section-pad[style*="padding-bottom:40px"]  { padding-bottom: 28px !important; }
+
+      /* Grids → stack or 2-col */
+      .g2 { grid-template-columns: 1fr !important; gap: 6px; }
+      .g3, .g4, .g4-editorial { grid-template-columns: repeat(2,1fr) !important; gap: 6px; }
+      .prod-top-grid { grid-template-columns: repeat(2,1fr) !important; gap: 6px !important; }
+      .prod-bottom-grid { grid-template-columns: repeat(2,1fr) !important; gap: 6px !important; }
+      .prod-masonry { columns: 2 !important; column-gap: 6px !important; }
+      .prod-masonry-item { margin-bottom: 6px !important; }
+      .masonry { columns: 2 !important; column-gap: 6px !important; }
+      .masonry-item { margin-bottom: 6px !important; }
+
+      /* Diseño Rector → horizontal scroll */
       .dr-row {
         overflow-x: auto !important; justify-content: flex-start !important;
         gap: 8px !important; padding-bottom: 8px;
@@ -308,30 +513,153 @@
         -webkit-overflow-scrolling: touch;
       }
       .dr-row > div { flex: 0 0 auto !important; width: 44vw; }
-      .dr-row > div > img { max-height: none !important; height: clamp(140px,55vw,240px) !important; max-width: 100% !important; width: 100%; }
-      /* Sketchbook + Texturas → stack */
+      .dr-row > div > img {
+        max-height: none !important;
+        height: clamp(140px,55vw,240px) !important;
+        max-width: 100% !important; width: 100%;
+      }
       .sketch-tex-grid { grid-template-columns: 1fr !important; }
-      /* Production 3-col grids → 2-col */
-      .prod-3col { grid-template-columns: repeat(2,1fr) !important; }
-      /* Sobre Mí → stack */
-      .sobre-grid   { grid-template-columns: 1fr !important; gap: 40px !important; }
-      .sobre-header { margin-bottom: 36px !important; }
-      /* editorial-bleed negative-margin reset */
-      .bleed-neg { margin-left: 0 !important; }
-      /* editorial-bleed font scale */
-      .editorial-bleed { font-size: clamp(38px,10vw,80px) !important; }
+      .prod-3col { grid-template-columns: repeat(2,1fr) !important; gap: 6px !important; }
+
+      /* Quote separators */
+      .quote-sep { padding: 28px 22px !important; }
+      .quote-sep p { font-size: clamp(22px,6.8vw,36px) !important; line-height: 1.25 !important; }
+
       /* Producciones headline */
-      .prod-headline { font-size: clamp(52px,13vw,120px) !important; }
-      /* capsule counter */
-      #capsule-counter { left: 20px !important; bottom: 16px !important; }
-      /* stat-label readability */
-      .stat-label { color: #666 !important; }
-      /* footer flex row → column */
-      .footer-row { flex-direction: column !important; align-items: flex-start !important; gap: 20px !important; }
-      /* Section padding top/bottom adjustments */
-      .section-pad[style*="padding-top:80px"]  { padding-top: 48px !important; }
-      .section-pad[style*="padding-top:96px"]  { padding-top: 56px !important; }
-      .section-pad[style*="padding-bottom:112px"] { padding-bottom: 64px !important; }
+      .prod-headline { font-size: clamp(48px,14vw,96px) !important; line-height: .9 !important; }
+
+      /* Video aspect — mobile portrait better */
+      .video-wrap { aspect-ratio: 9/12; }
+      .video-wrap[data-aspect="16-9"] { aspect-ratio: 16/9; }
+      .sound-toggle {
+        width: 48px; height: 48px;
+        bottom: 12px; right: 12px;
+      }
+      .sound-toggle svg { width: 20px; height: 20px; }
+
+      /* Sobre Mí */
+      .sobre-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+      .sobre-header { margin-bottom: 36px !important; padding-bottom: 18px !important; gap: 14px !important; }
+      .sobre-side { padding-top: 0; }
+      .sobre-side h2 { font-size: clamp(34px, 9vw, 56px) !important; }
+
+      /* Capsule counter */
+      #capsule-counter {
+        left: 22px !important; bottom: 18px !important;
+        font-size: 10px !important;
+        background: rgba(0,0,0,.35); padding: 4px 10px; border-radius: 3px;
+        backdrop-filter: blur(6px);
+        color: rgba(255,255,255,.5) !important;
+      }
+
+      /* Footer stack */
+      .footer-row {
+        flex-direction: column !important; align-items: flex-start !important;
+        gap: 18px !important;
+      }
+    }
+
+    /* ─── EXTRA-SMALL (< 420px) ─── */
+    @media (max-width: 420px) {
+      .hero-name-xl { font-size: 16vw !important; }
+      .capsule-code { font-size: 18vw !important; }
+      .capsule-title-large { font-size: 14vw !important; }
+      .editorial-bleed { font-size: 12vw !important; }
+      .prod-headline { font-size: 15vw !important; }
+      .g3, .g4, .g4-editorial,
+      .prod-top-grid, .prod-bottom-grid { grid-template-columns: 1fr !important; }
+      .prod-masonry, .masonry { columns: 1 !important; }
+      .nav-logo { font-size: 22px; }
+    }
+
+    /* ─── REVEAL VARIANTS ─── */
+    .reveal-left, .reveal-right, .reveal-scale, .reveal-fade {
+      opacity: 0;
+      filter: blur(4px);
+      transition:
+        opacity 1.9s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1.9s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform, filter;
+    }
+    .reveal-left  { transform: translateX(-110px) translateY(20px); }
+    .reveal-right { transform: translateX(110px) translateY(20px); }
+    .reveal-scale { transform: scale(0.88); }
+    .reveal-fade  { transform: translateY(60px); }
+    .reveal-left.visible,
+    .reveal-right.visible,
+    .reveal-scale.visible,
+    .reveal-fade.visible {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateX(0) translateY(0) scale(1);
+    }
+
+    /* ─── GRID STAGGER ─── */
+    .g2 > *, .g3 > *, .g4 > *, .g4-editorial > *, .masonry-item, .prod-masonry-item {
+      opacity: 0;
+      transform: translateY(70px) scale(0.94);
+      filter: blur(3px);
+      transition:
+        opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .stagger-visible {
+      opacity: 1 !important;
+      transform: translateY(0) scale(1) !important;
+      filter: blur(0) !important;
+    }
+
+    /* ─── EDITORIAL BLEED ANIMATION ─── */
+    .editorial-bleed {
+      clip-path: inset(0 100% 0 0);
+      transform: translateX(-90px);
+      transition:
+        clip-path 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+        transform 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+      will-change: clip-path, transform;
+    }
+    .editorial-bleed.bleed-visible {
+      clip-path: inset(0 0% 0 0);
+      transform: translateX(0);
+    }
+
+    /* ─── ALINE EXPAND ─── */
+    .aline {
+      width: 0 !important;
+      transition:
+        width 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s,
+        background 0.9s cubic-bezier(.4, 0, .2, 1);
+    }
+    .aline.line-visible { width: 72px !important; }
+
+    /* ─── IMAGE HOVER ZOOM ─── */
+    .g2 > div, .g3 > div, .g4 > div, .g4-editorial > div, .masonry-item, .prod-masonry-item {
+      cursor: pointer;
+    }
+    .g2 > div img, .g3 > div img, .g4 > div img,
+    .g4-editorial > div img, .masonry-item img, .prod-masonry-item img {
+      transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .g2 > div:hover img, .g3 > div:hover img, .g4 > div:hover img,
+    .g4-editorial > div:hover img,
+    .masonry-item:hover img, .prod-masonry-item:hover img {
+      transform: scale(1.08);
+    }
+
+    /* ─── OPENER PARALLAX PREP ─── */
+    .opener-bg { will-change: transform; }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-left, .reveal-right, .reveal-scale, .reveal-fade,
+      .editorial-bleed, .aline {
+        transition: opacity 0.4s ease !important;
+        transform: none !important;
+        clip-path: none !important;
+        width: 36px !important;
+      }
     }
   </style>
 </head>
@@ -340,7 +668,10 @@
   <!-- NAV -->
   <nav id="nav" class="anim-3">
     <a href="#hero" class="nav-logo">MB</a>
-    <div class="nav-links">
+    <button id="nav-toggle" class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="nav-links">
       <a href="#div-section"    class="nav-link">DIV</a>
       <a href="#dv-section"     class="nav-link">DV</a>
       <a href="#ecos-section"   class="nav-link">DIII</a>
@@ -352,9 +683,10 @@
   <!-- HERO -->
   <section id="hero">
     <img
-      src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779023497/DSC07722_gpkfsa.webp"
+      src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779023497/DSC07722_gpkfsa"
       alt="Martina Bouzada — Producción editorial"
       class="hero-bg"
+      fetchpriority="high"
     />
     <div class="hero-overlay"></div>
     <div class="hero-top-shadow"></div>
@@ -402,7 +734,7 @@
       </div>
     </div>
 
-    <!-- Concept + Moodboard full width -->
+    <!-- 1. Concept (texto conceptual) + Moodboard -->
     <div class="section-pad" style="padding-top:80px; padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="editorial-bleed" style="margin-left:0; margin-bottom:-32px; position:relative; z-index:0; color:rgba(255,255,255,.55);">Fractura</div>
       <div class="editorial-grid">
@@ -413,60 +745,36 @@
         <div class="reveal d1">
           <div class="label" style="margin-bottom:10px;">Moodboard</div>
           <div style="position:relative; overflow:hidden;">
-            <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_3800_walmwv" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover; max-height:80vh;" />
+            <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_3800_walmwv" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover; max-height:80vh;" />
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Texturas intro -->
-    <div class="section-pad" style="padding-bottom:16px; max-width:1400px; margin:0 auto;">
+    <!-- 2. Texturas (intro + serie) -->
+    <div class="section-pad" style="padding-bottom:40px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:12px;">Texturas</div>
-        <p class="concept">A partir de este concepto, desarrollé una serie de texturas.</p>
+        <p class="concept" style="margin-bottom:24px;">A partir de este concepto, desarrollé una serie de texturas.</p>
+        <div class="g2">
+          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/IMG_5991_co0ty3" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/Photoroom_20260511_154113_ifbk8c" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        </div>
       </div>
     </div>
 
-    <!-- Sketchbook h-scroll (8) + Texturas (2) -->
+    <!-- 3. Prototipo Rector (figurín pendiente) -->
     <div class="section-pad" style="padding-bottom:40px; max-width:1400px; margin:0 auto;">
-      <div class="sketch-tex-grid" style="display:grid; grid-template-columns:3fr 2fr; gap:24px; align-items:start; margin-bottom:40px;">
-        <div class="reveal">
-          <div class="label" style="margin-bottom:10px;">Sketchbook</div>
-          <div class="h-scroll">
-            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_161830_mgxizr" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_161842_nrggo4" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_161856_oqzdhs" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_161908_f5ayol" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_161922_wfozta" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_161933_infign" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_161945_mkkmri" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="width:220px; aspect-ratio:3/4; overflow:hidden; flex-shrink:0; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_161956_d6i2az" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          </div>
-        </div>
-        <div class="reveal d1">
-          <div class="label" style="margin-bottom:10px;">Texturas</div>
-          <div class="g2">
-            <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/IMG_5991_co0ty3" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/Photoroom_20260511_154113_ifbk8c" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Accesorios (3-col) -->
       <div class="reveal">
-        <div class="label" style="margin-bottom:10px;">Accesorios</div>
-        <div class="g3">
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_6203_f4lmai" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_6274_sl8lid" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_6292_vu54gd" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-        </div>
+        <div class="label" style="margin-bottom:10px;">Prototipo Rector</div>
+        <div style="border:1px dashed rgba(255,255,255,.18); padding:48px 32px; text-align:center; color:rgba(255,255,255,.45); font-family:'Inter',sans-serif; font-size:13px; letter-spacing:.08em;">Figurín pendiente de enviar</div>
       </div>
     </div>
 
-    <!-- Proceso (10 images, 4-col) -->
+    <!-- 4. Procesos de confección y texturas -->
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
-        <div class="label" style="margin-bottom:10px;">Proceso</div>
+        <div class="label" style="margin-bottom:10px;">Procesos de confección y texturas</div>
         <div class="g4">
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/Photoroom_20250520_215911_gl6x9m" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/Photoroom_20260511_154551_zuxnwi" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
@@ -482,73 +790,101 @@
       </div>
     </div>
 
-    <!-- Producción Final text -->
+    <!-- 5. Colaboración Speed (texto + videos) -->
+    <div class="section-pad" style="padding-bottom:0;">
+      <div class="reveal" style="padding-bottom:40px;">
+        <div class="label" style="margin-bottom:12px;">Colaboración Speed</div>
+        <div class="aline" style="margin-bottom:20px;"></div>
+        <p class="concept" style="color:#bbb;">Para continuar con el proyecto, realizamos una colaboración con la marca Speed, en la que transformamos nuestra propuesta para fusionar su identidad con la del proyecto, generando un cruce entre ambos universos estéticos y conceptuales.</p>
+      </div>
+    </div>
+    <div class="section-pad" style="padding-bottom:64px;">
+      <div class="reveal">
+        <div class="g2">
+          <div class="video-wrap">
+            <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Img_7939_md4dyn.mp4"></video>
+          </div>
+          <div class="video-wrap">
+            <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/video1_wv8pdc.mp4"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Diseños Speed con el rector (figurines pendientes) -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Diseños Speed con el rector</div>
+        <div style="border:1px dashed rgba(255,255,255,.18); padding:48px 32px; text-align:center; color:rgba(255,255,255,.45); font-family:'Inter',sans-serif; font-size:13px; letter-spacing:.08em;">Figurines pendientes de enviar</div>
+      </div>
+    </div>
+
+    <!-- 7. Accesorios -->
+    <div class="section-pad" style="padding-bottom:40px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Accesorios</div>
+        <div class="g3">
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_6203_f4lmai" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_6274_sl8lid" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_6292_vu54gd" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Sketchbook -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Sketchbook</div>
+        <div style="width:100%;">
+          <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1779824317/Photoroom_20260522_164756_g8bjnf.webp" loading="lazy" alt="Sketchbook DIV — Fractura en la Mente" style="width:100%; height:auto; display:block;" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Producción Final (texto + fotos campaña) -->
     <div class="section-pad" style="padding-bottom:0; max-width:1400px; margin:0 auto;">
       <div class="reveal" style="padding-bottom:40px;">
-        <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.72); font-family:'Inter',sans-serif; margin-bottom:12px;">Producción Final</div>
+        <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.72); font-family:'Inter',sans-serif; margin-bottom:12px;">Producción Final</div>
         <div class="aline" style="margin-bottom:20px;"></div>
         <p class="concept" style="border-left: 1px solid rgba(201,192,184,.2); padding-left: 28px;">Para finalizar el proyecto, realicé una producción fotográfica con una comunicación visual que complementa y potencia la estética desarrollada. En esta campaña asumí múltiples roles: dirección de arte, dirección general, estilismo y diseño escenográfico, integrando cada área para construir una propuesta coherente con el concepto del proyecto.</p>
       </div>
     </div>
 
-    <!-- Producción (9 images) -->
+    <!-- Producción (9 images) — masonry layout: cada imagen mantiene su aspect-ratio natural, sin huecos negros -->
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Producción</div>
-        <div class="prod-3col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
-          <div style="grid-column: span 2; aspect-ratio:16/9; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_5117_gvgyvl" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_5870_rp32o3" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_5879_lv30ih" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6407_aozopd" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6452_fkyjfh" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6597_v0cqm1" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6660-2_biyjou" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6833_tatyb8" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_6836_ru0vvp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        <div class="prod-masonry" style="columns: 3; column-gap: 8px;">
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_5117_gvgyvl" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_5870_rp32o3" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_5879_lv30ih" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_6407_aozopd" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_6452_fkyjfh" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_6597_v0cqm1" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_6660-2_biyjou" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_6833_tatyb8" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_6836_ru0vvp" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
         </div>
       </div>
     </div>
 
-    <!-- Fashion Film -->
-    <div class="section-pad" style="padding-bottom:48px;">
+    <!-- 10. Fashion Film -->
+    <div class="section-pad" style="padding-bottom:64px;">
       <div class="reveal">
-        <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:10px;">Fashion Film — Nominado</div>
+        <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.72); font-family:'Inter',sans-serif; margin-bottom:10px;">Fashion Film — Nominado</div>
         <div class="video-wrap">
-          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Copy_84473A31-69Ff-4D72-9B52-B6a8c9cef4e2_gbfpxu.mp4" src=""></video>
+          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Copy_84473A31-69Ff-4D72-9B52-B6a8c9cef4e2_gbfpxu.mp4"></video>
         </div>
       </div>
     </div>
 
-    <!-- Speed text -->
-    <div class="section-pad" style="padding-bottom:0;">
-      <div class="reveal" style="padding-bottom:40px;">
-        <div class="label" style="margin-bottom:12px;">Speed</div>
-        <div class="aline" style="margin-bottom:20px;"></div>
-        <p class="concept" style="color:#bbb;">Para continuar con el proyecto, realizamos una colaboración con la marca Speed, en la que transformamos nuestra propuesta para fusionar su identidad con la del proyecto, generando un cruce entre ambos universos estéticos y conceptuales.</p>
-      </div>
-    </div>
-
-    <!-- Videos Speed (2 side by side) -->
-    <div class="section-pad" style="padding-bottom:112px;">
-      <div class="reveal">
-        <div class="label" style="margin-bottom:10px;">Speed</div>
-        <div class="g2">
-          <div class="video-wrap">
-            <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Img_7939_md4dyn.mp4" src=""></video>
-          </div>
-          <div class="video-wrap">
-            <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/video1_wv8pdc.mp4" src=""></video>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Desfile Speed -->
+    <!-- 11. Desfile Speed (texto + fotos / videos pendientes) -->
     <div class="section-pad" style="padding-bottom:112px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:12px;">Desfile Speed</div>
         <div class="aline" style="margin-bottom:20px;"></div>
-        <p class="concept" style="color:#bbb;">Speed organizó un desfile en el que expusimos nuestra colección; en esta instancia, me tocó abrir el desfile, dando inicio a la presentación y marcando el tono conceptual de la propuesta.</p>
+        <p class="concept" style="color:#bbb; margin-bottom:24px;">Speed organizó un desfile en el que expusimos nuestra colección; en esta instancia, me tocó abrir el desfile, dando inicio a la presentación y marcando el tono conceptual de la propuesta.</p>
+        <div style="border:1px dashed rgba(255,255,255,.18); padding:48px 32px; text-align:center; color:rgba(255,255,255,.45); font-family:'Inter',sans-serif; font-size:13px; letter-spacing:.08em;">Fotos y videos del desfile pendientes de enviar</div>
       </div>
     </div>
 
@@ -577,25 +913,33 @@
       </div>
     </div>
 
-    <!-- Concept + Moodboard full width -->
+    <!-- 1. Texto concepto + Moodboard (editorial 2-col) -->
     <div class="section-pad" style="padding-top:80px; padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="editorial-bleed" style="margin-left:0; margin-bottom:-32px; position:relative; z-index:0;">Devoción</div>
       <div class="editorial-grid">
         <div class="reveal" style="padding-top:40px;">
           <div class="aline" style="margin-bottom:28px;"></div>
-          <p class="concept" style="color:#bbb;">Este concepto surge a partir de la idea de un amor obsesivo, intenso y absorbente. Parte de una conexión que se vuelve total, donde la devoción entre dos personas crece hasta superar los límites de la razón. El deseo y la desesperación arden sin tregua. La devoción consume todo a su paso, sin dejar espacio para la razón ni el tiempo. En este sueño, la realidad no intoxica; no existe el después, solo ese momento eterno. Ellos dos grabándose mutuamente sus palabras en el corazón, sellando un pacto perpetuo, hasta que la llama los consuma por completo.</p>
+          <p class="concept" style="color:#bbb; border-left: 1px solid rgba(196,160,160,.2); padding-left: 28px;">Este concepto surge a partir de la idea de un amor obsesivo, intenso y absorbente. Parte de una conexión que se vuelve total, donde la devoción entre dos personas crece hasta superar los límites de la razón. El deseo y la desesperación arden sin tregua. La devoción consume todo a su paso, sin dejar espacio para la razón ni el tiempo. En este sueño, la realidad no intoxica; no existe el después, solo ese momento eterno. Ellos dos grabándose mutuamente sus palabras en el corazón, sellando un pacto perpetuo, hasta que la llama los consuma por completo.</p>
         </div>
         <div class="reveal d1">
           <div class="label" style="margin-bottom:10px;">Moodboard</div>
-          <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Sin_t%C3%ADtulo_-_11_de_agosto_de_2025_22.32_u1rmfj" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover; max-height:80vh; outline: 1px solid rgba(196,160,160,.15); outline-offset: -1px;" />
+          <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/Sin_t%C3%ADtulo_-_11_de_agosto_de_2025_22.32_u1rmfj" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover; max-height:80vh; outline: 1px solid rgba(196,160,160,.15); outline-offset: -1px;" />
         </div>
       </div>
     </div>
 
-    <!-- Proceso (6 images, 3-col) -->
-    <div class="section-pad" style="padding-bottom:40px; max-width:1400px; margin:0 auto;">
+    <!-- 3. Diseños en conjunto (figurines pendientes) -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
-        <div class="label" style="margin-bottom:10px;">Proceso</div>
+        <div class="label" style="margin-bottom:10px;">Diseños en conjunto</div>
+        <div style="border:1px dashed rgba(255,255,255,.18); padding:48px 32px; text-align:center; color:rgba(255,255,255,.45); font-family:'Inter',sans-serif; font-size:13px; letter-spacing:.08em;">Figurines pendientes de enviar</div>
+      </div>
+    </div>
+
+    <!-- 4. Procesos prototipos (6 imágenes) -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Procesos prototipos</div>
         <div class="g3">
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/Photoroom_20260511_164952_zmlsrm" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/Photoroom_20260511_165020_bvkxjc" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
@@ -607,16 +951,16 @@
       </div>
     </div>
 
-    <!-- Producción Final text -->
+    <!-- 5. Texto Producción Final -->
     <div class="section-pad" style="padding-bottom:0; max-width:1400px; margin:0 auto;">
       <div class="reveal" style="padding-bottom:40px;">
         <div class="label" style="margin-bottom:12px;">Producción Final</div>
         <div class="aline" style="margin-bottom:20px;"></div>
-        <p class="concept" style="color:#bbb;">Para cerrar el proyecto, desarrollé una producción fotográfica orientada a consolidar la identidad visual construida a lo largo del proceso. La campaña fue pensada como una síntesis del concepto, donde cada decisión estética refuerza el universo planteado. Dentro de este trabajo asumí distintos roles —dirección de arte, dirección, estilismo y ambientación— articulando cada uno para lograr una propuesta integral y coherente con la narrativa del proyecto.</p>
+        <p class="concept" style="color:#bbb; border-left: 1px solid rgba(196,160,160,.2); padding-left: 28px;">Para cerrar el proyecto, desarrollé una producción fotográfica orientada a consolidar la identidad visual construida a lo largo del proceso. La campaña fue pensada como una síntesis del concepto, donde cada decisión estética refuerza el universo planteado. Dentro de este trabajo asumí distintos roles —dirección de arte, dirección, estilismo y ambientación— articulando cada uno para lograr una propuesta integral y coherente con la narrativa del proyecto.</p>
       </div>
     </div>
 
-    <!-- Producción (12 images, 4-col) -->
+    <!-- 6. Fotos Producción Final (12 imágenes) -->
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Producción</div>
@@ -637,12 +981,12 @@
       </div>
     </div>
 
-    <!-- Fashion Film -->
+    <!-- 7. Fashion Film -->
     <div class="section-pad" style="padding-bottom:112px;">
       <div class="reveal">
-        <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:10px;">Fashion Film</div>
+        <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:10px;">Fashion Film</div>
         <div class="video-wrap">
-          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Fashion_film2_bipxup.mp4" src=""></video>
+          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Fashion_film2_bipxup.mp4"></video>
         </div>
       </div>
     </div>
@@ -667,104 +1011,110 @@
         <span class="label-ac">Proyecto</span>
       </div>
       <div class="reveal opener-caption" style="position:absolute; bottom:56px; left:48px; right:48px; z-index:3;">
-        <div class="capsule-title-large" style="color:#fff;">Ecos de</div>
-        <div class="capsule-title-large ac">Fantasía</div>
+        <div class="capsule-code">DIII</div>
+        <div class="capsule-subtitle">"Ecos de Fantasía"</div>
       </div>
     </div>
 
-    <!-- Concept + Moodboard 2×2 -->
-    <div class="section-pad" style="padding-top:80px; padding-bottom:64px; max-width:1400px; margin:0 auto;">
+    <!-- 1. Concept text + Moodboard (editorial 2-col) -->
+    <div class="section-pad" style="padding-top:80px; padding-bottom:48px; max-width:1400px; margin:0 auto;">
       <div class="editorial-bleed bleed-neg" style="margin-left:-48px; margin-bottom:24px; position:relative; z-index:0;">Fantasía</div>
       <div class="editorial-grid">
         <div class="reveal" style="padding-top:40px;">
           <div class="aline" style="margin-bottom:28px;"></div>
-          <p class="concept" style="max-width:780px; color:#a8a0a0;">En este proyecto, inicié el proceso mediante la elaboración de tres paneles conceptuales, que luego se integran en un panel final donde se sintetiza y define el concepto general del proyecto.</p>
+          <p class="concept" style="max-width:780px; color:#a8a0a0; border-left: 1px solid rgba(196,160,160,.2); padding-left: 28px;">En este proyecto, inicié el proceso mediante la elaboración de tres paneles conceptuales, que luego se integran en un panel final donde se sintetiza y define el concepto general del proyecto.</p>
         </div>
         <div class="reveal d1">
           <div class="label" style="margin-bottom:10px;">Moodboard</div>
-          <div class="g2">
-            <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_1156_m6g04m" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_1169_zf2nlv" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_1222_zr0wvs" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_1232_abedhj" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          </div>
+          <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_1156_m6g04m" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover; max-height:80vh; outline: 1px solid rgba(196,160,160,.15); outline-offset: -1px;" />
         </div>
       </div>
     </div>
 
-    <!-- Diseño Rector — horizontal scroll (8 images) -->
-    <div class="section-pad" style="padding-bottom:48px; max-width:1400px; margin:0 auto;">
-      <div class="reveal">
-        <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:14px;">Diseño Rector</div>
-        <div class="dr-row" style="display:flex; flex-direction:row; align-items:flex-end; gap:0;">
-          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_171618_t9sqwn" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
-          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_171650_pjscsf" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
-          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_171751_svplav" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
-          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_171849_szzdns" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
-          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_171917_igzbwz" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
-          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_171935_vegx4j" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
-          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_171952_qhevqh" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
-          <div style="flex:1 1 0; min-width:0; display:flex; justify-content:center; align-items:flex-end;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_600/Photoroom_20260511_172006_kk3ago" loading="lazy" alt="" style="max-height:clamp(150px,16vw,220px); width:auto; max-width:100%; display:block;" /></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Context before Texturas -->
-    <div class="section-pad" style="padding-bottom:24px; max-width:1400px; margin:0 auto;">
-      <div class="reveal">
-        <p class="concept" style="color:#a8a0a0;">A partir de estos tres paneles, desarrollé dos texturas con las que inicié la construcción del diseño rector sobre maniquí.</p>
-      </div>
-    </div>
-
-    <!-- Texturas (2 imgs) -->
+    <!-- 1b. Tres paneles (3 imágenes en fila) -->
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
-        <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:14px;">Texturas</div>
-        <div style="display:grid; grid-template-columns:repeat(2,minmax(0,320px)); gap:8px;">
+        <div class="label" style="margin-bottom:10px;">Tres paneles</div>
+        <div class="g3">
+          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_1169_zf2nlv" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_1222_zr0wvs" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_1232_abedhj" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Panel Final (imagen pendiente) -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Panel Final</div>
+        <div style="border:1px dashed rgba(255,255,255,.18); padding:48px 32px; text-align:center; color:rgba(255,255,255,.45); font-family:'Inter',sans-serif; font-size:13px; letter-spacing:.08em;">Imagen del panel final pendiente de enviar</div>
+      </div>
+    </div>
+
+    <!-- 3. Texto Texturas y Maniquí -->
+    <div class="section-pad" style="padding-bottom:24px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:12px;">Texturas y maniquí</div>
+        <div class="aline" style="margin-bottom:20px;"></div>
+        <p class="concept" style="color:#a8a0a0; border-left: 1px solid rgba(196,160,160,.2); padding-left: 28px;">A partir de estos tres paneles, desarrollé dos texturas con las que inicié la construcción del diseño rector sobre maniquí. Este prototipo funcionó como punto de partida para el desarrollo del resto de la colección.</p>
+      </div>
+    </div>
+
+    <!-- 4. Fotos Texturas + Maniquí -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:14px;">Texturas</div>
+        <div style="display:grid; grid-template-columns:repeat(2,minmax(0,320px)); gap:8px; margin-bottom:32px;">
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/Photoroom_20240927_141128_rkujy5" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/Photoroom_20241002_122706_c3xp5m" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
         </div>
+        <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:14px;">Maniquí — Diseño rector</div>
+        <div class="g2" style="align-items:stretch;">
+          <div style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1779826184/Made_with_insMind-Photoroom_20260522_164946_1_qjuj8j.webp" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div style="overflow:hidden; display:flex; align-items:center; justify-content:center; padding:6% 8%;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1779826701/cropped_1_1_byefrv.png" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+        </div>
       </div>
     </div>
 
-    <!-- Context after Texturas -->
-    <div class="section-pad" style="padding-bottom:24px; max-width:1400px; margin:0 auto;">
+    <!-- 5. Prototipos y colección (imagenes pendientes) -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
-        <p class="concept" style="color:#a8a0a0;">Este prototipo funcionó como punto de partida para el desarrollo del resto de la colección.</p>
+        <div class="label" style="margin-bottom:10px;">Prototipos y colección</div>
+        <div style="border:1px dashed rgba(255,255,255,.18); padding:48px 32px; text-align:center; color:rgba(255,255,255,.45); font-family:'Inter',sans-serif; font-size:13px; letter-spacing:.08em;">Fotos de prototipos y colección pendientes de enviar</div>
       </div>
     </div>
 
-    <!-- Producción text -->
+    <!-- 6. Texto Producción -->
     <div class="section-pad" style="padding-bottom:0; max-width:1400px; margin:0 auto;">
       <div class="reveal" style="padding-bottom:40px;">
         <div class="label" style="margin-bottom:12px;">Producción</div>
         <div class="aline" style="margin-bottom:20px;"></div>
-        <p class="concept" style="color:#a8a0a0;">Para concluir este proyecto, realicé una producción fotográfica enfocada en reforzar y materializar la identidad visual desarrollada. La campaña se planteó como una instancia de síntesis conceptual, en la que cada decisión estética responde y potencia el universo construido. En este proceso asumí múltiples roles —dirección de arte, dirección general, estilismo y diseño del espacio— integrando cada área para construir una propuesta sólida y coherente con la narrativa planteada.</p>
+        <p class="concept" style="color:#a8a0a0; border-left: 1px solid rgba(196,160,160,.2); padding-left: 28px;">Para concluir este proyecto, realicé una producción fotográfica enfocada en reforzar y materializar la identidad visual desarrollada. La campaña se planteó como una instancia de síntesis conceptual, en la que cada decisión estética responde y potencia el universo construido. En este proceso asumí múltiples roles —dirección de arte, dirección general, estilismo y diseño del espacio— integrando cada área para construir una propuesta sólida y coherente con la narrativa planteada.</p>
       </div>
     </div>
 
-    <!-- Producción (7 images) -->
+    <!-- 7. Fotos Producción (masonry) -->
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Producción</div>
-        <div class="prod-3col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC07475_p8yzkt" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC07539_ajimhc" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC07636_upazc5" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/DSC07671_u76spg" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_4449_av2qh6" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_4984_pg3qws" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="grid-column:span 3; aspect-ratio:16/6; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/IMG_5163_bifmzt" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        <div class="prod-masonry" style="columns: 3; column-gap: 8px;">
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07475_p8yzkt" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07539_ajimhc" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07636_upazc5" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07671_u76spg" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_4449_av2qh6" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_4984_pg3qws" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_5163_bifmzt" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
         </div>
       </div>
     </div>
 
-    <!-- Video -->
+    <!-- 8. Video extra -->
     <div class="section-pad" style="padding-bottom:112px;">
       <div class="reveal">
-        <div class="label" style="margin-bottom:10px;">Video</div>
+        <div class="label" style="margin-bottom:10px;">Video extra</div>
         <div class="video-wrap">
-          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/dise%C3%B1o3_qxffkv.mp4" src=""></video>
+          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/dise%C3%B1o3_qxffkv.mp4"></video>
         </div>
       </div>
     </div>
@@ -789,38 +1139,55 @@
         <span class="label-ac">Taller III</span>
       </div>
       <div class="reveal opener-caption" style="position:absolute; bottom:56px; left:48px; right:48px; z-index:3;">
-        <div class="capsule-code">PRINCE</div>
+        <div class="capsule-code">Taller III</div>
+        <div class="capsule-subtitle">"Prince"</div>
       </div>
     </div>
 
     <!-- Concept + Panel Prince full width -->
     <div class="section-pad" style="padding-top:80px; padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <!-- P3B — editorial bleed -->
-      <div class="editorial-bleed bleed-neg" style="margin-left:-48px; margin-bottom:24px; position:relative; z-index:0;">Audacia</div>
+      <div class="editorial-bleed bleed-neg" style="margin-left:-48px; margin-bottom:24px; position:relative; z-index:0;">Prince</div>
       <div class="reveal" style="margin-bottom:40px;">
         <div class="aline" style="margin-bottom:28px;"></div>
         <!-- P4 PRINCE — concept color #b8a878 -->
-        <p class="concept" style="color:#b8a878;">Para este proyecto elegí a Prince, un artista que destaca por su audacia y originalidad, para luego desarrollar una cápsula inspirada en su universo estético y musical. Prince fue un ícono de la música por su audacia y talento. Revolucionó el sonido al fusionar géneros como rock, funk, pop y R&B. En la moda, rompió normas de género con un estilo extravagante y distintivo. Su imagen y enfoque artístico inspiraron a generaciones a expresarse con libertad y autenticidad.</p>
+        <p class="concept" style="color:#b8a878;">Para este proyecto elegí a Prince, un artista que destaca por su audacia y originalidad, para luego desarrollar una cápsula inspirada en su universo estético y musical.</p>
       </div>
       <div class="reveal d1">
         <div class="label" style="margin-bottom:10px;">Panel Prince</div>
-        <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto/Agregar_un_t%C3%ADtulo_h2wtch" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover; max-height:80vh;" />
+        <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/Agregar_un_t%C3%ADtulo_h2wtch" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover; max-height:80vh;" />
+      </div>
+      <div class="reveal" style="margin-top:40px; max-width:780px;">
+        <p class="concept" style="color:#b8a878; border-left: 1px solid rgba(184,168,120,.25); padding-left: 28px;">Prince fue un ícono de la música por su audacia y talento. Revolucionó el sonido al fusionar géneros como rock, funk, pop y R&B. En la moda, rompió normas de género con un estilo extravagante y distintivo. Su imagen y enfoque artístico inspiraron a generaciones a expresarse con libertad y autenticidad.</p>
       </div>
     </div>
 
-    <!-- Producción (8 images) — P3C + P5D: g4-editorial, first photo span 2 + 1/1 -->
+    <!-- Diseños -->
+    <div class="section-pad" style="padding-bottom:16px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Diseños</div>
+      </div>
+    </div>
+    <!-- Prototipo Final -->
+    <div class="section-pad" style="padding-bottom:16px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:10px;">Prototipo Final</div>
+      </div>
+    </div>
+
+    <!-- Producción (8 images) — masonry layout: sin recortes ni huecos negros -->
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Producción</div>
-        <div class="g4-editorial">
-          <div style="grid-column:span 2; aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09525_nup0le" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09579_keqya6" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09615_bkl7dq" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09620_kmtyeq" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09639_qhdzae" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09725_syrxqa" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09817_eroccy" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09856_hejkz6" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        <div class="prod-masonry" style="columns: 3; column-gap: 8px;">
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09525_nup0le" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09579_keqya6" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09615_bkl7dq" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09620_kmtyeq" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09639_qhdzae" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09725_syrxqa" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09817_eroccy" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09856_hejkz6" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
         </div>
       </div>
     </div>
@@ -828,9 +1195,9 @@
     <!-- Video Backstage -->
     <div class="section-pad" style="padding-bottom:112px;">
       <div class="reveal">
-        <div style="font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:10px;">Video Backstage</div>
+        <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:10px;">Video Backstage</div>
         <div class="video-wrap">
-          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Img_05302_u3astb.mp4" src=""></video>
+          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Img_05302_u3astb.mp4"></video>
         </div>
       </div>
     </div>
@@ -844,58 +1211,77 @@
     <div style="max-width:1400px; margin:0 auto;">
 
       <!-- Editorial section header -->
-      <div class="reveal sobre-header" style="margin-bottom:72px; display:flex; align-items:center; gap:24px; overflow:hidden;">
-        <span style="font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(52px,8vw,110px); line-height:1; letter-spacing:-.04em; color:rgba(255,255,255,.05);">007</span>
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <div style="width:28px; height:1px; background:var(--accent); opacity:.7;"></div>
-          <span style="font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.28); font-family:'Inter',sans-serif;">Sobre Mí</span>
-        </div>
+      <div class="reveal sobre-header" style="margin-bottom:64px; display:flex; align-items:baseline; gap:20px; overflow:hidden; border-bottom:1px solid #1c1c1c; padding-bottom:24px;">
+        <span class="index-num" style="font-size:13px; color:rgba(255,255,255,.45); letter-spacing:.22em;">007</span>
+        <div class="aline" style="position:relative; top:-4px;"></div>
+        <span style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:#fff; font-family:'Inter',sans-serif; font-weight:400;">Sobre Mí</span>
       </div>
 
-      <div class="sobre-grid" style="display:grid; grid-template-columns:3fr 2fr; gap:80px; align-items:start;">
+      <div class="sobre-grid" style="display:grid; grid-template-columns:3fr 2fr; gap:96px; align-items:start;">
         <div>
           <div class="reveal">
-            <div style="width:2px; height:52px; background:var(--accent); opacity:.5; margin-bottom:24px;"></div>
-            <h2 class="font-display" style="font-size:clamp(38px,5vw,68px); font-weight:600; letter-spacing:-.03em; line-height:1.05; color:#fff;">
-              Alta costura<br /><em style="font-weight:400; color:rgba(255,255,255,.48);">como exploración</em>
+            <div class="aline" style="height:2px; margin-bottom:28px;"></div>
+            <h2 class="font-display" style="font-size:clamp(42px,5.6vw,76px); font-weight:600; letter-spacing:-.03em; line-height:1.02; color:#fff;">
+              Alta costura<br /><em style="font-weight:400; color:rgba(255,255,255,.55);">como exploración</em>
             </h2>
           </div>
-          <div class="reveal d1" style="margin-top:40px;">
-            <p class="sobre-text">Soy Martina Bouzada Martínez Stroman, tengo 21 años y vivo en Capital Federal, Buenos Aires. Actualmente me encuentro cursando la carrera de Diseño de Indumentaria y Textil en la Universidad de Palermo, atravesando la mitad de mi formación académica.</p>
-            <p class="sobre-text" style="margin-top:20px;">Mi enfoque dentro del diseño se orienta hacia la alta costura, entendida como un espacio de exploración conceptual y construcción estética. En cada colección desarrollo un proceso integral en el que me involucro en todas las etapas: desde la creación del concepto y la construcción del universo visual, hasta el diseño de las prendas, la confección, el estilismo y la dirección de arte.</p>
-            <p class="sobre-text" style="margin-top:20px;">Trabajo desde la construcción de una identidad estética definida, donde cada decisión responde a un mismo lenguaje visual. Busco que mis colecciones sean coherentes y reconocibles, desarrollando universos propios que refuercen el carácter de cada propuesta.</p>
-            <p class="sobre-text" style="margin-top:20px;">Entiendo la indumentaria como una forma de expresión capaz de transmitir ideas y sensaciones. Busco desarrollar una mirada personal, con un fuerte interés por el detalle, la construcción y el impacto visual.</p>
-            <p class="sobre-text" style="margin-top:20px;">Si bien valoro el hacer y el desarrollo individual dentro del proceso creativo, también considero fundamental el trabajo en equipo como instancia de intercambio y enriquecimiento, entendiendo que el diálogo con otros potencia y expande las posibilidades del diseño.</p>
+          <div class="reveal d1" style="margin-top:44px;">
+            <p class="sobre-text sobre-lead">Soy <strong style="color:#fff; font-weight:400;">Martina Bouzada Martínez Stroman</strong>, tengo 21 años y vivo en Capital Federal, Buenos Aires. Actualmente me encuentro cursando la carrera de Diseño de Indumentaria y Textil en la Universidad de Palermo, atravesando la mitad de mi formación académica.</p>
+            <p class="sobre-text" style="margin-top:22px;">Mi enfoque dentro del diseño se orienta hacia la alta costura, entendida como un espacio de exploración conceptual y construcción estética. En cada colección desarrollo un proceso integral en el que me involucro en todas las etapas: desde la creación del concepto y la construcción del universo visual, hasta el diseño de las prendas, la confección, el estilismo y la dirección de arte. Me interesa generar propuestas con una identidad fuerte, donde la silueta, los materiales y la composición construyan una presencia intensa y significativa.</p>
+            <p class="sobre-text" style="margin-top:22px;">Trabajo desde la construcción de una identidad estética definida, donde cada decisión responde a un mismo lenguaje visual. Busco que mis colecciones sean coherentes y reconocibles, desarrollando universos propios que refuercen el carácter de cada propuesta.</p>
+            <p class="sobre-text" style="margin-top:22px;">Entiendo la indumentaria como una forma de expresión capaz de transmitir ideas y sensaciones. Busco desarrollar una mirada personal, con un fuerte interés por el detalle, la construcción y el impacto visual.</p>
+            <p class="sobre-text" style="margin-top:22px;">Si bien valoro el hacer y el desarrollo individual dentro del proceso creativo, también considero fundamental el trabajo en equipo como instancia de intercambio y enriquecimiento, entendiendo que el diálogo con otros potencia y expande las posibilidades del diseño.</p>
           </div>
         </div>
 
-        <!-- Panel editorial abierto: sin caja fría -->
-        <div class="reveal d1">
-          <div style="position:relative; padding-left:28px; border-left:1px solid #1e1e1e;">
-            <!-- MB ghost más visible -->
-            <div style="font-family:'Playfair Display',serif; font-size:clamp(80px,11vw,148px); font-weight:900; line-height:.85; letter-spacing:-.05em; color:rgba(255,255,255,.06); overflow:hidden; margin-bottom:36px; margin-left:-8px;">MB</div>
-
-            <!-- Stats con separadores horizontales completos -->
-            <div style="display:flex; flex-direction:column; gap:0; border-top:1px solid #1c1c1c; padding-top:28px;">
-              <div style="padding-bottom:24px; border-bottom:1px solid #161616;">
-                <div class="stat-num">21</div>
-                <div class="stat-label">Años</div>
-              </div>
-              <div style="padding:24px 0; border-bottom:1px solid #161616;">
-                <div class="stat-num">4</div>
-                <div class="stat-label">Colecciones</div>
-              </div>
-              <div style="padding-top:24px;">
-                <div class="stat-num" style="font-size:clamp(16px,1.8vw,22px); letter-spacing:.02em;">UP</div>
-                <div class="stat-label">Univ. de Palermo</div>
+        <!-- Panel editorial — monograma + datos + cita -->
+        <div class="reveal d1 sobre-side">
+          <!-- Monograma grande MB con marco superior -->
+          <div style="position:relative; padding:36px 0 28px; border-top:1px solid #2a2a2a; margin-bottom:36px;">
+            <div style="position:absolute; top:-7px; left:0; width:48px; height:14px; background:#0a0a0a; padding-right:14px;">
+              <div class="aline" style="height:1px;"></div>
+            </div>
+            <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:16px;">
+              <div style="font-family:'Playfair Display',serif; font-size:clamp(96px,12vw,168px); font-weight:900; line-height:.82; letter-spacing:-.06em; color:#fff;">M<span class="ac">B</span></div>
+              <div style="text-align:right; padding-bottom:10px;">
+                <div style="font-size:10px; letter-spacing:.24em; text-transform:uppercase; color:rgba(255,255,255,.4); font-family:'Inter',sans-serif; margin-bottom:6px;">Monograma</div>
+                <div style="font-family:'Playfair Display',serif; font-style:italic; font-size:14px; color:rgba(255,255,255,.55);">Martina Bouzada</div>
               </div>
             </div>
+          </div>
 
-            <!-- Quote más prominente con borde de acento -->
-            <div style="margin-top:40px; padding:24px 28px; background:rgba(255,255,255,.02); border-left:2px solid var(--accent); transition:border-color .9s cubic-bezier(.4,0,.2,1);">
-              <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(15px,1.5vw,20px); color:rgba(255,255,255,.5); line-height:1.65; letter-spacing:-.01em;">
-                "Entiendo la indumentaria<br/>como una forma de<br/>expresión."
-              </p>
+          <!-- Stats limpios y legibles -->
+          <div style="display:flex; flex-direction:column; border-top:1px solid #2a2a2a;">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:22px 0; border-bottom:1px solid #1c1c1c;">
+              <div style="font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.55); font-family:'Inter',sans-serif;">Edad</div>
+              <div style="font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(32px,3.6vw,46px); color:#fff; letter-spacing:-.03em; line-height:1;">21 <span style="font-size:.45em; color:rgba(255,255,255,.4); font-weight:400; font-style:italic; margin-left:4px;">años</span></div>
+            </div>
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:22px 0; border-bottom:1px solid #1c1c1c;">
+              <div style="font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.55); font-family:'Inter',sans-serif;">Colecciones</div>
+              <div style="font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(32px,3.6vw,46px); color:#fff; letter-spacing:-.03em; line-height:1;">04</div>
+            </div>
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:22px 0; border-bottom:1px solid #1c1c1c;">
+              <div style="font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.55); font-family:'Inter',sans-serif;">Formación</div>
+              <div style="text-align:right;">
+                <div style="font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(18px,1.8vw,22px); color:#fff; letter-spacing:-.01em; line-height:1.1;">Univ. de Palermo</div>
+                <div style="font-family:'Inter',sans-serif; font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.45); margin-top:6px;">Diseño Indumentaria</div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding:22px 0;">
+              <div style="font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.55); font-family:'Inter',sans-serif;">Base</div>
+              <div style="font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(18px,1.8vw,22px); color:#fff; letter-spacing:-.01em;">Buenos Aires</div>
+            </div>
+          </div>
+
+          <!-- Cita editorial grande y legible -->
+          <div style="margin-top:48px; position:relative; padding:8px 0 0 0;">
+            <div style="font-family:'Playfair Display',serif; font-style:italic; font-weight:400; font-size:clamp(88px,9vw,128px); line-height:.6; color:var(--accent); transition:color .9s cubic-bezier(.4,0,.2,1); margin-bottom:-4px; opacity:.8;">"</div>
+            <blockquote style="font-family:'Playfair Display',serif; font-style:italic; font-weight:400; font-size:clamp(22px,2.4vw,30px); line-height:1.35; letter-spacing:-.015em; color:#fff;">
+              Entiendo la indumentaria como una <span class="ac" style="font-style:italic;">forma de expresión.</span>
+            </blockquote>
+            <div style="margin-top:20px; display:flex; align-items:center; gap:12px;">
+              <div class="aline"></div>
+              <span style="font-size:11px; letter-spacing:.24em; text-transform:uppercase; color:rgba(255,255,255,.5); font-family:'Inter',sans-serif;">Martina Bouzada</span>
             </div>
           </div>
         </div>
@@ -912,46 +1298,69 @@
         <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
           <span class="index-num">008</span><span class="label">Producciones</span>
         </div>
-        <div class="prod-headline">PRODUC<br /><span class="ac">CIONES</span></div>
+        <div class="prod-headline">PRODUC<span class="ac">CIONES</span></div>
       </div>
-      <div class="masonry reveal">
-        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/54df7895-82da-4952-9248-054c07164e96_wmisic" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
-        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00046_j4pl2c" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
-        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00077_sjjboi" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
-        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00086_metrpg" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
-        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00118_rxdsqk" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
-        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC06895_ca3ehz" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
-        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC06968_jpl9mh" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
-        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC07022_g96myn" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
-        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC07033_stc3vl" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
-        <div class="masonry-item" style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09901_dsdbnm" loading="lazy" alt="" style="width:100%; display:block; object-fit:cover;" /></div>
+      <!-- Top group: 6 destacadas en grilla 3×2 con orden exacto -->
+      <div class="reveal prod-top-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:8px;">
+        <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09901_dsdbnm" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00118_rxdsqk" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00086_metrpg" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00077_sjjboi" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00046_j4pl2c" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/54df7895-82da-4952-9248-054c07164e96_wmisic" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
+      </div>
+      <!-- Bottom group: 4 restantes en una sola fila, sin recortar -->
+      <div class="reveal prod-bottom-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px;">
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC06895_ca3ehz" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC06968_jpl9mh" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC07022_g96myn" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC07033_stc3vl" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER — P8: new footer -->
-  <footer class="section-rule section-pad" style="padding-top:96px; padding-bottom:80px;">
+  <!-- FOOTER -->
+  <footer class="section-rule section-pad" style="padding-top:56px; padding-bottom:40px;">
     <div style="max-width:1400px; margin:0 auto;">
 
-      <div class="reveal" style="margin-bottom:64px; overflow:hidden;">
-        <h2 style="font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(48px,9vw,130px); line-height:.86; letter-spacing:-.05em; color:rgba(255,255,255,.06);">
+      <!-- Ghost watermark -->
+      <div class="reveal" style="margin-bottom:32px; overflow:hidden;">
+        <h2 style="font-family:'Playfair Display',serif; font-weight:900; font-size:clamp(36px,7vw,96px); line-height:.86; letter-spacing:-.05em; color:rgba(255,255,255,.07); user-select:none;">
           MARTINA<br/>BOUZADA
         </h2>
       </div>
 
-      <div style="width:100%; height:1px; background:linear-gradient(to right, var(--accent), transparent); opacity:.3; margin-bottom:48px; transition:background .9s cubic-bezier(.4,0,.2,1);"></div>
+      <!-- Accent rule -->
+      <div style="width:100%; height:1px; background:linear-gradient(to right, var(--accent), transparent); opacity:.55; margin-bottom:32px; transition:background .9s cubic-bezier(.4,0,.2,1);"></div>
 
-      <div class="reveal footer-row" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:32px;">
-        <div>
-          <p style="font-family:'Playfair Display',serif; font-style:italic; font-weight:400; font-size:clamp(13px,1.2vw,16px); color:rgba(255,255,255,.3); letter-spacing:-.01em; margin-bottom:12px;">
+      <!-- Main row -->
+      <div class="reveal footer-row" style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:40px;">
+
+        <!-- Left: identity block -->
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <p style="font-family:'Playfair Display',serif; font-weight:700; font-size:clamp(17px,1.5vw,22px); letter-spacing:-.03em; color:rgba(255,255,255,.88); margin:0;">
+            Martina Bouzada
+          </p>
+          <p style="font-family:'Playfair Display',serif; font-style:italic; font-weight:400; font-size:clamp(13px,1.1vw,15px); color:rgba(255,255,255,.48); letter-spacing:-.01em; margin:0 0 10px;">
             Diseño de Indumentaria y Textil
           </p>
-          <p class="label" style="color:#2a2a2a;">Universidad de Palermo — Buenos Aires, Argentina</p>
+          <p style="font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.35); margin:0; line-height:1.7;">
+            Universidad de Palermo<br/>Buenos Aires, Argentina
+          </p>
         </div>
-        <div style="text-align:right;">
-          <p class="label" style="color:#1e1e1e; margin-bottom:6px;">Portfolio académico</p>
-          <p style="font-family:'Playfair Display',serif; font-weight:600; font-size:14px; letter-spacing:-.02em; color:rgba(255,255,255,.15);">2025 — 2026</p>
+
+        <!-- Right: meta block -->
+        <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+          <p style="font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.38); margin:0;">Portfolio académico</p>
+          <p style="font-family:'Playfair Display',serif; font-weight:600; font-size:clamp(15px,1.3vw,18px); letter-spacing:-.02em; color:rgba(255,255,255,.60); margin:0;">2026</p>
         </div>
+
+      </div>
+
+      <!-- Bottom rule + caption -->
+      <div style="margin-top:32px; padding-top:20px; border-top:1px solid #181818; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+        <p style="font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.22); margin:0;">Todos los derechos reservados</p>
+        <p style="font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.22); margin:0;">© 2026</p>
       </div>
 
     </div>
@@ -965,6 +1374,42 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('stuck', window.scrollY > 60);
     }, { passive: true });
+
+    /* ─── HAMBURGER MENU ─── */
+    (function setupHamburger(){
+      const toggle = document.getElementById('nav-toggle');
+      const links  = document.getElementById('nav-links');
+      if (!toggle || !links) return;
+      function close(){
+        toggle.classList.remove('open');
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+        toggle.setAttribute('aria-label','Abrir menú');
+        document.body.classList.remove('nav-open');
+      }
+      function open(){
+        toggle.classList.add('open');
+        links.classList.add('open');
+        toggle.setAttribute('aria-expanded','true');
+        toggle.setAttribute('aria-label','Cerrar menú');
+        document.body.classList.add('nav-open');
+      }
+      toggle.addEventListener('click', () => {
+        if (toggle.classList.contains('open')) close(); else open();
+      });
+      // Close on link click
+      links.querySelectorAll('.nav-link').forEach(a => {
+        a.addEventListener('click', close);
+      });
+      // Close on escape
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && toggle.classList.contains('open')) close();
+      });
+      // Close on viewport widen
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 760 && toggle.classList.contains('open')) close();
+      });
+    })();
 
     const DEFAULT_ACCENT = '#c9c0b8';
     function setAccent(c) { document.documentElement.style.setProperty('--accent', c); }
@@ -993,7 +1438,7 @@
           revealObs.unobserve(e.target);
         }
       });
-    }, { threshold: 0.06, rootMargin: '0px 0px -32px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px 140px 0px' });
     document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
     function handleNavResize() {
@@ -1057,6 +1502,43 @@
     }, { threshold: 0.1 });
     capsuleSections.forEach(s => counterObs.observe(s.el));
 
+    // Track first user interaction (required by browsers to unmute audio)
+    let userHasInteracted = false;
+    const markInteracted = () => {
+      if (userHasInteracted) return;
+      userHasInteracted = true;
+      // Try to auto-unmute whichever video is currently visible
+      requestAnimationFrame(() => {
+        const vh = window.innerHeight;
+        const visible = Array.from(document.querySelectorAll('video[data-src]')).find(v => {
+          const r = v.getBoundingClientRect();
+          return r.top < vh * 0.7 && r.bottom > vh * 0.3;
+        });
+        if (visible) autoUnmute(visible);
+      });
+    };
+    ['click', 'touchstart', 'keydown'].forEach(ev =>
+      window.addEventListener(ev, markInteracted, { once: false, passive: true })
+    );
+
+    function autoUnmute(v) {
+      if (!userHasInteracted) return;
+      // mute every other video first
+      document.querySelectorAll('video[data-src]').forEach(other => {
+        if (other !== v) {
+          other.muted = true;
+          other.parentElement?.querySelector('.sound-toggle')?.classList.remove('unmuted');
+        }
+      });
+      v.muted = false;
+      const btn = v.parentElement?.querySelector('.sound-toggle');
+      if (btn) {
+        btn.classList.add('unmuted');
+        btn.setAttribute('aria-label', 'Silenciar');
+      }
+      v.play().catch(() => {});
+    }
+
     const videoObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         const v = e.target;
@@ -1066,12 +1548,214 @@
             v.load();
           }
           v.play().catch(() => {});
+          // Auto-unmute on entering view, but only after first user interaction
+          autoUnmute(v);
         } else {
           v.pause();
+          // Mute video when scrolled out so it doesn't keep playing audio in bg
+          v.muted = true;
+          v.parentElement?.querySelector('.sound-toggle')?.classList.remove('unmuted');
         }
       });
     }, { threshold: 0.25 });
     document.querySelectorAll('video[data-src]').forEach(v => videoObs.observe(v));
+
+    /* ─── SOUND TOGGLE ON VIDEOS ───
+       Browsers require muted for autoplay; user clicks unmute manually.
+       Only one video plays audio at a time. */
+    (function setupSoundToggles(){
+      const ICON_OFF = '<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.17v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>';
+      const ICON_ON  = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>';
+
+      const videos = document.querySelectorAll('.video-wrap video');
+      videos.forEach(v => {
+        const wrap = v.parentElement;
+        const btn = document.createElement('button');
+        btn.className = 'sound-toggle';
+        btn.type = 'button';
+        btn.setAttribute('aria-label', 'Activar sonido');
+        btn.innerHTML = `<span class="icon-off">${ICON_OFF}</span><span class="icon-on">${ICON_ON}</span>`;
+        wrap.appendChild(btn);
+
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const goingToUnmute = v.muted;
+          if (goingToUnmute) {
+            // mute every other video first
+            videos.forEach(other => {
+              if (other !== v) {
+                other.muted = true;
+                other.parentElement.querySelector('.sound-toggle')?.classList.remove('unmuted');
+              }
+            });
+          }
+          v.muted = !v.muted;
+          btn.classList.toggle('unmuted', !v.muted);
+          btn.setAttribute('aria-label', v.muted ? 'Activar sonido' : 'Silenciar');
+          if (!v.muted) v.play().catch(() => {});
+        });
+      });
+    })();
+
+    /* ─── ENHANCED REVEAL ANIMATIONS ─── */
+    (function enhancedReveals(){
+      const isMobile = () => window.innerWidth <= 600;
+
+      // 1) Auto-classify existing .reveal elements into variants based on content heuristics.
+      document.querySelectorAll('.reveal').forEach(el => {
+        // Skip if already given a variant
+        if (el.classList.contains('reveal-left') || el.classList.contains('reveal-right') ||
+            el.classList.contains('reveal-scale') || el.classList.contains('reveal-fade')) return;
+
+        const hasConcept = el.querySelector('p.concept, .sobre-text');
+        const imgs = el.querySelectorAll('img');
+        const hasText = el.querySelector('p, h1, h2, h3');
+        const onlyImage = imgs.length === 1 && !hasText;
+        const isBigImage = imgs.length === 1 && imgs[0].closest('div')?.style?.maxHeight;
+
+        if (hasConcept) {
+          el.classList.add('reveal-left');
+        } else if (onlyImage || isBigImage) {
+          el.classList.add('reveal-right');
+        }
+      });
+
+      // 2) Extend the reveal observer to cover new variants.
+      const variantObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            variantObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0, rootMargin: '0px 0px 140px 0px' });
+      document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale, .reveal-fade')
+        .forEach(el => variantObs.observe(el));
+
+      // 3) Grid stagger
+      const staggered = new WeakSet();
+      const staggerObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting || staggered.has(e.target)) return;
+          staggered.add(e.target);
+          const kids = Array.from(e.target.children);
+          kids.forEach((kid, i) => {
+            kid.style.transitionDelay = (i * 140) + 'ms';
+            // double rAF ensures transition applies after delay set
+            requestAnimationFrame(() => requestAnimationFrame(() => {
+              kid.classList.add('stagger-visible');
+            }));
+          });
+          staggerObs.unobserve(e.target);
+        });
+      }, { threshold: 0, rootMargin: '0px 0px 140px 0px' });
+      document.querySelectorAll('.g2, .g3, .g4, .g4-editorial, .masonry, .prod-masonry, .h-scroll, .prod-top-grid, .prod-bottom-grid')
+        .forEach(el => staggerObs.observe(el));
+
+      // 4) Editorial bleed — con redes de seguridad
+      const bleedEls = Array.from(document.querySelectorAll('.editorial-bleed'));
+      const showBleed = (el) => {
+        if (!el.classList.contains('bleed-visible')) {
+          el.classList.add('bleed-visible');
+        }
+      };
+      const bleedObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            showBleed(e.target);
+            bleedObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0, rootMargin: '200px 0px 200px 0px' });
+
+      // Red de seguridad #1: al cargar, si un .editorial-bleed ya quedó
+      // por encima del viewport (scroll restaurado o anchor link), mostrarlo
+      // inmediatamente sin animación de entrada.
+      const vh0 = window.innerHeight;
+      bleedEls.forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < 0) {
+          // Ya pasó: mostrar sin animación
+          showBleed(el);
+        } else {
+          bleedObs.observe(el);
+        }
+      });
+
+      // Red de seguridad #2: si el scroll es muy rápido y el IO se pierde
+      // un elemento (callback se ejecuta cuando ya salió del viewport),
+      // un check periódico atrapa cualquiera que quedó atrás sin revelar.
+      let bleedSweepTicking = false;
+      const sweepBleed = () => {
+        bleedSweepTicking = false;
+        bleedEls.forEach(el => {
+          if (el.classList.contains('bleed-visible')) return;
+          const r = el.getBoundingClientRect();
+          // Si está dentro del viewport (con margen) o ya pasó, mostrarlo
+          if (r.top < window.innerHeight + 100 && r.bottom > -100) {
+            showBleed(el);
+            bleedObs.unobserve(el);
+          } else if (r.bottom < -100) {
+            // Ya pasó completamente — mostrar de inmediato
+            showBleed(el);
+            bleedObs.unobserve(el);
+          }
+        });
+      };
+      window.addEventListener('scroll', () => {
+        if (!bleedSweepTicking) {
+          bleedSweepTicking = true;
+          requestAnimationFrame(sweepBleed);
+        }
+      }, { passive: true });
+
+      // 5) Aline expand
+      const alineObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('line-visible');
+            alineObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0, rootMargin: '0px 0px 100px 0px' });
+      document.querySelectorAll('.aline').forEach(el => alineObs.observe(el));
+
+      // 6) Parallax on opener backgrounds (capsule openers only, not hero)
+      const capsuleOpeners = Array.from(document.querySelectorAll(
+        '#div-section .opener, #dv-section .opener, #ecos-section .opener, #prince-section .opener'
+      ));
+      let pxTicking = false;
+      function updateParallax() {
+        if (isMobile()) {
+          capsuleOpeners.forEach(op => {
+            const bg = op.querySelector('.opener-bg');
+            if (bg) bg.style.transform = '';
+          });
+          pxTicking = false;
+          return;
+        }
+        const vh = window.innerHeight;
+        capsuleOpeners.forEach(op => {
+          const rect = op.getBoundingClientRect();
+          if (rect.bottom < 0 || rect.top > vh) return;
+          const bg = op.querySelector('.opener-bg');
+          if (!bg) return;
+          // offset = how far the opener has scrolled past the top of the viewport
+          const offset = -rect.top;
+          bg.style.transform = 'translateY(' + (offset * 0.4) + 'px) scale(1.05)';
+        });
+        pxTicking = false;
+      }
+      function onScroll() {
+        if (!pxTicking) {
+          requestAnimationFrame(updateParallax);
+          pxTicking = true;
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      updateParallax();
+    })();
   </script>
 
 </body>
