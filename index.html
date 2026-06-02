@@ -28,7 +28,7 @@
   <style>
     :root { --accent: #c9c0b8; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; overflow-x: hidden; }
+    html { overflow-x: hidden; }
     body {
       background: #0a0a0a; color: #fff;
       font-family: 'Inter', sans-serif; font-weight: 300;
@@ -40,8 +40,8 @@
     .ac-border { border-color: var(--accent); transition: border-color 0.9s cubic-bezier(.4,0,.2,1); }
     .ac-bg { background: var(--accent); transition: background 0.9s cubic-bezier(.4,0,.2,1); }
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(80px) scale(0.97); filter: blur(6px); }
-      to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+      from { opacity: 0; transform: translateY(80px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
     .anim-1 { animation: fadeUp 1.6s cubic-bezier(0.16,1,0.3,1) 0.15s both; }
     .anim-2 { animation: fadeUp 1.6s cubic-bezier(0.16,1,0.3,1) 0.45s both; }
@@ -59,17 +59,15 @@
     #dv-section .opener-ghost { animation: floatGhost 9s ease-in-out infinite, ghostHero 6s ease-in-out infinite; }
     .reveal {
       opacity: 0;
-      transform: translateY(90px) scale(0.97);
-      filter: blur(4px);
+      transform: translateY(130px) scale(0.95);
       transition:
-        opacity 1.6s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 1.6s cubic-bezier(0.16, 1, 0.3, 1),
-        filter 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+        opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .reveal.d1 { transition-delay: 0.18s; }
-    .reveal.d2 { transition-delay: 0.36s; }
-    .reveal.d3 { transition-delay: 0.54s; }
-    .reveal.visible { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    .reveal.d1 { transition-delay: 0.1s; }
+    .reveal.d2 { transition-delay: 0.2s; }
+    .reveal.d3 { transition-delay: 0.3s; }
+    .reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
     #nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
@@ -133,18 +131,30 @@
     }
     .hero-overlay {
       position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.04) 0%,
-        rgba(0,0,0,0.08) 28%,
-        rgba(0,0,0,0.50) 60%,
-        rgba(0,0,0,0.84) 100%
-      );
+      background:
+        /* left column anchor — gives the name a clean dark stage */
+        linear-gradient(to right,
+          rgba(10,9,8,0.62) 0%,
+          rgba(10,9,8,0.30) 30%,
+          rgba(10,9,8,0.06) 56%,
+          rgba(10,9,8,0) 74%),
+        /* bottom anchor */
+        linear-gradient(to bottom,
+          rgba(10,9,8,0) 30%,
+          rgba(10,9,8,0.30) 66%,
+          rgba(10,9,8,0.80) 100%),
+        /* subtle warm unify so the greige accent stops clashing with the cool image */
+        linear-gradient(to bottom, rgba(20,15,12,0.08), rgba(12,10,9,0.14));
+    }
+    /* cinematic vignette */
+    .hero-vignette {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(120% 90% at 62% 38%, rgba(0,0,0,0) 50%, rgba(8,7,6,0.34) 100%);
     }
     .hero-top-shadow {
       position: absolute; top: 0; left: 0; right: 0;
-      height: 220px; z-index: 2;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%);
+      height: 240px; z-index: 2;
+      background: linear-gradient(to bottom, rgba(8,7,6,0.55) 0%, rgba(8,7,6,0.14) 55%, rgba(8,7,6,0) 100%);
       pointer-events: none;
     }
     .hero-inner {
@@ -166,13 +176,28 @@
       letter-spacing: .22em; text-transform: uppercase;
       color: rgba(255,255,255,0.22); font-weight: 300;
     }
+    .hero-kicker {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 18px;
+    }
+    .hero-kicker-line {
+      width: 44px; height: 1px; background: var(--accent);
+      transition: background .9s cubic-bezier(.4,0,.2,1);
+    }
+    .hero-kicker-label {
+      font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400;
+      letter-spacing: .28em; text-transform: uppercase;
+      color: var(--accent);
+      transition: color .9s cubic-bezier(.4,0,.2,1);
+    }
     .hero-discipline {
       font-family: 'Playfair Display', serif;
       font-style: italic; font-weight: 400;
       font-size: clamp(22px, 3vw, 46px);
-      color: rgba(255,255,255,0.55);
+      color: rgba(245,240,236,0.82);
       letter-spacing: -0.01em; line-height: 1;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 30px rgba(0,0,0,0.45);
     }
     .hero-name-xl {
       font-family: 'Playfair Display', serif;
@@ -180,7 +205,8 @@
       font-size: clamp(52px, 11vw, 160px);
       line-height: 0.87;
       letter-spacing: -0.045em;
-      color: #fff;
+      color: #f6f3f0;
+      text-shadow: 0 4px 60px rgba(0,0,0,0.40);
     }
     .hero-scroll-indicator {
       position: absolute; right: 48px; bottom: 52px; z-index: 3;
@@ -261,12 +287,10 @@
     /* Producciones grids stagger prep */
     .prod-top-grid > *, .prod-bottom-grid > * {
       opacity: 0;
-      transform: translateY(70px) scale(0.94);
-      filter: blur(3px);
+      transform: translateY(110px) scale(0.9);
       transition:
-        opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 1.5s cubic-bezier(0.16, 1, 0.3, 1),
-        filter 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+        opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
       cursor: pointer;
     }
     .prod-top-grid > * img, .prod-bottom-grid > * img {
@@ -291,6 +315,8 @@
     .g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
     .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
     .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+    .row5 { grid-template-columns: repeat(5,1fr) !important; }
+    @media (max-width: 600px) { .row5 { grid-template-columns: repeat(2,1fr) !important; } }
     @media (max-width: 900px) { .g4 { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 700px) { .g3 { grid-template-columns: repeat(2,1fr); } }
     .g4-editorial { display: grid; grid-template-columns: repeat(4,1fr); gap: 6px; }
@@ -326,7 +352,7 @@
       font-family: 'Playfair Display', serif;
       font-weight: 900;
       font-style: italic;
-      font-size: clamp(48px, 8vw, 112px);
+      font-size: clamp(42px, 6.4vw, 90px);
       line-height: .88;
       letter-spacing: -.04em;
       color: rgba(255,255,255,.45);
@@ -334,6 +360,7 @@
       pointer-events: none;
       white-space: nowrap;
       overflow: hidden;
+      padding-bottom: 0.2em;
     }
     /* P7A — capsule transition */
     .capsule-transition {
@@ -344,15 +371,15 @@
       opacity: 0.4;
     }
     @keyframes openerReveal {
-      from { transform: scale(1.22); opacity: 0.35; }
-      to   { transform: scale(1.0);  opacity: 1; }
+      from { opacity: 0.35; }
+      to   { opacity: 1; }
     }
-    .opener-bg.animate {
-      animation: openerReveal 3.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    .opener-bg {
+      /* portada fija: sin zoom ni transform que se mueva con el scroll */
     }
     #div-section .opener {
       opacity: 0;
-      transition: opacity 3.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
     }
     #div-section .opener.visible {
       opacity: 1;
@@ -575,50 +602,42 @@
     /* ─── REVEAL VARIANTS ─── */
     .reveal-left, .reveal-right, .reveal-scale, .reveal-fade {
       opacity: 0;
-      filter: blur(4px);
       transition:
-        opacity 1.9s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 1.9s cubic-bezier(0.16, 1, 0.3, 1),
-        filter 1.6s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform, filter;
+        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .reveal-left  { transform: translateX(-110px) translateY(20px); }
-    .reveal-right { transform: translateX(110px) translateY(20px); }
-    .reveal-scale { transform: scale(0.88); }
-    .reveal-fade  { transform: translateY(60px); }
+    .reveal-left  { transform: translateX(-150px) translateY(28px); }
+    .reveal-right { transform: translateX(150px) translateY(28px); }
+    .reveal-scale { transform: scale(0.82); }
+    .reveal-fade  { transform: translateY(90px); }
     .reveal-left.visible,
     .reveal-right.visible,
     .reveal-scale.visible,
     .reveal-fade.visible {
       opacity: 1;
-      filter: blur(0);
       transform: translateX(0) translateY(0) scale(1);
     }
 
     /* ─── GRID STAGGER ─── */
     .g2 > *, .g3 > *, .g4 > *, .g4-editorial > *, .masonry-item, .prod-masonry-item {
       opacity: 0;
-      transform: translateY(70px) scale(0.94);
-      filter: blur(3px);
+      transform: translateY(110px) scale(0.9);
       transition:
-        opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 1.5s cubic-bezier(0.16, 1, 0.3, 1),
-        filter 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+        opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .stagger-visible {
       opacity: 1 !important;
       transform: translateY(0) scale(1) !important;
-      filter: blur(0) !important;
     }
 
     /* ─── EDITORIAL BLEED ANIMATION ─── */
     .editorial-bleed {
       clip-path: inset(0 100% 0 0);
-      transform: translateX(-90px);
+      transform: translateX(-130px);
       transition:
-        clip-path 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
-        transform 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
-      will-change: clip-path, transform;
+        clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s,
+        transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
     }
     .editorial-bleed.bleed-visible {
       clip-path: inset(0 0% 0 0);
@@ -629,7 +648,7 @@
     .aline {
       width: 0 !important;
       transition:
-        width 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s,
+        width 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
         background 0.9s cubic-bezier(.4, 0, .2, 1);
     }
     .aline.line-visible { width: 72px !important; }
@@ -648,8 +667,8 @@
       transform: scale(1.08);
     }
 
-    /* ─── OPENER PARALLAX PREP ─── */
-    .opener-bg { will-change: transform; }
+    /* ─── OPENER PREP ─── */
+    .opener-bg { }
 
     /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce) {
@@ -677,18 +696,20 @@
       <a href="#ecos-section"   class="nav-link">DIII</a>
       <a href="#prince-section" class="nav-link">Taller III</a>
       <a href="#sobre" class="nav-link">Sobre mí</a>
+      <a href="#reconocimientos" class="nav-link">Diplomas</a>
     </div>
   </nav>
 
   <!-- HERO -->
   <section id="hero">
     <img
-      src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779023497/DSC07722_gpkfsa"
+      src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1600/v1780154732/imagen-portada_jv371w.webp"
       alt="Martina Bouzada — Producción editorial"
       class="hero-bg"
       fetchpriority="high"
     />
     <div class="hero-overlay"></div>
+    <div class="hero-vignette"></div>
     <div class="hero-top-shadow"></div>
 
     <div class="hero-inner">
@@ -700,8 +721,12 @@
       <div style="flex:1;"></div>
 
       <div style="padding-bottom:48px;">
+        <div class="hero-kicker anim-2">
+          <span class="hero-kicker-line"></span>
+          <span class="hero-kicker-label">Portfolio</span>
+        </div>
         <p class="hero-discipline anim-2">Diseño de Indumentaria</p>
-        <h1 class="hero-name-xl anim-3">MARTINA<br /><span class="ac">BOUZADA</span></h1>
+            <h1 class="hero-name-xl anim-3">MARTINA<br /><span class="ac" style="color:#b8afc4;">BOUZADA</span></h1>
       </div>
     </div>
 
@@ -736,7 +761,7 @@
 
     <!-- 1. Concept (texto conceptual) + Moodboard -->
     <div class="section-pad" style="padding-top:80px; padding-bottom:64px; max-width:1400px; margin:0 auto;">
-      <div class="editorial-bleed" style="margin-left:0; margin-bottom:-32px; position:relative; z-index:0; color:rgba(255,255,255,.55);">Fractura</div>
+      <div class="editorial-bleed" style="margin-left:0; margin-bottom:-32px; position:relative; z-index:0; color:rgba(255,255,255,.55); font-size:clamp(32px,4.6vw,66px);">Fractura en la mente</div>
       <div class="editorial-grid">
         <div class="reveal" style="padding-top:40px;">
           <div class="aline" style="margin-bottom:28px;"></div>
@@ -752,22 +777,26 @@
     </div>
 
     <!-- 2. Texturas (intro + serie) -->
-    <div class="section-pad" style="padding-bottom:40px; max-width:1400px; margin:0 auto;">
+    <div class="section-pad" style="padding-bottom:10px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:12px;">Texturas</div>
         <p class="concept" style="margin-bottom:24px;">A partir de este concepto, desarrollé una serie de texturas.</p>
-        <div class="g2">
-          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/IMG_5991_co0ty3" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/Photoroom_20260511_154113_ifbk8c" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        <div class="g2" style="align-items:start;">
+          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/IMG_5991_co0ty3" loading="lazy" alt="" style="width:70%; height:70%; object-fit:contain; display:block; margin:22px auto 0;" /></div>
+          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a; transform:translateY(-24px);"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/Photoroom_20260511_154113_ifbk8c" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
         </div>
       </div>
     </div>
 
-    <!-- 3. Prototipo Rector (figurín pendiente) -->
+    <!-- 3. Diseños (figurines) -->
     <div class="section-pad" style="padding-bottom:40px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
-        <div class="label" style="margin-bottom:10px;">Prototipo Rector</div>
-        <div style="border:1px dashed rgba(255,255,255,.18); padding:48px 32px; text-align:center; color:rgba(255,255,255,.45); font-family:'Inter',sans-serif; font-size:13px; letter-spacing:.08em;">Figurín pendiente de enviar</div>
+        <div class="label" style="margin-bottom:10px;">Diseño rector</div>
+        <div class="g2" style="align-items:start;">
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a; width:66%; margin:46px auto 0;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780355396/IMG_8945_dqpfyk.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a; width:66%; margin:24px auto 0;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780149562/IMG_8944_of5dwn.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        </div>
+        </div>
       </div>
     </div>
 
@@ -803,7 +832,20 @@
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Diseños Speed con el rector</div>
-        <div style="border:1px dashed rgba(255,255,255,.18); padding:48px 32px; text-align:center; color:rgba(255,255,255,.45); font-family:'Inter',sans-serif; font-size:13px; letter-spacing:.08em;">Figurines pendientes de enviar</div>
+        <div style="display:flex; justify-content:center; align-items:flex-start; gap:60px; flex-wrap:nowrap; margin-top:28px;">
+          <div style="display:flex; gap:2px; flex:1;">
+            <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780353984/IMG_8939_lpfrfn.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+            <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780353984/IMG_8938_vqcudz.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          </div>
+          <div style="display:flex; gap:2px; flex:1;">
+            <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780353984/IMG_8941_hja7pp.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+            <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780353984/IMG_8940_aiulew.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          </div>
+          <div style="display:flex; gap:2px; flex:1;">
+            <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780355396/IMG_8945_dqpfyk.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+            <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780149562/IMG_8944_of5dwn.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -859,7 +901,7 @@
     <!-- 10. Fashion Film -->
     <div class="section-pad" style="padding-bottom:64px;">
       <div class="reveal">
-        <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.72); font-family:'Inter',sans-serif; margin-bottom:10px;">Fashion Film — Nominado</div>
+        <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.72); font-family:'Inter',sans-serif; margin-bottom:10px;">Fashion Film — Nominado a concurso</div>
         <div class="video-wrap">
           <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Copy_84473A31-69Ff-4D72-9B52-B6a8c9cef4e2_gbfpxu.mp4"></video>
         </div>
@@ -892,7 +934,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/DSC08769-Editar_js4rcq" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;" />
+      <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779022898/DSC08769-Editar_js4rcq.webp" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;" />
       <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">II</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
@@ -910,7 +952,7 @@
 
     <!-- 1. Texto concepto + Moodboard (editorial 2-col) -->
     <div class="section-pad" style="padding-top:80px; padding-bottom:64px; max-width:1400px; margin:0 auto;">
-      <div class="editorial-bleed" style="margin-left:0; margin-bottom:-32px; position:relative; z-index:0;">Devoción</div>
+      <div class="editorial-bleed" style="margin-left:0; margin-bottom:-32px; position:relative; z-index:0; font-size:clamp(32px,4.6vw,66px);">Burning My Love</div>
       <div class="editorial-grid">
         <div class="reveal" style="padding-top:40px;">
           <div class="aline" style="margin-bottom:28px;"></div>
@@ -923,11 +965,19 @@
       </div>
     </div>
 
-    <!-- 3. Diseños en conjunto (figurines pendientes) -->
+    <!-- 3. Diseños (figurines) -->
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
-        <div class="label" style="margin-bottom:10px;">Diseños en conjunto</div>
-        <div style="border:1px dashed rgba(255,255,255,.18); padding:48px 32px; text-align:center; color:rgba(255,255,255,.45); font-family:'Inter',sans-serif; font-size:13px; letter-spacing:.08em;">Figurines pendientes de enviar</div>
+        <div class="label" style="margin-bottom:10px;">Diseños</div>
+        <div class="g3" style="grid-template-columns:repeat(4,1fr); gap:32px;">
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780346180/IMG_8955_o3bay6.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780346180/IMG_8956_laha5b.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780346180/IMG_8958_fzvumj.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780346180/IMG_8957_zwzdne.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        </div>
+        <div class="reveal" style="margin-top:32px; display:flex; justify-content:center;">
+          <div style="width:100%; max-width:760px; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/v1780346181/IMG_6801_yjkfwg.webp" loading="lazy" alt="" style="width:100%; height:auto; display:block; object-fit:contain;" /></div>
+        </div>
       </div>
     </div>
 
@@ -963,7 +1013,7 @@
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/123_ukq6zp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC07740-Editar_befdef" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08212-Editar_gjqinx" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08405-Editar_m7xaqm" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1779022898/DSC08769-Editar_js4rcq.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08409-Editar_eonicq" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08414-Editar_iqlc2z" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08457-Editar_i6ae0x" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
@@ -1013,7 +1063,7 @@
 
     <!-- 1. Concept text -->
     <div class="section-pad" style="padding-top:80px; padding-bottom:48px; max-width:1400px; margin:0 auto;">
-      <div class="editorial-bleed bleed-neg" style="margin-left:-48px; margin-bottom:24px; position:relative; z-index:0;">Fantasía</div>
+      <div class="editorial-bleed bleed-neg" style="margin-left:0; margin-bottom:-32px; position:relative; z-index:0; font-size:clamp(32px,4.6vw,66px);">Ecos de fantasía</div>
       <div class="reveal" style="padding-top:40px; max-width:780px;">
         <div class="aline" style="margin-bottom:28px;"></div>
         <p class="concept" style="color:#a8a0a0; border-left: 1px solid rgba(196,160,160,.2); padding-left: 28px;">En este proyecto, inicié el proceso mediante la elaboración de tres paneles conceptuales, que luego se integran en un panel final donde se sintetiza y define el concepto general del proyecto.</p>
@@ -1036,7 +1086,7 @@
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Panel conceptual final</div>
-        <div style="max-width:680px;">
+        <div style="max-width:551px;">
           <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_1156_m6g04m" loading="lazy" alt="" style="width:100%; height:auto; display:block; outline: 1px solid rgba(196,160,160,.15); outline-offset: -1px;" />
         </div>
       </div>
@@ -1051,27 +1101,39 @@
       </div>
     </div>
 
-    <!-- 4. Fotos Texturas + Maniquí -->
-    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+    <!-- 4. Texturas -->
+    <div class="section-pad" style="padding-bottom:48px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
-        <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:14px;">Texturas</div>
-        <div style="display:grid; grid-template-columns:repeat(2,minmax(0,320px)); gap:8px; margin-bottom:32px;">
+        <div class="label" style="margin-bottom:14px;">Texturas</div>
+        <div style="display:grid; grid-template-columns:repeat(2,minmax(0,320px)); gap:8px;">
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/Photoroom_20240927_141128_rkujy5" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/Photoroom_20241002_122706_c3xp5m" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-        </div>
-        <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:14px;">Maniquí — Diseño rector</div>
-        <div class="g2" style="align-items:stretch;">
-          <div style="overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1779826184/Made_with_insMind-Photoroom_20260522_164946_1_qjuj8j.webp" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
-          <div style="overflow:hidden; display:flex; align-items:center; justify-content:center; padding:6% 8%;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1779826701/cropped_1_1_byefrv.png" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
         </div>
       </div>
     </div>
 
-    <!-- 5. Prototipos y colección (imagenes pendientes) -->
+    <!-- 5. Maniquí — Diseño rector -->
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
-        <div class="label" style="margin-bottom:10px;">Prototipos y colección</div>
-        <div style="border:1px dashed rgba(255,255,255,.18); padding:48px 32px; text-align:center; color:rgba(255,255,255,.45); font-family:'Inter',sans-serif; font-size:13px; letter-spacing:.08em;">Fotos de prototipos y colección pendientes de enviar</div>
+        <div class="label" style="margin-bottom:14px;">Maniquí — Diseño rector</div>
+        <div class="g2" style="align-items:stretch; height:clamp(360px,42vw,560px);">
+          <div style="overflow:hidden; display:flex; align-items:center; justify-content:center;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1780149471/Photoroom_20260528_162026_tjgo3y.webp" loading="lazy" alt="" style="max-width:82%; max-height:82%; width:auto; height:auto; object-fit:contain; display:block;" /></div>
+          <div style="overflow:hidden; display:flex; align-items:center; justify-content:center; padding:6% 8%;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1779826701/cropped_1_1_byefrv.png" loading="lazy" alt="" style="max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block;" /></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Prototipos y colección -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <div class="label" style="margin-bottom:12px;">Prototipos y colección</div>
+        <div class="aline" style="margin-bottom:20px;"></div>
+        <p class="concept" style="color:#a8a0a0; border-left: 1px solid rgba(196,160,160,.2); padding-left: 28px; margin-bottom:24px;">Este prototipo funcionó como punto de partida para el desarrollo del resto de la colección.</p>
+        <div class="g3">
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1780149471/IMG_8937_ob8nsr.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1780149471/IMG_8936_bhebar.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1780149471/Photoroom_20260528_162026_tjgo3y.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        </div>
       </div>
     </div>
 
@@ -1084,17 +1146,17 @@
       </div>
     </div>
 
-    <!-- 7. Fotos Producción (masonry) -->
+    <!-- 7. Fotos Producción -->
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
-        <div class="label" style="margin-bottom:10px;">Producción</div>
-        <div class="prod-masonry" style="columns: 3; column-gap: 8px;">
+        <div class="prod-masonry" style="columns:3; column-gap:8px;">
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07475_p8yzkt" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_4449_av2qh6" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07539_ajimhc" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07636_upazc5" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
-          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07671_u76spg" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
-          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_4449_av2qh6" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_4984_pg3qws" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07671_u76spg" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07722_gpkfsa" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_5163_bifmzt" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
         </div>
       </div>
@@ -1138,8 +1200,8 @@
     <!-- Concept + Panel Prince full width -->
     <div class="section-pad" style="padding-top:80px; padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <!-- P3B — editorial bleed -->
-      <div class="editorial-bleed bleed-neg" style="margin-left:-48px; margin-bottom:24px; position:relative; z-index:0;">Prince</div>
-      <div class="reveal" style="margin-bottom:40px;">
+      <div class="editorial-bleed bleed-neg" style="margin-left:0; margin-bottom:-32px; position:relative; z-index:0;">Prince</div>
+      <div class="reveal" style="padding-top:40px; margin-bottom:40px;">
         <div class="aline" style="margin-bottom:28px;"></div>
         <!-- P4 PRINCE — concept color #b8a878 -->
         <p class="concept" style="color:#b8a878;">Para este proyecto elegí a Prince, un artista que destaca por su audacia y originalidad, para luego desarrollar una cápsula inspirada en su universo estético y musical.</p>
@@ -1154,24 +1216,30 @@
     </div>
 
     <!-- Diseños -->
-    <div class="section-pad" style="padding-bottom:16px; max-width:1400px; margin:0 auto;">
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Diseños</div>
+        <div class="g3">
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780149830/IMG_8960_f3yl3b.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780149829/IMG_8959_cpyaqj.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780149828/Photoroom_20260528_220925_ebh8pd.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        </div>
       </div>
     </div>
-    <!-- Producción (8 images) — masonry layout: sin recortes ni huecos negros -->
+    <!-- Producción (9 images) — grid 3x3 alineado -->
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Producción</div>
-        <div class="prod-masonry" style="columns: 3; column-gap: 8px;">
-          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09525_nup0le" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
-          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09579_keqya6" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
-          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09615_bkl7dq" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
-          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09620_kmtyeq" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
-          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09639_qhdzae" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
-          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09725_syrxqa" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
-          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09817_eroccy" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
-          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09856_hejkz6" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+        <div class="g3" style="grid-template-columns:repeat(3,1fr); gap:8px;">
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09525_nup0le" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09579_keqya6" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09615_bkl7dq" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09620_kmtyeq" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09639_qhdzae" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09725_syrxqa" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09817_eroccy" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09856_hejkz6" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1779023557/DSC09531_c7unz0.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" /></div>
         </div>
       </div>
     </div>
@@ -1274,13 +1342,30 @@
   </section>
 
   <!-- ═══════════════════════════════════════
+       RECONOCIMIENTOS — diplomas
+  ═══════════════════════════════════════ -->
+  <section id="reconocimientos" class="section-rule section-pad" style="padding-top:96px; padding-bottom:112px;">
+    <div style="max-width:1400px; margin:0 auto;">
+      <div class="reveal" style="margin-bottom:48px; display:flex; align-items:baseline; gap:20px; overflow:hidden; border-bottom:1px solid #1c1c1c; padding-bottom:24px;">
+        <span class="index-num" style="font-size:13px; color:rgba(255,255,255,.45); letter-spacing:.22em;">008</span>
+        <div class="aline" style="position:relative; top:-4px;"></div>
+        <span style="font-size:clamp(28px,3.5vw,46px); letter-spacing:.04em; text-transform:uppercase; color:#fff; font-family:'Playfair Display',serif; font-weight:700;">Diplomas</span>
+      </div>
+      <div class="reveal d1" style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; max-width:1000px;">
+        <div style="overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/a_-90,f_auto,q_auto,w_1000/v1780148962/Photoroom_20260529_194855_diafqh.webp" loading="lazy" alt="Diploma" style="width:100%; height:auto; display:block;" /></div>
+        <div style="overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/a_-90,f_auto,q_auto,w_1000/v1780148961/Photoroom_20260529_194838_lrtika.webp" loading="lazy" alt="Diploma" style="width:100%; height:auto; display:block;" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════
        PRODUCCIONES — P6: index 008
   ═══════════════════════════════════════ -->
   <section id="producciones" class="section-rule section-pad" style="padding-top:96px; padding-bottom:120px;">
     <div style="max-width:1400px; margin:0 auto;">
       <div class="reveal" style="margin-bottom:56px;">
         <div style="display:flex; align-items:center; gap:14px; margin-bottom:20px;">
-          <span class="index-num">008</span><span class="label">Producciones</span>
+          <span class="index-num">009</span><span class="label">Producciones</span>
         </div>
         <div class="prod-headline">PRODUC<span class="ac">CIONES</span></div>
       </div>
@@ -1341,8 +1426,20 @@
 
       </div>
 
+      <!-- Contacto -->
+      <div style="margin-top:36px; padding-top:28px; border-top:1px solid #1c1c1c; display:flex; flex-wrap:wrap; gap:28px; align-items:center;">
+        <a href="mailto:martubms@gmail.com" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:rgba(255,255,255,.55); transition:color .25s;" onmouseover="this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.7; flex-shrink:0;"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+          <span style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; font-family:'Inter',sans-serif; font-weight:300;">martubms@gmail.com</span>
+        </a>
+        <a href="https://www.instagram.com/portfolio.martinabouzada" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:rgba(255,255,255,.55); transition:color .25s;" onmouseover="this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.7; flex-shrink:0;"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
+          <span style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; font-family:'Inter',sans-serif; font-weight:300;">portfolio.martinabouzada</span>
+        </a>
+      </div>
+
       <!-- Bottom rule + caption -->
-      <div style="margin-top:32px; padding-top:20px; border-top:1px solid #181818; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div style="margin-top:28px; padding-top:20px; border-top:1px solid #181818; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
         <p style="font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.22); margin:0;">Todos los derechos reservados</p>
         <p style="font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.22); margin:0;">© 2026</p>
       </div>
@@ -1396,7 +1493,10 @@
     })();
 
     const DEFAULT_ACCENT = '#c9c0b8';
-    function setAccent(c) { document.documentElement.style.setProperty('--accent', c); }
+    // Accent fijo: se elimina cualquier cambio de color dinámico al hacer scroll.
+    // El acento queda siempre en el color predeterminado.
+    function setAccent(c) { /* no-op: color fijo */ }
+    document.documentElement.style.setProperty('--accent', DEFAULT_ACCENT);
 
     const accentObs = new IntersectionObserver((entries) => {
       let best = null, bestRatio = 0;
@@ -1422,7 +1522,7 @@
           revealObs.unobserve(e.target);
         }
       });
-    }, { threshold: 0, rootMargin: '0px 0px 140px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
     function handleNavResize() {
@@ -1437,9 +1537,31 @@
     const heroFade = document.createElement('div');
     heroFade.style.cssText = 'position:absolute;inset:0;background:#0a0a0a;opacity:0;z-index:10;pointer-events:none;';
     heroEl.appendChild(heroFade);
+    // Cachear la altura del hero (solo cambia al redimensionar) — leer offsetHeight
+    // en cada scroll forzaba un reflow sincrónico y trababa la primera portada.
+    let heroH = heroEl.offsetHeight;
+    window.addEventListener('resize', () => { heroH = heroEl.offsetHeight; }, { passive: true });
+    let heroFadeTicking = false;
+    let lastHeroOpacity = -1;
+    function updateHeroFade() {
+      heroFadeTicking = false;
+      const pct = window.scrollY / heroH;
+      const o = Math.max(0, Math.min(1, (pct - 0.35) / 0.55));
+      if (o !== lastHeroOpacity) {
+        heroFade.style.opacity = o;
+        lastHeroOpacity = o;
+      }
+    }
     window.addEventListener('scroll', () => {
-      const pct = window.scrollY / heroEl.offsetHeight;
-      heroFade.style.opacity = Math.max(0, Math.min(1, (pct - 0.35) / 0.55));
+      // Solo trabaja mientras el hero sigue cerca del viewport
+      if (window.scrollY > heroH) {
+        if (lastHeroOpacity !== 1) { heroFade.style.opacity = 1; lastHeroOpacity = 1; }
+        return;
+      }
+      if (!heroFadeTicking) {
+        heroFadeTicking = true;
+        requestAnimationFrame(updateHeroFade);
+      }
     }, { passive: true });
 
     // DIV opener: aparece desde el negro
@@ -1452,20 +1574,9 @@
       }, { threshold: 0.05 }).observe(divOpener);
     }
 
-    // Opener zoom-out keyframe on scroll
-    const openerObs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const bg = e.target.querySelector('.opener-bg');
-          if (bg) {
-            bg.classList.remove('animate');
-            void bg.offsetWidth;
-            bg.classList.add('animate');
-          }
-        }
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.opener').forEach(op => openerObs.observe(op));
+    // (Eliminado) Zoom-out de portada: la animación openerReveal arrancaba la
+    // imagen al 122% y se re-disparaba al hacer scroll, dando la sensación de
+    // que la imagen se movía en vez de scrollear. Ahora las portadas son fijas.
 
 
     // P7C — capsule counter
@@ -1612,7 +1723,7 @@
             variantObs.unobserve(e.target);
           }
         });
-      }, { threshold: 0, rootMargin: '0px 0px 140px 0px' });
+      }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
       document.querySelectorAll('.reveal-left, .reveal-right, .reveal-scale, .reveal-fade')
         .forEach(el => variantObs.observe(el));
 
@@ -1624,7 +1735,7 @@
           staggered.add(e.target);
           const kids = Array.from(e.target.children);
           kids.forEach((kid, i) => {
-            kid.style.transitionDelay = (i * 140) + 'ms';
+            kid.style.transitionDelay = (i * 80) + 'ms';
             // double rAF ensures transition applies after delay set
             requestAnimationFrame(() => requestAnimationFrame(() => {
               kid.classList.add('stagger-visible');
@@ -1632,7 +1743,7 @@
           });
           staggerObs.unobserve(e.target);
         });
-      }, { threshold: 0, rootMargin: '0px 0px 140px 0px' });
+      }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
       document.querySelectorAll('.g2, .g3, .g4, .g4-editorial, .masonry, .prod-masonry, .h-scroll, .prod-top-grid, .prod-bottom-grid')
         .forEach(el => staggerObs.observe(el));
 
@@ -1701,44 +1812,28 @@
             alineObs.unobserve(e.target);
           }
         });
-      }, { threshold: 0, rootMargin: '0px 0px 100px 0px' });
+      }, { threshold: 0, rootMargin: '0px 0px -80px 0px' });
       document.querySelectorAll('.aline').forEach(el => alineObs.observe(el));
 
-      // 6) Parallax on opener backgrounds (capsule openers only, not hero)
-      const capsuleOpeners = Array.from(document.querySelectorAll(
-        '#div-section .opener, #dv-section .opener, #ecos-section .opener, #prince-section .opener'
-      ));
-      let pxTicking = false;
-      function updateParallax() {
-        if (isMobile()) {
-          capsuleOpeners.forEach(op => {
-            const bg = op.querySelector('.opener-bg');
-            if (bg) bg.style.transform = '';
-          });
-          pxTicking = false;
-          return;
-        }
-        const vh = window.innerHeight;
-        capsuleOpeners.forEach(op => {
-          const rect = op.getBoundingClientRect();
-          if (rect.bottom < 0 || rect.top > vh) return;
-          const bg = op.querySelector('.opener-bg');
-          if (!bg) return;
-          // offset = how far the opener has scrolled past the top of the viewport
-          const offset = -rect.top;
-          bg.style.transform = 'translateY(' + (offset * 0.4) + 'px) scale(1.05)';
+      // 6) Parallax desactivado — generaba jank/trabas de scroll al llegar a
+      // las portadas de cápsula (transform sobre imágenes a pantalla completa
+      // creaba capas GPU enormes). El zoom-out de entrada (openerReveal) se
+      // mantiene porque es una animación única, no ligada al scroll.
+    })();
+
+    /* ─── SCROLL SUAVE SOLO EN CLICS DEL MENÚ ─── */
+    (function smoothAnchors(){
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const id = a.getAttribute('href');
+          if (!id || id === '#') return;
+          const target = document.querySelector(id);
+          if (!target) return;
+          e.preventDefault();
+          const top = target.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({ top, behavior: 'smooth' });
         });
-        pxTicking = false;
-      }
-      function onScroll() {
-        if (!pxTicking) {
-          requestAnimationFrame(updateParallax);
-          pxTicking = true;
-        }
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
-      updateParallax();
+      });
     })();
   </script>
 
