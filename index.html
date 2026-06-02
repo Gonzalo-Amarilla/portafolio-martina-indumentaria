@@ -24,10 +24,23 @@
     @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300 500; font-display: swap; src: url('/fonts/inter-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
     @font-face { font-family: 'Inter'; font-style: normal; font-weight: 300 500; font-display: swap; src: url('/fonts/inter-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
   </style>
-  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root { --accent: #c9c0b8; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* Reset mínimo equivalente al "preflight" de Tailwind (se removió el CDN
+       porque no se usaba ninguna clase suya y su MutationObserver recompilaba
+       en vivo cada vez que las animaciones cambiaban una clase al scrollear,
+       trabando el scroll). Esto preserva el aspecto idéntico. */
+    html { line-height: 1.5; -webkit-text-size-adjust: 100%; }
+    h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+    a { color: inherit; text-decoration: inherit; }
+    img, svg, video, canvas { display: block; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    /* Desactiva el "scroll anchoring": evita que el navegador reajuste la
+       posición del scroll cuando el contenido de arriba cambia de tamaño.
+       Eso es lo que trababa el scroll al cambiar de dirección (subir). */
+    html, body { overflow-anchor: none; }
+    * { overflow-anchor: none; }
     html { overflow-x: hidden; }
     body {
       background: #0a0a0a; color: #fff;
@@ -1428,9 +1441,9 @@
 
       <!-- Contacto -->
       <div style="margin-top:36px; padding-top:28px; border-top:1px solid #1c1c1c; display:flex; flex-wrap:wrap; gap:28px; align-items:center;">
-        <a href="mailto:martubms@gmail.com" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:rgba(255,255,255,.55); transition:color .25s;" onmouseover="this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
+        <a href="/cdn-cgi/l/email-protection#84e9e5f6f0f1e6e9f7c4e3e9e5ede8aae7ebe9" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:rgba(255,255,255,.55); transition:color .25s;" onmouseover="this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.7; flex-shrink:0;"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
-          <span style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; font-family:'Inter',sans-serif; font-weight:300;">martubms@gmail.com</span>
+          <span style="font-size:11px; letter-spacing:.2em; text-transform:uppercase; font-family:'Inter',sans-serif; font-weight:300;"><span class="__cf_email__" data-cfemail="0865697a7c7d6a657b486f65696164266b6765">[email&#160;protected]</span></span>
         </a>
         <a href="https://www.instagram.com/portfolio.martinabouzada" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:rgba(255,255,255,.55); transition:color .25s;" onmouseover="this.style.color='rgba(255,255,255,.9)'" onmouseout="this.style.color='rgba(255,255,255,.55)'">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:.7; flex-shrink:0;"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
@@ -1450,10 +1463,100 @@
   <!-- P7C — capsule counter -->
   <div class="capsule-counter" id="capsule-counter">I / IV</div>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    /* ─────────────────────────────────────────────────────────────
+       SCROLL — SOLUCIÓN DEFINITIVA
+       Medidas combinadas para que el scroll funcione siempre, suba o baje,
+       sin importar las animaciones/interactividad de la página:
+
+       1) Se quitó el CDN de Tailwind (no se usaba ninguna de sus clases),
+          que corría EN VIVO con un MutationObserver recompilando el CSS
+          cada vez que una animación cambiaba una clase al scrollear.
+       2) overflow-anchor: none (CSS) → sin reajustes de posición al subir.
+       3) decoding:async en imágenes → la decodificación no bloquea frames.
+       4) MOTOR DE SCROLL PROPIO (abajo): toma la rueda del mouse/trackpad
+          y mueve la página por código con un suavizado por requestAnimation
+          Frame. Se "superpone" al scroll nativo y lo reemplaza, evitando
+          cualquier trabe del manejo nativo de la rueda al cambiar de
+          dirección. En táctil (celular/tablet) se respeta el scroll nativo.
+       ───────────────────────────────────────────────────────────── */
+    (function optimizeScrollPaint(){
+      // Decodificación asíncrona: que ninguna imagen frene un frame de scroll
+      // mientras se decodifica. (No cambia nada visual.)
+      document.querySelectorAll('img').forEach(img => {
+        try { img.decoding = 'async'; } catch (_) {}
+      });
+    })();
+
+    /* ─── MOTOR DE SCROLL PROPIO (rueda → scroll por código) ─── */
+    (function smoothScrollEngine(){
+      // Solo en dispositivos con puntero fino (mouse/trackpad). En táctil,
+      // el scroll nativo es bueno y secuestrarlo da problemas → se deja.
+      const coarse = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+      if (coarse) return;
+
+      let target  = window.scrollY;   // a dónde queremos llegar
+      let current = target;           // posición animada actual
+      let running = false;
+      const EASE = 0.2;               // suavizado (mayor = más directo)
+      const LINE = 40;                // px por "línea" si deltaMode = 1
+
+      const maxScroll = () => Math.max(0, (document.documentElement.scrollHeight || 0) - window.innerHeight);
+      const clamp = (v) => Math.max(0, Math.min(maxScroll(), v));
+
+      function tick(){
+        const d = target - current;
+        if (Math.abs(d) < 0.4){
+          current = target;
+          window.scrollTo(0, Math.round(current));
+          running = false;
+          return;
+        }
+        current += d * EASE;
+        window.scrollTo(0, Math.round(current));
+        requestAnimationFrame(tick);
+      }
+      function run(){ if (!running){ running = true; requestAnimationFrame(tick); } }
+
+      // Si el scroll cambió por otra vía (teclado, barra, anclas), resincronizar.
+      window.addEventListener('scroll', () => {
+        if (!running){ target = current = window.scrollY; }
+      }, { passive: true });
+      window.addEventListener('resize', () => { target = clamp(target); }, { passive: true });
+
+      window.addEventListener('wheel', (e) => {
+        if (e.ctrlKey) return;  // dejar el zoom del navegador
+
+        // Dejar pasar el scroll horizontal nativo dentro de carruseles
+        // (.h-scroll / .dr-row) o cualquier contenedor con overflow-x.
+        let node = e.target;
+        while (node && node.nodeType === 1 && node !== document.body){
+          if (node.scrollWidth > node.clientWidth + 2){
+            const ox = getComputedStyle(node).overflowX;
+            if (ox === 'auto' || ox === 'scroll') return;
+          }
+          node = node.parentElement;
+        }
+
+        e.preventDefault();
+        let dy = e.deltaY;
+        if (e.deltaMode === 1) dy *= LINE;                 // líneas
+        else if (e.deltaMode === 2) dy *= window.innerHeight; // páginas
+        target = clamp((running ? target : window.scrollY) + dy);
+        run();
+      }, { passive: false });
+    })();
+
     const nav = document.getElementById('nav');
+    let navStuck = false;
     window.addEventListener('scroll', () => {
-      nav.classList.toggle('stuck', window.scrollY > 60);
+      // Sólo tocar el DOM cuando el estado cambia (evita invalidaciones
+      // de estilo redundantes en cada evento de scroll).
+      const stuck = window.scrollY > 60;
+      if (stuck !== navStuck) {
+        navStuck = stuck;
+        nav.classList.toggle('stuck', stuck);
+      }
     }, { passive: true });
 
     /* ─── HAMBURGER MENU ─── */
