@@ -109,6 +109,8 @@
     }
     .nav-link:hover { color: #fff; }
     .nav-link:hover::after { width: 100%; }
+    /* idx + subtitle only show on mobile menu */
+    .nl-idx, .nl-sub { display: none; }
     .section-pad { padding-left: 48px; padding-right: 48px; }
     @media (max-width: 900px) { .section-pad { padding-left: 28px; padding-right: 28px; } }
     @media (max-width: 600px) {
@@ -218,8 +220,14 @@
       font-size: clamp(52px, 11vw, 160px);
       line-height: 0.87;
       letter-spacing: -0.045em;
-      color: #f6f3f0;
-      text-shadow: 0 4px 60px rgba(0,0,0,0.40);
+      /* Blanco off-white sólido */
+      color: #FFFFFF;
+      -webkit-text-fill-color: #FFFFFF;
+      /* Sombra que lo despega del fondo */
+      text-shadow:
+        0 2px 0 rgba(0,0,0,0.28),         /* canto inferior — bisel prensado */
+        0 5px 14px rgba(0,0,0,0.50),       /* profundidad */
+        0 20px 80px rgba(0,0,0,0.65);      /* halo difuso que lo despega del fondo */
     }
     .hero-scroll-indicator {
       position: absolute; right: 48px; bottom: 52px; z-index: 3;
@@ -297,6 +305,22 @@
     .masonry-item { break-inside: avoid; margin-bottom: 8px; }
     @media (max-width: 700px) { .masonry { columns: 2 140px; } }
     @media (max-width: 420px) { .masonry { columns: 1; } }
+    /* Grilla justificada DIII producción (filas de altura uniforme, sin espacios) */
+    .djgrid-row { display: flex; gap: 8px; margin-bottom: 8px; }
+    .djgrid-row:last-child { margin-bottom: 0; }
+    .dj-v { flex: 0.67; aspect-ratio: 0.67; overflow: hidden; background: #0a0a0a; }
+    .dj-h { flex: 1.65; aspect-ratio: 1.65; overflow: hidden; background: #0a0a0a; }
+    .djgrid-row img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @media (max-width: 600px) {
+      .djgrid-row { flex-wrap: wrap; }
+      .dj-v, .dj-h { flex: 1 1 calc(50% - 4px); aspect-ratio: auto; }
+      .djgrid-row img { height: auto; }
+      /* Diplomas → apilados y legibles en móvil */
+      .diploma-grid { flex-direction: column; align-items: center; gap: 12px !important; }
+      .diploma-grid > div { flex: none !important; width: 100%; aspect-ratio: auto !important; }
+      .diploma-grid > div:last-child { width: 74%; }
+      .diploma-grid > div > img { height: auto !important; }
+    }
     /* Producciones grids stagger prep */
     .prod-top-grid > *, .prod-bottom-grid > * {
       opacity: 0;
@@ -433,13 +457,17 @@
     .nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--accent); }
     @media (max-width: 760px) {
       .nav-toggle { display: flex; }
-      #nav { padding: 18px 20px; }
+      /* #nav's entrance transform (anim-3, fill:both) creates a containing block
+         that would trap the fixed full-screen menu. Neutralize it on mobile. */
+      #nav { animation: none !important; transform: none !important; padding: 18px 20px; }
       #nav.stuck { padding: 14px 20px; }
       .nav-links {
         position: fixed; inset: 0;
-        background: rgba(8,8,8,.97); backdrop-filter: blur(20px);
-        flex-direction: column !important; justify-content: center; align-items: center;
-        gap: 32px !important;
+        background: rgba(8,8,8,.975); backdrop-filter: blur(24px);
+        flex-direction: column !important; justify-content: center; align-items: stretch;
+        gap: 0 !important;
+        padding: max(92px, 13vh) 26px max(40px, 8vh);
+        overflow-y: auto; -webkit-overflow-scrolling: touch;
         opacity: 0; pointer-events: none;
         transform: translateY(-12px);
         transition: opacity .45s cubic-bezier(.4,0,.2,1), transform .55s cubic-bezier(.4,0,.2,1);
@@ -449,20 +477,45 @@
         opacity: 1; pointer-events: auto; transform: translateY(0);
       }
       .nav-links .nav-link {
-        font-size: 22px !important; letter-spacing: .14em !important;
-        font-family: 'Playfair Display', serif; font-weight: 400; font-style: italic;
-        text-transform: none; color: #fff;
-        opacity: 0; transform: translateY(20px);
-        transition: opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1);
+        display: grid; grid-template-columns: auto 1fr; column-gap: 16px;
+        padding: 15px 4px;
+        border-bottom: 1px solid rgba(255,255,255,.08);
+        font-family: 'Playfair Display', serif; font-weight: 400; font-style: normal;
+        text-transform: none; color: #fff; letter-spacing: 0 !important;
+        opacity: 0; transform: translateX(-14px);
+        transition: opacity .5s ease, transform .55s cubic-bezier(.16,1,.3,1);
       }
+      .nav-links .nav-link:last-child { border-bottom: none; }
+      .nav-links .nav-link.nav-sep { margin-top: 18px; }
+      .nav-links .nav-link .nl-idx {
+        display: block; grid-column: 1; grid-row: 1;
+        font-family: 'Inter', sans-serif; font-weight: 500;
+        font-size: 11px; letter-spacing: .18em;
+        color: var(--accent); opacity: .85;
+        min-width: 22px; padding-top: 10px;
+      }
+      .nav-links .nav-link .nl-label {
+        display: block; grid-column: 2; grid-row: 1;
+        font-size: 28px; line-height: 1.05; letter-spacing: -.01em;
+      }
+      .nav-links .nav-link .nl-sub {
+        display: block; grid-column: 2; grid-row: 2; margin-top: 3px;
+        font-family: 'Inter', sans-serif; font-style: normal; font-weight: 300;
+        font-size: 12.5px; letter-spacing: .02em; line-height: 1.3;
+        color: rgba(255,255,255,.5);
+      }
+      .nav-links .nav-link:active .nl-label,
+      .nav-links .nav-link:hover  .nl-label { color: var(--accent); }
       .nav-links.open .nav-link {
-        opacity: 1; transform: translateY(0);
+        opacity: 1; transform: translateX(0);
       }
-      .nav-links.open .nav-link:nth-child(1) { transition-delay: .12s; }
-      .nav-links.open .nav-link:nth-child(2) { transition-delay: .18s; }
-      .nav-links.open .nav-link:nth-child(3) { transition-delay: .24s; }
-      .nav-links.open .nav-link:nth-child(4) { transition-delay: .30s; }
-      .nav-links.open .nav-link:nth-child(5) { transition-delay: .36s; }
+      .nav-links.open .nav-link:nth-child(1) { transition-delay: .08s; }
+      .nav-links.open .nav-link:nth-child(2) { transition-delay: .13s; }
+      .nav-links.open .nav-link:nth-child(3) { transition-delay: .18s; }
+      .nav-links.open .nav-link:nth-child(4) { transition-delay: .23s; }
+      .nav-links.open .nav-link:nth-child(5) { transition-delay: .28s; }
+      .nav-links.open .nav-link:nth-child(6) { transition-delay: .33s; }
+      .nav-links.open .nav-link:nth-child(7) { transition-delay: .38s; }
       .nav-links .nav-link::after { display: none; }
       body.nav-open { overflow: hidden; }
     }
@@ -592,6 +645,21 @@
         color: rgba(255,255,255,.5) !important;
       }
 
+      /* Diseños Speed con el rector → apilar los 3 pares en vez de aplastarlos en una fila */
+      .speed-rector-row {
+        flex-direction: column !important;
+        gap: 10px !important;
+        align-items: stretch !important;
+      }
+      .speed-rector-row > div { width: 100%; flex: none !important; }
+
+      /* Maniquí — Diseño rector: quitar altura fija (aplastaba las imágenes al apilar) */
+      .g2[style*="42vw,560px"] { height: auto !important; }
+      .g2[style*="42vw,560px"] > div { height: clamp(300px,82vw,440px) !important; }
+
+      /* Textura con scale(1.1) se salía del borde al apilar en 1 columna */
+      .g2 > div[style*="scale(1.1)"] { transform: none !important; }
+
       /* Footer stack */
       .footer-row {
         flex-direction: column !important; align-items: flex-start !important;
@@ -704,12 +772,13 @@
       <span></span><span></span><span></span>
     </button>
     <div class="nav-links" id="nav-links">
-      <a href="#div-section"    class="nav-link">DIV</a>
-      <a href="#dv-section"     class="nav-link">DV</a>
-      <a href="#ecos-section"   class="nav-link">DIII</a>
-      <a href="#prince-section" class="nav-link">Taller III</a>
-      <a href="#sobre" class="nav-link">Sobre mí</a>
-      <a href="#reconocimientos" class="nav-link">Diplomas</a>
+      <a href="#div-section"    class="nav-link"><span class="nl-idx">01</span><span class="nl-label">DIV</span><span class="nl-sub">Fractura en la Mente</span></a>
+      <a href="#dv-section"     class="nav-link"><span class="nl-idx">02</span><span class="nl-label">DV</span><span class="nl-sub">I'm What's Burning My Love</span></a>
+      <a href="#ecos-section"   class="nav-link"><span class="nl-idx">03</span><span class="nl-label">DIII</span><span class="nl-sub">Ecos de Fantasía</span></a>
+      <a href="#prince-section" class="nav-link"><span class="nl-idx">04</span><span class="nl-label">Taller III</span><span class="nl-sub">Prince</span></a>
+      <a href="#sobre" class="nav-link nav-sep"><span class="nl-idx">05</span><span class="nl-label">Sobre mí</span></a>
+      <a href="#reconocimientos" class="nav-link"><span class="nl-idx">06</span><span class="nl-label">Diplomas</span></a>
+      <a href="#producciones" class="nav-link"><span class="nl-idx">07</span><span class="nl-label">Producciones</span></a>
     </div>
   </nav>
 
@@ -739,7 +808,7 @@
           <span class="hero-kicker-label">Portfolio</span>
         </div>
         <p class="hero-discipline anim-2">Diseño de Indumentaria</p>
-            <h1 class="hero-name-xl anim-3">MARTINA<br /><span class="ac" style="color:#b8afc4;">BOUZADA</span></h1>
+            <h1 class="hero-name-xl anim-3">MARTINA<br /><span class="ac" style="color:#D4CFC8; -webkit-text-fill-color:#D4CFC8; text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);">BOUZADA</span></h1>
       </div>
     </div>
 
@@ -796,7 +865,7 @@
         <p class="concept" style="margin-bottom:24px;">A partir de este concepto, desarrollé una serie de texturas.</p>
         <div class="g2" style="align-items:start;">
           <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/IMG_5991_co0ty3" loading="lazy" alt="" style="width:70%; height:70%; object-fit:contain; display:block; margin:22px auto 0;" /></div>
-          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a; transform:translateY(-24px);"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/Photoroom_20260511_154113_ifbk8c" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a; transform:translateY(-24px) scale(1.1); transform-origin:center;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/Photoroom_20260511_154113_ifbk8c" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
         </div>
       </div>
     </div>
@@ -845,7 +914,7 @@
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Diseños Speed con el rector</div>
-        <div style="display:flex; justify-content:center; align-items:flex-start; gap:60px; flex-wrap:nowrap; margin-top:28px;">
+        <div class="speed-rector-row" style="display:flex; justify-content:center; align-items:flex-start; gap:60px; flex-wrap:nowrap; margin-top:28px;">
           <div style="display:flex; gap:2px; flex:1;">
             <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780353984/IMG_8939_lpfrfn.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
             <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780353984/IMG_8938_vqcudz.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
@@ -901,7 +970,7 @@
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_5117_gvgyvl" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_5870_rp32o3" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_5879_lv30ih" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
-          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_6407_aozopd" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_6022_ukef8s" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_6452_fkyjfh" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_6597_v0cqm1" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_6660-2_biyjou" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
@@ -1009,6 +1078,15 @@
       </div>
     </div>
 
+    <!-- Video proceso (centrado, sin título) -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal" style="max-width:294px; margin:0 auto;">
+        <div class="video-wrap" style="aspect-ratio:520/934;">
+          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/v1781115310/Screenrecording_11-18-2025_12-41-27_1_s6ejms.mp4"></video>
+        </div>
+      </div>
+    </div>
+
     <!-- 5. Texto Producción Final -->
     <div class="section-pad" style="padding-bottom:0; max-width:1400px; margin:0 auto;">
       <div class="reveal" style="padding-bottom:40px;">
@@ -1029,12 +1107,12 @@
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1779022898/DSC08769-Editar_js4rcq.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08409-Editar_eonicq" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08414-Editar_iqlc2z" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08457-Editar_i6ae0x" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_3113_k6zusd" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08538-Editar_vk5y03" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08579-Editar_o7xyxf" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08603-Editar_onuqlq" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08793-Editar_tjjlwz" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/IMG_3113_k6zusd" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC08457-Editar_i6ae0x" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
         </div>
       </div>
     </div>
@@ -1099,7 +1177,7 @@
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Panel conceptual final</div>
-        <div style="max-width:551px;">
+        <div style="max-width:496px; margin:0 auto;">
           <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_1156_m6g04m" loading="lazy" alt="" style="width:100%; height:auto; display:block; outline: 1px solid rgba(196,160,160,.15); outline-offset: -1px;" />
         </div>
       </div>
@@ -1162,7 +1240,7 @@
     <!-- 7. Fotos Producción -->
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
-        <div class="prod-masonry" style="columns:3; column-gap:8px;">
+        <div class="prod-masonry" style="columns: 3; column-gap: 8px;">
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07475_p8yzkt" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_4449_av2qh6" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07539_ajimhc" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
@@ -1171,6 +1249,7 @@
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07671_u76spg" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/DSC07722_gpkfsa" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
           <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/IMG_5163_bifmzt" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
+          <div class="prod-masonry-item" style="break-inside: avoid; margin-bottom: 8px;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1600/v1781115740/WhatsApp_Image_2026-06-10_at_14.30.27_m8uvor.jpg" loading="lazy" alt="" style="width:100%; height:auto; display:block;" /></div>
         </div>
       </div>
     </div>
@@ -1178,7 +1257,6 @@
     <!-- 8. Video extra -->
     <div class="section-pad" style="padding-bottom:112px;">
       <div class="reveal">
-        <div class="label" style="margin-bottom:10px;">Video extra</div>
         <div class="video-wrap">
           <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/dise%C3%B1o3_qxffkv.mp4"></video>
         </div>
@@ -1364,9 +1442,10 @@
         <div class="aline" style="position:relative; top:-4px;"></div>
         <span style="font-size:clamp(28px,3.5vw,46px); letter-spacing:.04em; text-transform:uppercase; color:#fff; font-family:'Playfair Display',serif; font-weight:700;">Diplomas</span>
       </div>
-      <div class="reveal d1" style="display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; max-width:1000px;">
-        <div style="overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/a_-90,f_auto,q_auto,w_1000/v1780148962/Photoroom_20260529_194855_diafqh.webp" loading="lazy" alt="Diploma" style="width:100%; height:auto; display:block;" /></div>
-        <div style="overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/a_-90,f_auto,q_auto,w_1000/v1780148961/Photoroom_20260529_194838_lrtika.webp" loading="lazy" alt="Diploma" style="width:100%; height:auto; display:block;" /></div>
+      <div class="reveal d1 diploma-grid" style="display:flex; gap:14px; align-items:flex-start; max-width:1400px;">
+        <div style="flex:1.333; aspect-ratio:1.333; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/a_-90,f_auto,q_auto,w_1000/v1780148962/Photoroom_20260529_194855_diafqh.webp" loading="lazy" alt="Diploma" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        <div style="flex:1.333; aspect-ratio:1.333; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/a_-90,f_auto,q_auto,w_1000/v1780148961/Photoroom_20260529_194838_lrtika.webp" loading="lazy" alt="Diploma" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        <div style="flex:0.691; aspect-ratio:0.691; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1000/v1781115933/IMG_9349_skxkyr.jpg" loading="lazy" alt="Diploma" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
       </div>
     </div>
   </section>
@@ -1384,10 +1463,10 @@
       </div>
       <!-- Top group: 6 destacadas en grilla 3×2 con orden exacto -->
       <div class="reveal prod-top-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:8px;">
-        <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09901_dsdbnm" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00077_sjjboi" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
         <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00118_rxdsqk" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
         <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00086_metrpg" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
-        <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00077_sjjboi" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC09901_dsdbnm" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
         <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC00046_j4pl2c" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
         <div style="aspect-ratio:3/4; overflow:hidden;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/54df7895-82da-4952-9248-054c07164e96_wmisic" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:cover;" /></div>
       </div>
@@ -1397,6 +1476,19 @@
         <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC06968_jpl9mh" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
         <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC07022_g96myn" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
         <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/DSC07033_stc3vl" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+      </div>
+      <!-- Grupo nuevo: 10 imágenes adicionales -->
+      <div class="reveal prod-bottom-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-top:8px;">
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115099/60DB45DB-34FD-4D76-9642-65DD4108B60A_cil5k2.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115099/E6EDE550-C983-4218-ACFE-2ED2F710BE07_n8ae3i.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115099/9bed9cbe-e5cd-4b87-8919-75f5a446d1ca_phnjj3.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/DE6D6AC8-FF75-46DF-93E1-B5F48E3045D6_uk7lvm.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/A22A9AAB-B38E-4549-B304-A8B4229DF1A4_hszrv9.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/B682A656-B5A5-4F40-BA45-381FF43EDD79_f0hwnh.jpg" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/A0A41161-A382-4754-8A3C-C19D3FCBA46E_w8xnqg.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115097/952BF2DA-DE48-4D4F-AA0F-14B7227FF1D3_cvpaav.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/calidas-14_o8tiyc.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/9274F2D5-B02F-4D54-BAE1-6FA4020F68E1_zkaa8f.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
       </div>
     </div>
   </section>
@@ -1924,8 +2016,53 @@
       // mantiene porque es una animación única, no ligada al scroll.
     })();
 
-    /* ─── SCROLL SUAVE SOLO EN CLICS DEL MENÚ ─── */
+    /* ─── SCROLL SUAVE SOLO EN CLICS DEL MENÚ ───
+       Recalcula el destino en CADA frame. Las imágenes lazy y las
+       animaciones de reveal cambian la altura del documento mientras
+       se desplaza, así que un destino calculado una sola vez "se queda
+       en el camino". Al recomputar la posición real del elemento en
+       cada frame, siempre termina aterrizando en la sección correcta. */
     (function smoothAnchors(){
+      let raf = null;
+
+      function cancel(){
+        if (raf){ cancelAnimationFrame(raf); raf = null; }
+      }
+
+      // Si el usuario interviene (rueda, táctil, teclado), abortamos la
+      // animación para no pelear con el scroll manual.
+      ['wheel', 'touchstart', 'keydown'].forEach(ev => {
+        window.addEventListener(ev, cancel, { passive: true });
+      });
+
+      function scrollToTarget(target){
+        cancel();
+        const maxScroll = () => Math.max(0, (document.documentElement.scrollHeight || 0) - window.innerHeight);
+        let settle = 0; // frames consecutivos ya "en destino"
+
+        function step(){
+          // Posición real del elemento AHORA (cuenta cualquier reflow).
+          const dest = Math.max(0, Math.min(
+            maxScroll(),
+            target.getBoundingClientRect().top + window.scrollY
+          ));
+          const cur = window.scrollY;
+          const d = dest - cur;
+
+          if (Math.abs(d) < 1){
+            window.scrollTo(0, Math.round(dest));
+            // Esperar unos frames estables: si el layout sigue moviéndose
+            // (imágenes cargando), seguimos corrigiendo hasta que quede fijo.
+            if (++settle > 4){ raf = null; return; }
+          } else {
+            settle = 0;
+            window.scrollTo(0, Math.round(cur + d * 0.18));
+          }
+          raf = requestAnimationFrame(step);
+        }
+        raf = requestAnimationFrame(step);
+      }
+
       document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', (e) => {
           const id = a.getAttribute('href');
@@ -1933,8 +2070,7 @@
           const target = document.querySelector(id);
           if (!target) return;
           e.preventDefault();
-          const top = target.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({ top, behavior: 'smooth' });
+          scrollToTarget(target);
         });
       });
     })();
