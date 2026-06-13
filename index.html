@@ -244,13 +244,13 @@
       .hero-name-xl { font-size: clamp(52px, 16vw, 120px); }
     }
     .opener {
-      height: 100svh; display: flex; flex-direction: column; justify-content: flex-end;
+      min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end;
       padding-bottom: 64px; position: relative;
-      overflow: hidden;
-      /* overflow:hidden solo recorta el .opener-bg y el ghost; NO crea scroll-container
-         táctil porque .opener-bg tiene pointer-events:none y touch-action:pan-y,
-         así los gestos táctiles se propagan a la página. El ghost sigue recortado
-         también por html/body { overflow-x:hidden }. */
+      /* Sin overflow — el recorte horizontal del .opener-ghost lo maneja el
+         <section> padre (section { overflow-x:hidden }) y html/body también.
+         Un overflow:hidden con contenido desbordado convierte el elemento en
+         scroll-container táctil en iOS/Android, causando que el bloque entero
+         se mueva al deslizar en lugar de hacer scroll de la página. */
     }
     .opener-ghost {
       position: absolute; right: 6vw; top: 50%; transform: translateY(-50%);
@@ -780,32 +780,33 @@
     }
 
     /* ─── FIX: SCROLL TÁCTIL EN PORTADAS A PANTALLA COMPLETA ─── */
-    /* Causa raíz: .opener tenía overflow:hidden y .opener-ghost (white-space:nowrap,
-       font-size hasta 480px) creaba overflow horizontal real dentro del contenedor.
-       iOS/Android tratan cualquier overflow:hidden con contenido desbordado como
-       scroll-container táctil. Al deslizar el dedo sobre la portada, el sistema
-       desplazaba el CONTENEDOR (no la página), moviendo visualmente la imagen de
-       fondo — que al tener position:absolute;inset:0 se mueve junto con el scroll
-       del contenedor.
-       Fix primario: .opener-bg cambiado de <img> a <div> con background-image.
-       Un CSS background-image no puede ser paneado/arrastrado por gestos táctiles
-       nativos de iOS/Android; a diferencia de <img>, el motor no lo trata como
-       contenido explorable cuando sus dimensiones naturales superan el contenedor.
-       Fix secundario (defensa en profundidad):
-       - height:100svh + overflow:hidden en .opener → recorta el fondo y el ghost
-         sin crear scroll-container táctil (porque .opener-bg tiene pointer-events:none).
-       - touch-action:pan-y en #hero/.opener → solo se permite panning vertical.
+    /* Causa raíz: .opener tenía overflow:hidden combinado con .opener-ghost
+       (white-space:nowrap, font-size hasta 480px), lo que creaba overflow
+       horizontal real dentro del contenedor. iOS/Android tratan cualquier
+       elemento con overflow:hidden y contenido desbordado como scroll-container
+       táctil independiente. Al deslizar el dedo sobre la portada, el sistema
+       desplazaba el CONTENEDOR (no la página), moviendo visualmente la imagen
+       de fondo junto con todo el bloque .opener.
+       Fix aplicado:
+       - Eliminado overflow:hidden de .opener; el recorte horizontal del ghost
+         queda a cargo del <section> padre (section { overflow-x:hidden }) y de
+         html/body (ambos ya tienen overflow-x:hidden).
+       - min-height:100svh en lugar de height:100svh → sin altura fija.
+       - touch-action:pan-y pinch-zoom en .opener Y todos sus hijos (*) → el
+         navegador solo acepta gestos verticales y de pinch; cualquier intento de
+         pan horizontal se ignora y el scroll vertical pasa a la página.
        - pointer-events:none + touch-action:pan-y en .opener-bg → ningún toque
          llega al fondo decorativo.
-       - transform:translateZ(0) en .opener-bg → stacking context propio, evita
-         promoción incorrecta de capas en composición GPU. */
+       - transform:translateZ(0) en .opener-bg → stacking context propio,
+         evita promoción incorrecta de capas en composición GPU. */
     #hero,
-    .opener {
-      touch-action: pan-y;
+    .opener,
+    .opener * {
+      touch-action: pan-y pinch-zoom;
     }
     .hero-bg {
       pointer-events: none;
-      touch-action: pan-y;
+      touch-action: pan-y pinch-zoom;
     }
     /* .opener-bg ya tiene pointer-events:none y touch-action:pan-y en su regla principal */
   </style>
