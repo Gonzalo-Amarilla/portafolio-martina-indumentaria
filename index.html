@@ -417,22 +417,16 @@
       to   { opacity: 1; }
     }
     .opener-bg {
-      /* Fondo de portada: <div> con background-image (nunca <img>).
-         CSS background-image no puede ser arrastrado/paneado por gestos táctiles
-         nativos de iOS/Android, a diferencia de <img>.
-         transform:translateZ(0) crea un stacking context propio y evita que el
-         navegador promocione capas incorrectamente en composición GPU. */
       position: absolute; inset: 0;
       width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
       z-index: 0;
-      background-size: cover;
-      background-position: center top;
-      background-repeat: no-repeat;
-      background-attachment: scroll;
       pointer-events: none;
-      touch-action: pan-y;
-      transform: translateZ(0);
-      will-change: auto;
+      user-select: none;
+      -webkit-user-drag: none;
+      touch-action: pan-y pinch-zoom;
     }
     #div-section .opener {
       opacity: 0;
@@ -873,7 +867,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <div class="opener-bg" style="background-image:url('https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/IMG_6022_ukef8s');"></div>
+      <img class="opener-bg" draggable="false" alt="" src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/IMG_6022_ukef8s" />
       <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">I</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
@@ -1074,7 +1068,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <div class="opener-bg" style="background-image:url('https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779022898/DSC08769-Editar_js4rcq.webp');"></div>
+      <img class="opener-bg" draggable="false" alt="" src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779022898/DSC08769-Editar_js4rcq.webp" />
       <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">II</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
@@ -1189,7 +1183,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <div class="opener-bg" style="background-image:url('https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/DSC07722_gpkfsa');"></div>
+      <img class="opener-bg" draggable="false" alt="" src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/DSC07722_gpkfsa" />
       <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">III</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
@@ -1324,7 +1318,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <div class="opener-bg" style="background-image:url('https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779023557/DSC09531_c7unz0.webp');"></div>
+      <img class="opener-bg" draggable="false" alt="" src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779023557/DSC09531_c7unz0.webp" />
       <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">IV</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
