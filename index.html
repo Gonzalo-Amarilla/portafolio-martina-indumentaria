@@ -245,9 +245,7 @@
     }
     .opener {
       min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end;
-      padding-bottom: 64px; position: relative;
-      overflow: hidden;
-      touch-action: pan-y;
+      padding-bottom: 64px; position: relative; overflow: hidden;
     }
     .opener-ghost {
       position: absolute; right: 6vw; top: 50%; transform: translateY(-50%);
@@ -414,16 +412,7 @@
       to   { opacity: 1; }
     }
     .opener-bg {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      z-index: 0;
-      pointer-events: none;
-      user-select: none;
-      -webkit-user-drag: none;
-      touch-action: none;
+      /* portada fija: sin zoom ni transform que se mueva con el scroll */
     }
     #div-section .opener {
       opacity: 0;
@@ -759,6 +748,15 @@
       transform: scale(1.08);
     }
 
+    /* ─── OPENER PREP ─── */
+    .opener-bg {
+      touch-action: none;
+      pointer-events: none;
+    }
+    .opener {
+      touch-action: pan-y;
+    }
+
     /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce) {
       .reveal-left, .reveal-right, .reveal-scale, .reveal-fade,
@@ -769,37 +767,6 @@
         width: 36px !important;
       }
     }
-
-    /* ─── FIX: SCROLL TÁCTIL EN PORTADAS A PANTALLA COMPLETA ─── */
-    /* Causa raíz: .opener tenía overflow:hidden combinado con .opener-ghost
-       (white-space:nowrap, font-size hasta 480px), lo que creaba overflow
-       horizontal real dentro del contenedor. iOS/Android tratan cualquier
-       elemento con overflow:hidden y contenido desbordado como scroll-container
-       táctil independiente. Al deslizar el dedo sobre la portada, el sistema
-       desplazaba el CONTENEDOR (no la página), moviendo visualmente la imagen
-       de fondo junto con todo el bloque .opener.
-       Fix aplicado:
-       - Eliminado overflow:hidden de .opener; el recorte horizontal del ghost
-         queda a cargo del <section> padre (section { overflow-x:hidden }) y de
-         html/body (ambos ya tienen overflow-x:hidden).
-       - min-height:100svh en lugar de height:100svh → sin altura fija.
-       - touch-action:pan-y pinch-zoom en .opener Y todos sus hijos (*) → el
-         navegador solo acepta gestos verticales y de pinch; cualquier intento de
-         pan horizontal se ignora y el scroll vertical pasa a la página.
-       - pointer-events:none + touch-action:pan-y en .opener-bg → ningún toque
-         llega al fondo decorativo.
-       - transform:translateZ(0) en .opener-bg → stacking context propio,
-         evita promoción incorrecta de capas en composición GPU. */
-    #hero,
-    .opener,
-    .opener * {
-      touch-action: pan-y pinch-zoom;
-    }
-    .hero-bg {
-      pointer-events: none;
-      touch-action: pan-y pinch-zoom;
-    }
-    /* .opener-bg ya tiene pointer-events:none y touch-action:pan-y en su regla principal */
   </style>
 </head>
 <body>
@@ -864,8 +831,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <img class="opener-bg" draggable="false" alt="" src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/IMG_6022_ukef8s" />
-      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
+<img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/IMG_6022_ukef8s" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; touch-action:none; pointer-events:none;" />      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">I</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
         <div style="display:flex; align-items:center; gap:12px;">
@@ -1065,8 +1031,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <img class="opener-bg" draggable="false" alt="" src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779022898/DSC08769-Editar_js4rcq.webp" />
-      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
+<img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779022898/DSC08769-Editar_js4rcq.webp" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; touch-action:none; pointer-events:none;" />      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">II</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
         <div style="display:flex; align-items:center; gap:12px;">
@@ -1180,8 +1145,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <img class="opener-bg" draggable="false" alt="" src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/DSC07722_gpkfsa" />
-      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
+<img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/DSC07722_gpkfsa" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; touch-action:none; pointer-events:none;" />      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">III</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
         <div style="display:flex; align-items:center; gap:12px;">
@@ -1315,8 +1279,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <img class="opener-bg" draggable="false" alt="" src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779023557/DSC09531_c7unz0.webp" />
-      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
+<img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779023557/DSC09531_c7unz0.webp" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; touch-action:none; pointer-events:none;" />      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">IV</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
         <div style="display:flex; align-items:center; gap:12px;">
