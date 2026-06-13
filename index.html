@@ -797,7 +797,7 @@
     }
 
     /* ─── MOBILE SCROLL OVERLAY ─── */
-    @media (max-width: 900px) {
+@media (max-width: 900px) {
       #mobile-scroll-overlay {
         position: fixed;
         inset: 0;
@@ -805,8 +805,12 @@
         background: transparent;
         touch-action: pan-y;
         pointer-events: auto;
-        /* Dejar pasar clics al contenido debajo */
         -webkit-tap-highlight-color: transparent;
+      }
+      /* Cuando el menú está abierto, bajar el overlay para no taparlo */
+      body.nav-open #mobile-scroll-overlay {
+        pointer-events: none;
+        z-index: 0;
       }
     }
     @media (min-width: 901px) {
@@ -2139,17 +2143,26 @@
       const overlay = document.getElementById('mobile-scroll-overlay');
       if (!overlay) return;
 
-      let startY = 0;
-      let startX = 0;
+      let startY = 0, startX = 0;
+      let lastY = 0, lastTime = 0;
+      let velocityY = 0;
       let startScrollY = 0;
       let isDragging = false;
       let movedEnough = false;
+      let inertiaRaf = null;
+
+      function cancelInertia() {
+        if (inertiaRaf) { cancelAnimationFrame(inertiaRaf); inertiaRaf = null; }
+      }
 
       overlay.addEventListener('touchstart', (e) => {
+        cancelInertia();
         const t = e.touches[0];
-        startY = t.clientY;
+        startY = lastY = t.clientY;
         startX = t.clientX;
         startScrollY = window.scrollY;
+        velocityY = 0;
+        lastTime = performance.now();
         isDragging = true;
         movedEnough = false;
       }, { passive: true });
@@ -2160,32 +2173,49 @@
         const dy = startY - t.clientY;
         const dx = startX - t.clientX;
 
-        // Solo actuar si el movimiento es principalmente vertical
-        if (!movedEnough && Math.abs(dy) < 4) return;
+        if (!movedEnough && Math.abs(dy) < 5) return;
         movedEnough = true;
 
-        // Si es más horizontal que vertical, ignorar (permite h-scroll interno)
-        if (Math.abs(dx) > Math.abs(dy) * 1.5) return;
+        // Si el gesto es más horizontal que vertical, dejarlo pasar
+        if (!movedEnough || Math.abs(dx) > Math.abs(dy) * 1.8) return;
+
+        // Calcular velocidad instantánea
+        const now = performance.now();
+        const dt = now - lastTime || 1;
+        velocityY = (lastY - t.clientY) / dt; // px/ms
+        lastY = t.clientY;
+        lastTime = now;
 
         window.scrollTo(0, startScrollY + dy);
       }, { passive: true });
 
       overlay.addEventListener('touchend', (e) => {
+        isDragging = false;
+
         if (!movedEnough) {
-          // Fue un tap, no un scroll → reenviar el tap al elemento de abajo
+          // Tap: reenviar al elemento real debajo
           overlay.style.pointerEvents = 'none';
           const t = e.changedTouches[0];
           const el = document.elementFromPoint(t.clientX, t.clientY);
           if (el) el.click();
-          requestAnimationFrame(() => {
-            overlay.style.pointerEvents = 'auto';
-          });
+          requestAnimationFrame(() => { overlay.style.pointerEvents = 'auto'; });
+          return;
         }
-        isDragging = false;
-        movedEnough = false;
+
+        // Inercia: deceleración suave que imita el scroll nativo
+        let vel = velocityY * 16; // convertir px/ms → px/frame aprox
+        const FRICTION = 0.88;    // cuánto frena por frame (0.88 = natural)
+        const MIN_VEL  = 0.5;     // velocidad mínima antes de parar
+
+        function inertiaStep() {
+          if (Math.abs(vel) < MIN_VEL) { inertiaRaf = null; return; }
+          window.scrollBy(0, vel);
+          vel *= FRICTION;
+          inertiaRaf = requestAnimationFrame(inertiaStep);
+        }
+        inertiaRaf = requestAnimationFrame(inertiaStep);
       }, { passive: true });
 
-      // Si el usuario rota o agranda la pantalla, desactivar en desktop
       window.addEventListener('resize', () => {
         overlay.style.display = window.innerWidth > 900 ? 'none' : '';
       }, { passive: true });
