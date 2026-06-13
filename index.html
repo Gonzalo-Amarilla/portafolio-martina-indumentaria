@@ -245,7 +245,13 @@
     }
     .opener {
       min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end;
-      padding-bottom: 64px; position: relative; overflow: hidden;
+      padding-bottom: 64px; position: relative;
+      /* overflow:hidden eliminado — era el scroll-container táctil en iOS/Android.
+         El navegador lo trataba como tal porque .opener-ghost (white-space:nowrap,
+         font-size hasta 480px) creaba overflow horizontal real. Al hacer swipe,
+         el sistema desplazaba el CONTENEDOR en vez de la página, moviendo la
+         imagen de portada. El texto-fantasma sigue recortado por
+         html { overflow-x:hidden } y body { overflow-x:hidden }. */
     }
     .opener-ghost {
       position: absolute; right: 6vw; top: 50%; transform: translateY(-50%);
@@ -763,18 +769,23 @@
     }
 
     /* ─── FIX: SCROLL TÁCTIL EN PORTADAS A PANTALLA COMPLETA ─── */
-    /* Problema: #hero y .opener tienen overflow:hidden + contenido desbordado
-       (la imagen de fondo, el texto-fantasma clamp(180px…)). iOS/Android pueden
-       tratarlos como scroll containers internos; el dedo "agarra" el overlay o
-       la imagen en vez de desplazar la página.
-       Solución A — touch-action:pan-y en el contenedor: el navegador intersecta
-       este valor con el de cada elemento hijo hasta llegar al scroll container
-       real (body/html). La intersección de auto (hijos) ∩ pan-y (padre) = pan-y,
-       de modo que cualquier toque que comience dentro del opener o del hero
-       siempre ejecuta scroll vertical de página.
-       Solución B — pointer-events:none en las imágenes decorativas: el toque
-       nunca se despacha a la imagen, evitando que el navegador la tome como
-       objetivo de panning. */
+    /* Causa raíz: .opener tenía overflow:hidden y .opener-ghost (white-space:nowrap,
+       font-size hasta 480px) creaba overflow horizontal real dentro del contenedor.
+       iOS/Android tratan cualquier overflow:hidden con contenido desbordado como
+       scroll-container táctil. Al deslizar el dedo sobre la portada, el sistema
+       desplazaba el CONTENEDOR (no la página), moviendo visualmente la imagen de
+       fondo — que al tener position:absolute;inset:0 se mueve junto con el scroll
+       del contenedor.
+       Fix primario: overflow:hidden removido de .opener (línea ~248). El ghost
+       text ya queda recortado por html/body { overflow-x:hidden }. Sin
+       overflow:hidden el opener nunca puede actuar como scroll container.
+       Fix secundario (defensa en profundidad):
+       - touch-action:pan-y en #hero/.opener → si algún caso límite de iOS
+         aún intenta panning, solo se permite la dirección vertical (= scroll
+         de página), nunca horizontal.
+       - pointer-events:none en .hero-bg/.opener-bg → la imagen decorativa no
+         recibe toques; elimina el caso especial donde iOS puede tratar una <img>
+         grande como superficie de panning dentro de sus coordenadas naturales. */
     #hero,
     .opener {
       touch-action: pan-y;
@@ -784,10 +795,6 @@
       pointer-events: none;
       touch-action: pan-y;
     }
-    /* El overlay de degradado dentro de cada opener es position:absolute con
-       inset:0 y sin pointer-events:none, por lo que puede capturar toques en
-       la zona central de la portada. Al no tener touch-action propio hereda
-       el pan-y del padre mediante la intersección de la cadena de ancestros. */
   </style>
 </head>
 <body>
