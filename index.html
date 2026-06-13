@@ -795,9 +795,30 @@
         width: 36px !important;
       }
     }
+
+    /* ─── MOBILE SCROLL OVERLAY ─── */
+    @media (max-width: 900px) {
+      #mobile-scroll-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: transparent;
+        touch-action: pan-y;
+        pointer-events: auto;
+        /* Dejar pasar clics al contenido debajo */
+        -webkit-tap-highlight-color: transparent;
+      }
+    }
+    @media (min-width: 901px) {
+      #mobile-scroll-overlay { display: none !important; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- MOBILE SCROLL OVERLAY — capa transparente fija que captura el touch
+       y lo redirige al scroll del documento, evitando trabas en celular -->
+  <div id="mobile-scroll-overlay"></div>
 
   <!-- NAV -->
   <nav id="nav" class="anim-3">
@@ -2105,6 +2126,69 @@
           scrollToTarget(target);
         });
       });
+    })();
+
+    /* ─── MOBILE SCROLL OVERLAY JS ───
+       El div#mobile-scroll-overlay está encima de todo (z-index:9999).
+       Captura los eventos touch y los convierte en scroll del documento,
+       sin que ningún elemento interno pueda interferir.
+       Los taps (sin desplazamiento) se reenvían al elemento real debajo. */
+    (function mobileScrollOverlay() {
+      if (window.innerWidth > 900) return;
+
+      const overlay = document.getElementById('mobile-scroll-overlay');
+      if (!overlay) return;
+
+      let startY = 0;
+      let startX = 0;
+      let startScrollY = 0;
+      let isDragging = false;
+      let movedEnough = false;
+
+      overlay.addEventListener('touchstart', (e) => {
+        const t = e.touches[0];
+        startY = t.clientY;
+        startX = t.clientX;
+        startScrollY = window.scrollY;
+        isDragging = true;
+        movedEnough = false;
+      }, { passive: true });
+
+      overlay.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const t = e.touches[0];
+        const dy = startY - t.clientY;
+        const dx = startX - t.clientX;
+
+        // Solo actuar si el movimiento es principalmente vertical
+        if (!movedEnough && Math.abs(dy) < 4) return;
+        movedEnough = true;
+
+        // Si es más horizontal que vertical, ignorar (permite h-scroll interno)
+        if (Math.abs(dx) > Math.abs(dy) * 1.5) return;
+
+        window.scrollTo(0, startScrollY + dy);
+      }, { passive: true });
+
+      overlay.addEventListener('touchend', (e) => {
+        if (!movedEnough) {
+          // Fue un tap, no un scroll → reenviar el tap al elemento de abajo
+          overlay.style.pointerEvents = 'none';
+          const t = e.changedTouches[0];
+          const el = document.elementFromPoint(t.clientX, t.clientY);
+          if (el) el.click();
+          requestAnimationFrame(() => {
+            overlay.style.pointerEvents = 'auto';
+          });
+        }
+        isDragging = false;
+        movedEnough = false;
+      }, { passive: true });
+
+      // Si el usuario rota o agranda la pantalla, desactivar en desktop
+      window.addEventListener('resize', () => {
+        overlay.style.display = window.innerWidth > 900 ? 'none' : '';
+      }, { passive: true });
     })();
   </script>
 
