@@ -244,14 +244,13 @@
       .hero-name-xl { font-size: clamp(52px, 16vw, 120px); }
     }
     .opener {
-      min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end;
+      height: 100svh; display: flex; flex-direction: column; justify-content: flex-end;
       padding-bottom: 64px; position: relative;
-      /* overflow:hidden eliminado — era el scroll-container táctil en iOS/Android.
-         El navegador lo trataba como tal porque .opener-ghost (white-space:nowrap,
-         font-size hasta 480px) creaba overflow horizontal real. Al hacer swipe,
-         el sistema desplazaba el CONTENEDOR en vez de la página, moviendo la
-         imagen de portada. El texto-fantasma sigue recortado por
-         html { overflow-x:hidden } y body { overflow-x:hidden }. */
+      overflow: hidden;
+      /* overflow:hidden solo recorta el .opener-bg y el ghost; NO crea scroll-container
+         táctil porque .opener-bg tiene pointer-events:none y touch-action:pan-y,
+         así los gestos táctiles se propagan a la página. El ghost sigue recortado
+         también por html/body { overflow-x:hidden }. */
     }
     .opener-ghost {
       position: absolute; right: 6vw; top: 50%; transform: translateY(-50%);
@@ -418,15 +417,22 @@
       to   { opacity: 1; }
     }
     .opener-bg {
-      /* Implementado como <div> con background-image en vez de <img>.
-         Un CSS background-image es pintura del elemento: el usuario NO puede
-         arrastrarlo con el dedo, a diferencia de <img> donde iOS/Android
-         activan panning nativo cuando la imagen natural supera el tamaño
-         del elemento (incluso con pointer-events:none y object-fit:cover). */
-      position: absolute; inset: 0; z-index: 0;
+      /* Fondo de portada: <div> con background-image (nunca <img>).
+         CSS background-image no puede ser arrastrado/paneado por gestos táctiles
+         nativos de iOS/Android, a diferencia de <img>.
+         transform:translateZ(0) crea un stacking context propio y evita que el
+         navegador promocione capas incorrectamente en composición GPU. */
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
       background-size: cover;
       background-position: center top;
       background-repeat: no-repeat;
+      background-attachment: scroll;
+      pointer-events: none;
+      touch-action: pan-y;
+      transform: translateZ(0);
+      will-change: auto;
     }
     #div-section .opener {
       opacity: 0;
@@ -781,25 +787,27 @@
        desplazaba el CONTENEDOR (no la página), moviendo visualmente la imagen de
        fondo — que al tener position:absolute;inset:0 se mueve junto con el scroll
        del contenedor.
-       Fix primario: overflow:hidden removido de .opener (línea ~248). El ghost
-       text ya queda recortado por html/body { overflow-x:hidden }. Sin
-       overflow:hidden el opener nunca puede actuar como scroll container.
+       Fix primario: .opener-bg cambiado de <img> a <div> con background-image.
+       Un CSS background-image no puede ser paneado/arrastrado por gestos táctiles
+       nativos de iOS/Android; a diferencia de <img>, el motor no lo trata como
+       contenido explorable cuando sus dimensiones naturales superan el contenedor.
        Fix secundario (defensa en profundidad):
-       - touch-action:pan-y en #hero/.opener → si algún caso límite de iOS
-         aún intenta panning, solo se permite la dirección vertical (= scroll
-         de página), nunca horizontal.
-       - pointer-events:none en .hero-bg/.opener-bg → la imagen decorativa no
-         recibe toques; elimina el caso especial donde iOS puede tratar una <img>
-         grande como superficie de panning dentro de sus coordenadas naturales. */
+       - height:100svh + overflow:hidden en .opener → recorta el fondo y el ghost
+         sin crear scroll-container táctil (porque .opener-bg tiene pointer-events:none).
+       - touch-action:pan-y en #hero/.opener → solo se permite panning vertical.
+       - pointer-events:none + touch-action:pan-y en .opener-bg → ningún toque
+         llega al fondo decorativo.
+       - transform:translateZ(0) en .opener-bg → stacking context propio, evita
+         promoción incorrecta de capas en composición GPU. */
     #hero,
     .opener {
       touch-action: pan-y;
     }
-    .hero-bg,
-    .opener-bg {
+    .hero-bg {
       pointer-events: none;
       touch-action: pan-y;
     }
+    /* .opener-bg ya tiene pointer-events:none y touch-action:pan-y en su regla principal */
   </style>
 </head>
 <body>
