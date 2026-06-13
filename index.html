@@ -246,11 +246,8 @@
     .opener {
       min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end;
       padding-bottom: 64px; position: relative;
-      /* Sin overflow — el recorte horizontal del .opener-ghost lo maneja el
-         <section> padre (section { overflow-x:hidden }) y html/body también.
-         Un overflow:hidden con contenido desbordado convierte el elemento en
-         scroll-container táctil en iOS/Android, causando que el bloque entero
-         se mueva al deslizar en lugar de hacer scroll de la página. */
+      overflow: hidden;
+      touch-action: pan-y;
     }
     .opener-ghost {
       position: absolute; right: 6vw; top: 50%; transform: translateY(-50%);
@@ -426,7 +423,7 @@
       pointer-events: none;
       user-select: none;
       -webkit-user-drag: none;
-      touch-action: pan-y pinch-zoom;
+      touch-action: none;
     }
     #div-section .opener {
       opacity: 0;
