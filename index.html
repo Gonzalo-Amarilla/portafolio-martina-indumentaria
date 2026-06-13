@@ -658,7 +658,7 @@
       .g2[style*="42vw,560px"] > div { height: clamp(300px,82vw,440px) !important; }
 
       /* Textura con scale(1.1) se salía del borde al apilar en 1 columna */
-      .g2 > div[style*="scale(1.1)"] { transform: none !important; }
+      .g2 > div[style*="scale(1.22)"] { transform: none !important; }
 
       /* Footer stack */
       .footer-row {
@@ -761,6 +761,33 @@
         width: 36px !important;
       }
     }
+
+    /* ─── FIX: SCROLL TÁCTIL EN PORTADAS A PANTALLA COMPLETA ─── */
+    /* Problema: #hero y .opener tienen overflow:hidden + contenido desbordado
+       (la imagen de fondo, el texto-fantasma clamp(180px…)). iOS/Android pueden
+       tratarlos como scroll containers internos; el dedo "agarra" el overlay o
+       la imagen en vez de desplazar la página.
+       Solución A — touch-action:pan-y en el contenedor: el navegador intersecta
+       este valor con el de cada elemento hijo hasta llegar al scroll container
+       real (body/html). La intersección de auto (hijos) ∩ pan-y (padre) = pan-y,
+       de modo que cualquier toque que comience dentro del opener o del hero
+       siempre ejecuta scroll vertical de página.
+       Solución B — pointer-events:none en las imágenes decorativas: el toque
+       nunca se despacha a la imagen, evitando que el navegador la tome como
+       objetivo de panning. */
+    #hero,
+    .opener {
+      touch-action: pan-y;
+    }
+    .hero-bg,
+    .opener-bg {
+      pointer-events: none;
+      touch-action: pan-y;
+    }
+    /* El overlay de degradado dentro de cada opener es position:absolute con
+       inset:0 y sin pointer-events:none, por lo que puede capturar toques en
+       la zona central de la portada. Al no tener touch-action propio hereda
+       el pan-y del padre mediante la intersección de la cadena de ancestros. */
   </style>
 </head>
 <body>
@@ -864,19 +891,19 @@
         <div class="label" style="margin-bottom:12px;">Texturas</div>
         <p class="concept" style="margin-bottom:24px;">A partir de este concepto, desarrollé una serie de texturas.</p>
         <div class="g2" style="align-items:start;">
+          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a; transform:translateY(-24px) scale(1.22); transform-origin:center;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/Photoroom_20260511_154113_ifbk8c" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
           <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/IMG_5991_co0ty3" loading="lazy" alt="" style="width:70%; height:70%; object-fit:contain; display:block; margin:22px auto 0;" /></div>
-          <div style="aspect-ratio:1/1; overflow:hidden; background:#0a0a0a; transform:translateY(-24px) scale(1.1); transform-origin:center;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_800/Photoroom_20260511_154113_ifbk8c" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
         </div>
       </div>
     </div>
 
     <!-- 3. Diseños (figurines) -->
-    <div class="section-pad" style="padding-bottom:40px; max-width:1400px; margin:0 auto;">
+    <div class="section-pad" style="padding-bottom:40px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Diseño rector</div>
-        <div class="g2" style="align-items:start;">
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a; width:66%; margin:46px auto 0;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780355396/IMG_8945_dqpfyk.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a; width:66%; margin:24px auto 0;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780149562/IMG_8944_of5dwn.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        <div style="display:flex; flex-direction:column; gap:16px; align-items:center;">
+          <div style="width:100%; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1800/v1781355459/IMG_9384_wgdw87.webp" loading="lazy" alt="" style="width:100%; height:auto; object-fit:contain; display:block;" /></div>
+          <div style="width:100%; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1800/v1781355498/IMG_9389_r8fytq.webp" loading="lazy" alt="" style="width:100%; height:auto; object-fit:contain; display:block;" /></div>
         </div>
         </div>
       </div>
@@ -990,6 +1017,16 @@
       </div>
     </div>
 
+    <!-- 10b. Fashion Film nominado a concurso -->
+    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+      <div class="reveal">
+        <p class="concept" style="color:#bbb; margin-bottom:32px;">Mi Fashion Film fue seleccionado como uno de los finalistas de la Muestra Universitaria de fashion films 2025.</p>
+        <div style="display:flex; justify-content:center;">
+          <div style="width:100%; max-width:850px; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/v1781361473/Photoroom_20260602_223633_ovmfsz.webp" loading="lazy" alt="" style="width:100%; height:auto; object-fit:contain; display:block; transform:rotate(1.5deg);" /></div>
+        </div>
+      </div>
+    </div>
+
     <!-- 11. Desfile Speed (texto + fotos / videos pendientes) -->
     <div class="section-pad" style="padding-bottom:112px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
@@ -1048,17 +1085,12 @@
     </div>
 
     <!-- 3. Diseños (figurines) -->
-    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+    <div class="section-pad" style="padding-bottom:64px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Diseños</div>
-        <div class="g3" style="grid-template-columns:repeat(4,1fr); gap:32px;">
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780346180/IMG_8955_o3bay6.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780346180/IMG_8956_laha5b.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780346180/IMG_8958_fzvumj.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780346180/IMG_8957_zwzdne.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-        </div>
-        <div class="reveal" style="margin-top:32px; display:flex; justify-content:center;">
-          <div style="width:100%; max-width:760px; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/v1780346181/IMG_6801_yjkfwg.webp" loading="lazy" alt="" style="width:100%; height:auto; display:block; object-fit:contain;" /></div>
+        <div style="display:flex; flex-direction:column; gap:16px; align-items:center;">
+          <div style="width:100%; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1800/v1781356589/IMG_9382_xa9u51.webp" loading="lazy" alt="" style="width:100%; height:auto; object-fit:contain; display:block;" /></div>
+          <div style="width:100%; max-width:78%; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1800/v1780346181/IMG_6801_yjkfwg.webp" loading="lazy" alt="" style="width:100%; height:auto; display:block; object-fit:contain;" /></div>
         </div>
       </div>
     </div>
@@ -1082,7 +1114,7 @@
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal" style="max-width:294px; margin:0 auto;">
         <div class="video-wrap" style="aspect-ratio:520/934;">
-          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/v1781115310/Screenrecording_11-18-2025_12-41-27_1_s6ejms.mp4"></video>
+          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/v1781354970/Copy_8C3b6c86-7Cb2-4D55-8483-37Fa9796dda1_lea3b6.mp4"></video>
         </div>
       </div>
     </div>
@@ -1204,12 +1236,11 @@
     </div>
 
     <!-- 5. Maniquí — Diseño rector -->
-    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+    <div class="section-pad" style="padding-bottom:64px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:14px;">Maniquí — Diseño rector</div>
-        <div class="g2" style="align-items:stretch; height:clamp(360px,42vw,560px);">
-          <div style="overflow:hidden; display:flex; align-items:center; justify-content:center;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1780149471/Photoroom_20260528_162026_tjgo3y.webp" loading="lazy" alt="" style="max-width:82%; max-height:82%; width:auto; height:auto; object-fit:contain; display:block;" /></div>
-          <div style="overflow:hidden; display:flex; align-items:center; justify-content:center; padding:6% 8%;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1779826701/cropped_1_1_byefrv.png" loading="lazy" alt="" style="max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; display:block;" /></div>
+        <div style="display:flex; justify-content:center;">
+          <div style="width:100%; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1800/v1781356926/IMG_9385_b8hvvs.webp" loading="lazy" alt="" style="width:100%; height:auto; object-fit:contain; display:block;" /></div>
         </div>
       </div>
     </div>
@@ -1307,13 +1338,11 @@
     </div>
 
     <!-- Diseños -->
-    <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
+    <div class="section-pad" style="padding-bottom:64px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Diseños</div>
-        <div class="g3">
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780149830/IMG_8960_f3yl3b.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780149829/IMG_8959_cpyaqj.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1780149828/Photoroom_20260528_220925_ebh8pd.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        <div style="display:flex; justify-content:center;">
+          <div style="width:100%; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1800/v1781357026/IMG_9381_k9ubq4.webp" loading="lazy" alt="" style="width:100%; height:auto; object-fit:contain; display:block;" /></div>
         </div>
       </div>
     </div>
@@ -1485,9 +1514,9 @@
         <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/DE6D6AC8-FF75-46DF-93E1-B5F48E3045D6_uk7lvm.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
         <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/A22A9AAB-B38E-4549-B304-A8B4229DF1A4_hszrv9.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
         <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/B682A656-B5A5-4F40-BA45-381FF43EDD79_f0hwnh.jpg" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
-        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/A0A41161-A382-4754-8A3C-C19D3FCBA46E_w8xnqg.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
         <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115097/952BF2DA-DE48-4D4F-AA0F-14B7227FF1D3_cvpaav.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
         <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/calidas-14_o8tiyc.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
+        <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/A0A41161-A382-4754-8A3C-C19D3FCBA46E_w8xnqg.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
         <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_900/v1781115098/9274F2D5-B02F-4D54-BAE1-6FA4020F68E1_zkaa8f.webp" loading="lazy" alt="" style="width:100%; height:100%; display:block; object-fit:contain;" /></div>
       </div>
     </div>
