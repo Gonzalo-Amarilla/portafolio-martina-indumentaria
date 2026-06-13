@@ -418,7 +418,15 @@
       to   { opacity: 1; }
     }
     .opener-bg {
-      /* portada fija: sin zoom ni transform que se mueva con el scroll */
+      /* Implementado como <div> con background-image en vez de <img>.
+         Un CSS background-image es pintura del elemento: el usuario NO puede
+         arrastrarlo con el dedo, a diferencia de <img> donde iOS/Android
+         activan panning nativo cuando la imagen natural supera el tamaño
+         del elemento (incluso con pointer-events:none y object-fit:cover). */
+      position: absolute; inset: 0; z-index: 0;
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
     }
     #div-section .opener {
       opacity: 0;
@@ -754,9 +762,6 @@
       transform: scale(1.08);
     }
 
-    /* ─── OPENER PREP ─── */
-    .opener-bg { }
-
     /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce) {
       .reveal-left, .reveal-right, .reveal-scale, .reveal-fade,
@@ -859,7 +864,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/IMG_6022_ukef8s" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;" />
+      <div class="opener-bg" style="background-image:url('https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/IMG_6022_ukef8s');"></div>
       <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">I</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
@@ -1060,7 +1065,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779022898/DSC08769-Editar_js4rcq.webp" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;" />
+      <div class="opener-bg" style="background-image:url('https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779022898/DSC08769-Editar_js4rcq.webp');"></div>
       <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">II</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
@@ -1175,7 +1180,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/DSC07722_gpkfsa" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;" />
+      <div class="opener-bg" style="background-image:url('https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/DSC07722_gpkfsa');"></div>
       <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">III</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
@@ -1310,7 +1315,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-      <img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779023557/DSC09531_c7unz0.webp" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0;" />
+      <div class="opener-bg" style="background-image:url('https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779023557/DSC09531_c7unz0.webp');"></div>
       <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">IV</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
