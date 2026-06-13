@@ -244,9 +244,12 @@
       .hero-name-xl { font-size: clamp(52px, 16vw, 120px); }
     }
     .opener {
-      min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end;
-      padding-bottom: 64px; position: relative; overflow: hidden;
-    }
+  min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end;
+  padding-bottom: 64px; position: relative; overflow: hidden;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+}
     .opener-ghost {
       position: absolute; right: 6vw; top: 50%; transform: translateY(-50%);
       font-family: 'Playfair Display', serif; font-weight: 900;
@@ -412,8 +415,20 @@
       to   { opacity: 1; }
     }
     .opener-bg {
-      /* portada fija: sin zoom ni transform que se mueva con el scroll */
-    }
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  z-index: 0 !important;
+  touch-action: none !important;
+  pointer-events: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  /* Fija la imagen: sin transform que permita arrastrarla */
+  will-change: auto !important;
+  transform: none !important;
+}
     #div-section .opener {
       opacity: 0;
       transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1);
