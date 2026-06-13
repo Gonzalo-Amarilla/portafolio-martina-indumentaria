@@ -322,10 +322,12 @@
       .djgrid-row { flex-wrap: wrap; }
       .dj-v, .dj-h { flex: 1 1 calc(50% - 4px); aspect-ratio: auto; }
       .djgrid-row img { height: auto; }
-      /* Diplomas → apilados y legibles en móvil */
-      .diploma-grid { flex-direction: column; align-items: center; gap: 12px !important; }
+      /* Diplomas → apilados, centrados y legibles en móvil.
+         align-items necesita !important porque el inline style del grid
+         trae align-items:flex-start, que dejaba el 3er diploma a la izquierda. */
+      .diploma-grid { flex-direction: column !important; align-items: center !important; gap: 12px !important; }
       .diploma-grid > div { flex: none !important; width: 100%; aspect-ratio: auto !important; }
-      .diploma-grid > div:last-child { width: 74%; }
+      .diploma-grid > div:last-child { width: 74%; margin: 0 auto; }
       .diploma-grid > div > img { height: auto !important; }
     }
     /* Producciones grids stagger prep */
@@ -475,7 +477,9 @@
     .nav-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--accent); }
     .nav-toggle.open span:nth-child(2) { opacity: 0; }
     .nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--accent); }
-    @media (max-width: 760px) {
+    /* Hamburguesa + menú full-screen: activo hasta 900px para que también
+       funcione bien en tablets (no sólo en celular). */
+    @media (max-width: 900px) {
       .nav-toggle { display: flex; }
       /* #nav's entrance transform (anim-3, fill:both) creates a containing block
          that would trap the fixed full-screen menu. Neutralize it on mobile. */
@@ -584,10 +588,16 @@
       .label { font-size: 12px !important; letter-spacing: .2em; }
       .label-ac { font-size: 11px; letter-spacing: .2em; }
 
-      /* Editorial bleed */
+      /* Editorial bleed — títulos grandes (Fractura / Burning / Ecos / Prince):
+         más chicos y responsive para que SIEMPRE entren en pantalla, y con
+         white-space:normal por si un título es largo (baja de línea en vez de
+         salirse). overflow:visible evita que se recorte al bajar de línea. */
       .editorial-bleed {
-        font-size: clamp(40px, 11vw, 70px) !important;
+        font-size: clamp(26px, 8vw, 46px) !important;
         margin-left: 0 !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        line-height: 1.04 !important;
       }
       .bleed-neg { margin-left: 0 !important; }
 
@@ -598,7 +608,10 @@
 
       /* Editorial 2-col grid → stack */
       .editorial-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
-      .editorial-grid > div:first-child { padding-top: 8px !important; }
+      /* El título trae margin-bottom:-32px (efecto de solape). Con padding-top:8
+         la línea-subrayado quedaba 24px DENTRO del texto. Con 40px la línea cae
+         ~8px por debajo del título y funciona como subrayado. */
+      .editorial-grid > div:first-child { padding-top: 40px !important; }
 
       /* Section padding rhythm */
       .section-pad[style*="padding-top:80px"]   { padding-top: 48px !important; }
@@ -638,8 +651,9 @@
       .quote-sep { padding: 28px 22px !important; }
       .quote-sep p { font-size: clamp(22px,6.8vw,36px) !important; line-height: 1.25 !important; }
 
-      /* Producciones headline */
-      .prod-headline { font-size: clamp(48px,14vw,96px) !important; line-height: .9 !important; }
+      /* Producciones headline — "PRODUCCIONES" es una sola palabra larga;
+         se achica para que no se salga de pantalla en celular. */
+      .prod-headline { font-size: clamp(30px,10.5vw,80px) !important; line-height: .9 !important; }
 
       /* Video aspect — mobile portrait better */
       .video-wrap { aspect-ratio: 9/12; }
@@ -700,8 +714,8 @@
       .hero-name-xl { font-size: 16vw !important; }
       .capsule-code { font-size: 18vw !important; }
       .capsule-title-large { font-size: 14vw !important; }
-      .editorial-bleed { font-size: 12vw !important; }
-      .prod-headline { font-size: 15vw !important; }
+      /* .editorial-bleed y .prod-headline ya no se re-agrandan acá: usan la
+         regla responsive de ≤760px (clamp) para no salirse en pantallas chicas. */
       .g3, .g4, .g4-editorial,
       .prod-top-grid, .prod-bottom-grid { grid-template-columns: 1fr !important; }
       .prod-masonry, .masonry { columns: 1 !important; }
@@ -796,33 +810,49 @@
       }
     }
 
-    /* ─── MOBILE SCROLL OVERLAY ─── */
-@media (max-width: 900px) {
-      #mobile-scroll-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        background: transparent;
-        touch-action: pan-y;
-        pointer-events: auto;
-        -webkit-tap-highlight-color: transparent;
+    /* ─── CELULAR / TABLET: SCROLL NATIVO LIMPIO ───
+       En dispositivos táctiles se ignoran TODAS las animaciones ligadas al
+       scroll (reveals, stagger, bleed, parallax decorativo) y las animaciones
+       infinitas que repintan en cada frame (ghosts, bounce, blur del nav).
+       Así el scroll nativo del navegador queda fluido y normal, sin trabas,
+       y todo el contenido se muestra de una en lugar de aparecer animado. */
+    @media (hover: none), (pointer: coarse) {
+      /* Mostrar de inmediato todo lo que normalmente entra animado */
+      .reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-fade,
+      .g2 > *, .g3 > *, .g4 > *, .g4-editorial > *,
+      .masonry-item, .prod-masonry-item,
+      .prod-top-grid > *, .prod-bottom-grid > *,
+      #div-section .opener {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        clip-path: none !important;
       }
-      /* Cuando el menú está abierto, bajar el overlay para no taparlo */
-      body.nav-open #mobile-scroll-overlay {
-        pointer-events: none;
-        z-index: 0;
+      .editorial-bleed {
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+        transition: none !important;
       }
-    }
-    @media (min-width: 901px) {
-      #mobile-scroll-overlay { display: none !important; }
+      /* El subrayado de los títulos se sigue expandiendo (lo hace el observer),
+         pero sin animación: aparece directo. */
+      .aline { transition: none !important; }
+      /* Entradas de carga + animaciones infinitas: fuera, repintan en cada frame */
+      .anim-1, .anim-2, .anim-3, .anim-4,
+      .opener-ghost, #dv-section .opener-ghost, .scroll-bounce {
+        animation: none !important;
+      }
+      /* backdrop-filter:blur en el nav fijo repinta toda la franja en cada
+         frame de scroll → se reemplaza por un fondo sólido para no trabar. */
+      #nav.stuck {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(10,10,10,.96) !important;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- MOBILE SCROLL OVERLAY — capa transparente fija que captura el touch
-       y lo redirige al scroll del documento, evitando trabas en celular -->
-  <div id="mobile-scroll-overlay"></div>
 
   <!-- NAV -->
   <nav id="nav" class="anim-3">
@@ -2132,94 +2162,11 @@
       });
     })();
 
-    /* ─── MOBILE SCROLL OVERLAY JS ───
-       El div#mobile-scroll-overlay está encima de todo (z-index:9999).
-       Captura los eventos touch y los convierte en scroll del documento,
-       sin que ningún elemento interno pueda interferir.
-       Los taps (sin desplazamiento) se reenvían al elemento real debajo. */
-    (function mobileScrollOverlay() {
-      if (window.innerWidth > 900) return;
-
-      const overlay = document.getElementById('mobile-scroll-overlay');
-      if (!overlay) return;
-
-      let startY = 0, startX = 0;
-      let lastY = 0, lastTime = 0;
-      let velocityY = 0;
-      let startScrollY = 0;
-      let isDragging = false;
-      let movedEnough = false;
-      let inertiaRaf = null;
-
-      function cancelInertia() {
-        if (inertiaRaf) { cancelAnimationFrame(inertiaRaf); inertiaRaf = null; }
-      }
-
-      overlay.addEventListener('touchstart', (e) => {
-        cancelInertia();
-        const t = e.touches[0];
-        startY = lastY = t.clientY;
-        startX = t.clientX;
-        startScrollY = window.scrollY;
-        velocityY = 0;
-        lastTime = performance.now();
-        isDragging = true;
-        movedEnough = false;
-      }, { passive: true });
-
-      overlay.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        const t = e.touches[0];
-        const dy = startY - t.clientY;
-        const dx = startX - t.clientX;
-
-        if (!movedEnough && Math.abs(dy) < 5) return;
-        movedEnough = true;
-
-        // Si el gesto es más horizontal que vertical, dejarlo pasar
-        if (!movedEnough || Math.abs(dx) > Math.abs(dy) * 1.8) return;
-
-        // Calcular velocidad instantánea
-        const now = performance.now();
-        const dt = now - lastTime || 1;
-        velocityY = (lastY - t.clientY) / dt; // px/ms
-        lastY = t.clientY;
-        lastTime = now;
-
-        window.scrollTo(0, startScrollY + dy);
-      }, { passive: true });
-
-      overlay.addEventListener('touchend', (e) => {
-        isDragging = false;
-
-        if (!movedEnough) {
-          // Tap: reenviar al elemento real debajo
-          overlay.style.pointerEvents = 'none';
-          const t = e.changedTouches[0];
-          const el = document.elementFromPoint(t.clientX, t.clientY);
-          if (el) el.click();
-          requestAnimationFrame(() => { overlay.style.pointerEvents = 'auto'; });
-          return;
-        }
-
-        // Inercia: deceleración suave que imita el scroll nativo
-        let vel = velocityY * 16; // convertir px/ms → px/frame aprox
-        const FRICTION = 0.88;    // cuánto frena por frame (0.88 = natural)
-        const MIN_VEL  = 0.5;     // velocidad mínima antes de parar
-
-        function inertiaStep() {
-          if (Math.abs(vel) < MIN_VEL) { inertiaRaf = null; return; }
-          window.scrollBy(0, vel);
-          vel *= FRICTION;
-          inertiaRaf = requestAnimationFrame(inertiaStep);
-        }
-        inertiaRaf = requestAnimationFrame(inertiaStep);
-      }, { passive: true });
-
-      window.addEventListener('resize', () => {
-        overlay.style.display = window.innerWidth > 900 ? 'none' : '';
-      }, { passive: true });
-    })();
+    /* En celular/tablet se usa el scroll NATIVO del navegador (el más fluido).
+       Se eliminó el overlay que reimplementaba el scroll por JS: trababa el
+       desplazamiento y, al estar por encima de todo, bloqueaba el botón del
+       menú hamburguesa. El motor de scroll propio de arriba sólo corre en
+       desktop (pointer fino); en táctil no se toca nada. */
   </script>
 
 </body>
