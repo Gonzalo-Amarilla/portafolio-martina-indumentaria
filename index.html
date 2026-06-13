@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Martina Bouzada — Diseño de Indumentaria</title>
+  <!-- Conexión temprana a Cloudinary (DNS + TLS) para que imágenes y videos
+       arranquen su descarga sin esperar el handshake inicial. -->
+  <link rel="preconnect" href="https://res.cloudinary.com" crossorigin />
+  <link rel="dns-prefetch" href="https://res.cloudinary.com" />
   <style>
     /* Playfair Display — italic, weights 400–900, self-hosted */
     @font-face { font-family: 'Playfair Display'; font-style: italic; font-weight: 400 900; font-display: swap; src: url('/fonts/playfair-display-italic-cyrillic.woff2') format('woff2'); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
@@ -1076,7 +1080,7 @@
       <div class="reveal">
         <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.72); font-family:'Inter',sans-serif; margin-bottom:10px;">Fashion Film — Nominado a concurso</div>
         <div class="video-wrap">
-          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Copy_84473A31-69Ff-4D72-9B52-B6a8c9cef4e2_gbfpxu.mp4"></video>
+          <video loop muted playsinline preload="none" poster="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_800,so_auto/Copy_84473A31-69Ff-4D72-9B52-B6a8c9cef4e2_gbfpxu.jpg" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_1280,c_limit/Copy_84473A31-69Ff-4D72-9B52-B6a8c9cef4e2_gbfpxu.mp4"></video>
         </div>
       </div>
     </div>
@@ -1099,10 +1103,10 @@
         <p class="concept" style="color:#bbb; margin-bottom:32px;">Speed organizó un desfile en el que expusimos nuestra colección; en esta instancia, me tocó abrir el desfile, dando inicio a la presentación y marcando el tono conceptual de la propuesta.</p>
         <div class="g2">
           <div class="video-wrap">
-            <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Img_7939_md4dyn.mp4"></video>
+            <video loop muted playsinline preload="none" poster="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_640,so_auto/Img_7939_md4dyn.jpg" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_960,c_limit/Img_7939_md4dyn.mp4"></video>
           </div>
           <div class="video-wrap">
-            <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/video1_wv8pdc.mp4"></video>
+            <video loop muted playsinline preload="none" poster="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_640,so_auto/video1_wv8pdc.jpg" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_960,c_limit/video1_wv8pdc.mp4"></video>
           </div>
         </div>
       </div>
@@ -1177,7 +1181,7 @@
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal" style="max-width:294px; margin:0 auto;">
         <div class="video-wrap" style="aspect-ratio:520/934;">
-          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/v1781354970/Copy_8C3b6c86-7Cb2-4D55-8483-37Fa9796dda1_lea3b6.mp4"></video>
+          <video loop muted playsinline preload="none" poster="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_480,so_auto/v1781354970/Copy_8C3b6c86-7Cb2-4D55-8483-37Fa9796dda1_lea3b6.jpg" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_640,c_limit/v1781354970/Copy_8C3b6c86-7Cb2-4D55-8483-37Fa9796dda1_lea3b6.mp4"></video>
         </div>
       </div>
     </div>
@@ -1217,7 +1221,7 @@
       <div class="reveal">
         <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:10px;">Fashion Film</div>
         <div class="video-wrap">
-          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Fashion_film2_bipxup.mp4"></video>
+          <video loop muted playsinline preload="none" poster="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_800,so_auto/Fashion_film2_bipxup.jpg" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_1280,c_limit/Fashion_film2_bipxup.mp4"></video>
         </div>
       </div>
     </div>
@@ -1351,7 +1355,7 @@
     <div class="section-pad" style="padding-bottom:112px;">
       <div class="reveal">
         <div class="video-wrap">
-          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/dise%C3%B1o3_qxffkv.mp4"></video>
+          <video loop muted playsinline preload="none" poster="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_800,so_auto/dise%C3%B1o3_qxffkv.jpg" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_1280,c_limit/dise%C3%B1o3_qxffkv.mp4"></video>
         </div>
       </div>
     </div>
@@ -1430,7 +1434,7 @@
       <div class="reveal">
         <div style="font-size:16px; letter-spacing:.22em; text-transform:uppercase; color:rgba(255,255,255,.38); font-family:'Inter',sans-serif; margin-bottom:10px;">Video Backstage</div>
         <div class="video-wrap">
-          <video loop muted playsinline preload="none" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/Img_05302_u3astb.mp4"></video>
+          <video loop muted playsinline preload="none" poster="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_800,so_auto/Img_05302_u3astb.jpg" data-src="https://res.cloudinary.com/di2hl3rmf/video/upload/f_auto,q_auto,w_1280,c_limit/Img_05302_u3astb.mp4"></video>
         </div>
       </div>
     </div>
@@ -1919,14 +1923,33 @@
       v.play().catch(() => {});
     }
 
+    // Asigna el src y arranca el buffer (una sola vez por video).
+    function ensureVideoSrc(v) {
+      if (!v.getAttribute('src') && v.dataset.src) {
+        v.preload = 'auto';
+        v.setAttribute('src', v.dataset.src);
+        v.load();
+      }
+    }
+
+    // PRECARGA ANTICIPADA: empieza a bajar cada video ~600px ANTES de que
+    // entre en pantalla, así llega bufferado y arranca casi al instante.
+    // (La reproducción la maneja videoObs recién cuando se ve de verdad.)
+    const videoPreloadObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          ensureVideoSrc(e.target);
+          videoPreloadObs.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '600px 0px' });
+    document.querySelectorAll('video[data-src]').forEach(v => videoPreloadObs.observe(v));
+
     const videoObs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         const v = e.target;
         if (e.isIntersecting) {
-          if (!v.getAttribute('src') && v.dataset.src) {
-            v.setAttribute('src', v.dataset.src);
-            v.load();
-          }
+          ensureVideoSrc(v);
           v.play().catch(() => {});
           // Auto-unmute on entering view, but only after first user interaction
           autoUnmute(v);
