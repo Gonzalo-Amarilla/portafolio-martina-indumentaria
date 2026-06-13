@@ -249,7 +249,9 @@
   max-height: 100svh;
   display: flex; flex-direction: column; justify-content: flex-end;
   padding-bottom: 64px; position: relative; overflow: hidden;
-  touch-action: pan-y;
+  /* touch-action queda en 'auto' (scroll nativo normal). El antiguo pan-y
+     bloqueaba el scroll sobre las portadas en celular/tablet. */
+  touch-action: auto;
   -webkit-user-select: none;
   user-select: none;
   contain: layout style;
@@ -428,7 +430,7 @@
   object-fit: cover !important;
   object-position: center center !important;
   z-index: 0 !important;
-  touch-action: none !important;
+  touch-action: auto !important;
   pointer-events: none !important;
   -webkit-user-select: none !important;
   user-select: none !important;
@@ -700,12 +702,13 @@
         gap: 18px !important;
       }
 
-      /* OPENER FIJO en mobile */
+      /* Portadas a pantalla completa en mobile. Sin restricciones de
+         touch-action/overscroll para que el scroll nativo pase por ellas. */
       .opener {
         height: 100svh !important;
         max-height: 100svh !important;
         overflow: hidden !important;
-        overscroll-behavior: none !important;
+        touch-action: auto !important;
       }
     }
 
@@ -792,11 +795,11 @@
 
     /* ─── OPENER PREP ─── */
     .opener-bg {
-      touch-action: none;
+      touch-action: auto;
       pointer-events: none;
     }
     .opener {
-      touch-action: pan-y;
+      touch-action: auto;
     }
 
     /* Respect reduced motion */
@@ -914,7 +917,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-<img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/IMG_6022_ukef8s" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; touch-action:none; pointer-events:none;" />      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
+<img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/IMG_6022_ukef8s" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; touch-action:auto; pointer-events:none;" />      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">I</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
         <div style="display:flex; align-items:center; gap:12px;">
@@ -1114,7 +1117,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-<img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779022898/DSC08769-Editar_js4rcq.webp" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; touch-action:none; pointer-events:none;" />      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
+<img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779022898/DSC08769-Editar_js4rcq.webp" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; touch-action:auto; pointer-events:none;" />      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">II</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
         <div style="display:flex; align-items:center; gap:12px;">
@@ -1228,7 +1231,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-<img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/DSC07722_gpkfsa" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; touch-action:none; pointer-events:none;" />      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
+<img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/DSC07722_gpkfsa" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; touch-action:auto; pointer-events:none;" />      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">III</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
         <div style="display:flex; align-items:center; gap:12px;">
@@ -1362,7 +1365,7 @@
 
     <!-- Opener -->
     <div class="opener section-pad">
-<img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779023557/DSC09531_c7unz0.webp" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; touch-action:none; pointer-events:none;" />      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
+<img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1400/v1779023557/DSC09531_c7unz0.webp" alt="" loading="lazy" class="opener-bg" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; touch-action:auto; pointer-events:none;" />      <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.88) 100%); z-index:1;"></div>
       <div class="opener-ghost">IV</div>
       <div class="opener-info" style="position:absolute; top:max(100px,14vh); left:48px; z-index:3; display:flex; flex-direction:column; gap:8px;">
         <div style="display:flex; align-items:center; gap:12px;">
