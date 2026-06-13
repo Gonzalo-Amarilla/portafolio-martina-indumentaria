@@ -244,11 +244,15 @@
       .hero-name-xl { font-size: clamp(52px, 16vw, 120px); }
     }
     .opener {
-  min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end;
+  height: 100svh;
+  min-height: 100svh;
+  max-height: 100svh;
+  display: flex; flex-direction: column; justify-content: flex-end;
   padding-bottom: 64px; position: relative; overflow: hidden;
   touch-action: pan-y;
   -webkit-user-select: none;
   user-select: none;
+  contain: layout style;
 }
     .opener-ghost {
       position: absolute; right: 6vw; top: 50%; transform: translateY(-50%);
@@ -420,14 +424,15 @@
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
+  object-position: center center !important;
   z-index: 0 !important;
   touch-action: none !important;
   pointer-events: none !important;
   -webkit-user-select: none !important;
   user-select: none !important;
-  /* Fija la imagen: sin transform que permita arrastrarla */
   will-change: auto !important;
   transform: none !important;
+  display: block !important;
 }
     #div-section .opener {
       opacity: 0;
@@ -679,6 +684,26 @@
       .footer-row {
         flex-direction: column !important; align-items: flex-start !important;
         gap: 18px !important;
+      }
+
+      /* OPENER FIJO en mobile — impide scroll interno de imagen/texto */
+      .opener {
+        height: 100svh !important;
+        max-height: 100svh !important;
+        overflow: hidden !important;
+        overscroll-behavior: none !important;
+        -webkit-overflow-scrolling: auto !important;
+      }
+      .opener * {
+        touch-action: none !important;
+      }
+      .opener-bg {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important;
+        max-height: none !important;
       }
     }
 
