@@ -285,10 +285,13 @@
     .sobre-text { font-size: clamp(16px, 1.8vw, 19px); line-height: 1.85; color: #c8c8c8; font-weight: 300; }
     .sobre-lead { font-size: clamp(17px, 1.95vw, 21px); color: #e0e0e0; }
     .video-wrap {
-      position: relative; background: #0c0c0c; aspect-ratio: 16/9;
+      /* Sin proporción fija: la caja toma la forma REAL del video, así no se
+         recorta ni se agranda (antes object-fit:cover zoomeaba el video para
+         llenar una caja de proporción distinta). */
+      position: relative; background: #0c0c0c;
       border: 1px solid #1c1c1c; overflow: hidden;
     }
-    .video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-wrap video { width: 100%; height: auto; display: block; }
     /* Sound toggle */
     .sound-toggle {
       position: absolute; bottom: 14px; right: 14px; z-index: 5;
@@ -661,9 +664,8 @@
          se achica para que no se salga de pantalla en celular. */
       .prod-headline { font-size: clamp(30px,10.5vw,80px) !important; line-height: .9 !important; }
 
-      /* Video aspect — mobile portrait better */
-      .video-wrap { aspect-ratio: 9/12; }
-      .video-wrap[data-aspect="16-9"] { aspect-ratio: 16/9; }
+      /* En celular el video también va en su proporción real (no se fuerza una
+         caja vertical, que era lo que más lo agrandaba/recortaba). */
       .sound-toggle {
         width: 48px; height: 48px;
         bottom: 12px; right: 12px;
