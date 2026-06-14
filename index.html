@@ -285,13 +285,10 @@
     .sobre-text { font-size: clamp(16px, 1.8vw, 19px); line-height: 1.85; color: #c8c8c8; font-weight: 300; }
     .sobre-lead { font-size: clamp(17px, 1.95vw, 21px); color: #e0e0e0; }
     .video-wrap {
-      /* Sin proporción fija: la caja toma la forma REAL del video, así no se
-         recorta ni se agranda (antes object-fit:cover zoomeaba el video para
-         llenar una caja de proporción distinta). */
-      position: relative; background: #0c0c0c;
+      position: relative; background: #0c0c0c; aspect-ratio: 16/9;
       border: 1px solid #1c1c1c; overflow: hidden;
     }
-    .video-wrap video { width: 100%; height: auto; display: block; }
+    .video-wrap video { width: 100%; height: 100%; object-fit: cover; display: block; }
     /* Sound toggle */
     .sound-toggle {
       position: absolute; bottom: 14px; right: 14px; z-index: 5;
@@ -664,8 +661,9 @@
          se achica para que no se salga de pantalla en celular. */
       .prod-headline { font-size: clamp(30px,10.5vw,80px) !important; line-height: .9 !important; }
 
-      /* En celular el video también va en su proporción real (no se fuerza una
-         caja vertical, que era lo que más lo agrandaba/recortaba). */
+      /* Video aspect — mobile portrait better (tamaño original de las cajas) */
+      .video-wrap { aspect-ratio: 9/12; }
+      .video-wrap[data-aspect="16-9"] { aspect-ratio: 16/9; }
       .sound-toggle {
         width: 48px; height: 48px;
         bottom: 12px; right: 12px;
@@ -1011,19 +1009,8 @@
     <div class="section-pad" style="padding-bottom:64px; max-width:1400px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:10px;">Diseños Speed con el rector</div>
-        <div class="speed-rector-row" style="display:flex; justify-content:center; align-items:flex-start; gap:60px; flex-wrap:nowrap; margin-top:28px;">
-          <div style="display:flex; gap:2px; flex:1;">
-            <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780353984/IMG_8939_lpfrfn.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780353984/IMG_8938_vqcudz.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          </div>
-          <div style="display:flex; gap:2px; flex:1;">
-            <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780353984/IMG_8941_hja7pp.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780353984/IMG_8940_aiulew.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          </div>
-          <div style="display:flex; gap:2px; flex:1;">
-            <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780355396/IMG_8945_dqpfyk.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-            <div style="flex:1; aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_700/v1780149562/IMG_8944_of5dwn.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          </div>
+        <div style="display:flex; justify-content:center; margin-top:28px;">
+          <div style="width:100%; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1800/v1781401106/WhatsApp_Image_2026-06-13_at_21.44.13_iglltr.webp" loading="lazy" alt="" style="width:100%; height:auto; object-fit:contain; display:block;" /></div>
         </div>
       </div>
     </div>
@@ -1307,8 +1294,9 @@
     <div class="section-pad" style="padding-bottom:64px; margin:0 auto;">
       <div class="reveal">
         <div class="label" style="margin-bottom:14px;">Maniquí — Diseño rector</div>
-        <div style="display:flex; justify-content:center;">
-          <div style="width:100%; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1800/v1781356926/IMG_9385_b8hvvs.webp" loading="lazy" alt="" style="width:100%; height:auto; object-fit:contain; display:block;" /></div>
+        <div style="display:flex; gap:12px; align-items:flex-start; justify-content:center;">
+          <div style="flex:1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/v1779826184/Made_with_insMind-Photoroom_20260522_164946_1_qjuj8j.webp" loading="lazy" alt="" style="width:100%; height:auto; object-fit:contain; display:block;" /></div>
+          <div style="flex:1; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1200/v1779826701/cropped_1_1_byefrv.png" loading="lazy" alt="" style="width:100%; height:auto; object-fit:contain; display:block;" /></div>
         </div>
       </div>
     </div>
@@ -1319,10 +1307,8 @@
         <div class="label" style="margin-bottom:12px;">Prototipos y colección</div>
         <div class="aline" style="margin-bottom:20px;"></div>
         <p class="concept" style="color:#a8a0a0; border-left: 1px solid rgba(196,160,160,.2); padding-left: 28px; margin-bottom:24px;">Este prototipo funcionó como punto de partida para el desarrollo del resto de la colección.</p>
-        <div class="g3">
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1780149471/IMG_8937_ob8nsr.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1780149471/IMG_8936_bhebar.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
-          <div style="aspect-ratio:3/4; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/v1780149471/Photoroom_20260528_162026_tjgo3y.webp" loading="lazy" alt="" style="width:100%; height:100%; object-fit:contain; display:block;" /></div>
+        <div style="display:flex; justify-content:center;">
+          <div style="width:100%; overflow:hidden; background:#0a0a0a;"><img src="https://res.cloudinary.com/di2hl3rmf/image/upload/f_auto,q_auto,w_1800/v1781356926/IMG_9385_b8hvvs.webp" loading="lazy" alt="" style="width:100%; height:auto; object-fit:contain; display:block;" /></div>
         </div>
       </div>
     </div>
